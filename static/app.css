@@ -1,0 +1,250 @@
+/* Font Imports ---------------------------------------- */
+
+/* 
+@font-face {
+	font-family: "Raleway";
+	font-weight: 400;
+	font-style: normal;
+	src:
+		url("/assets/fonts/Raleway-Regular.woff2") format("woff2"),
+		url("/assets/fonts/Raleway-Regular.woff") format("woff");
+	font-display: swap;
+}
+*/
+
+
+/* Reset ----------------------------------------------- */
+
+/* 1. Use a more-intuitive box-sizing model */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/* 2. Remove default margin */
+* {
+	margin: 0;
+}
+
+body {
+	/* 3. Add accessible line-height */
+	line-height: 1.2;
+	/* 4. Improve text rendering */
+	-webkit-font-smoothing: antialiased;
+}
+
+/* 5. Improve media defaults */
+img,
+picture,
+video,
+canvas,
+svg {
+	display: block;
+	max-width: 100%;
+}
+
+/* 6. Inherit fonts for form controls */
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+/* 7. Avoid text overflows */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
+}
+
+/* 8. Improve line wrapping */
+p {
+	text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	text-wrap: balance;
+}
+
+/*
+    9. Create a root stacking context
+  */
+#root,
+#__next {
+	isolation: isolate;
+}
+
+button {
+	cursor: pointer;
+}
+
+/* Variables ------------------------------------------- */
+
+:root {
+	/* Fonts */
+	--font-heading: "Raleway", sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, Adwaita Sans, Cantarell, Ubuntu, roboto, noto, helvetica, arial, sans-serif;
+
+	/* Font sizes */
+	--font-body-s: 1rem;
+	--font-body-m: 1rem;
+	--font-body-l: 1.25rem;
+
+	--font-heading-s: 1.5rem;
+	--font-heading-m: 2rem;
+	--font-heading-l: 3rem;
+
+	/* Colors */
+	--color-primary-1: #414833;
+	--color-primary-2: #64704e;
+
+	/* Spacing */
+	--padding-inline: 1rem;
+	--padding-block: 2rem;
+	--spacing-xs: 0.25rem;
+	--spacing-s: 0.5rem;
+	--spacing-m: 1rem;
+	--spacing-l: 2rem;
+	--spacing-xl: 4rem;
+}
+
+@media screen and (max-width: 375px) {
+	:root {
+		--font-heading-l: 2rem;
+	}
+}
+
+@media screen and (min-width: 640px) {
+	:root {
+		/* Spacing */
+		--padding-inline: 2rem;
+	}
+}
+
+@media screen and (min-width: 768px) {
+	:root {
+		/* Font sizes */
+		--font-heading-s: 2rem;
+		--font-heading-m: 2.5rem;
+		--font-heading-l: 3rem;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	:root {
+		/* Spacing */
+		--padding-inline: 6rem;
+		--padding-block: 4rem;
+	}
+}
+
+@media screen and (min-width: 1440px) {
+	:root {
+		/* Font sizes */
+		--font-body-s: 1.1rem;
+		--font-body-m: 1.3rem;
+		--font-body-l: 1.5rem;
+
+		--font-heading-m: 3rem;
+		--font-heading-l: 3.5rem;
+
+		/* Spacing */
+		--padding-inline: 8rem;
+	}
+}
+
+@media screen and (min-width: 1536px) {
+	:root {
+		/* Padding */
+		--padding-inline: 10rem;
+	}
+}
+
+/* Global Styles --------------------------------------- */
+
+:root {
+	color-scheme: light;
+}
+
+html {
+	overflow-x: hidden;
+	background-color: var(--color-bronze-5);
+}
+
+* {
+	scrollbar-color: var(--color-pine-2) var(--color-bronze-5);
+}
+
+*::-webkit-scrollbar-track {
+	background-color: var(--color-bronze-5);
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: var(--color-pine-2);
+}
+
+img {
+	user-select: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-heading);
+	padding: 0;
+	margin: 0 0 1rem 0;
+	font-weight: 300;
+}
+
+/* All heading selections */
+h1::selection,
+h2::selection,
+h3::selection,
+h4::selection,
+h5::selection,
+h6::selection {
+	color: var(--color-white, #fff);
+	background-color: var(--color-bronze-2);
+}
+
+*:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6)::selection {
+	color: var(--color-white, #fff);
+	background-color: var(--color-pine-3);
+}
+
+*:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+	font-family: var(--font-body);
+}
+
+p {
+	margin-bottom: var(--spacing-s, 0.25rem);
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+a:visited {
+	color: inherit;
+}
+
+section {
+	padding-inline: var(--padding-inline);
+	padding-block: var(--padding-block);
+}
+
+/* Utilities ------------------------------------------- */
