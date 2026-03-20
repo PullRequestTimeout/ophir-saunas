@@ -48,12 +48,13 @@
 		position: relative;
 		display: inline-block;
 		padding: 0.5rem 1.5rem;
-		border-radius: 20px;
+		border-radius: var(--border-radius);
 		text-decoration: none;
+		font-size: var(--font-body-s);
 		font-weight: bold;
-		background-color: var(--color-primary-1);
+		background-color: var(--color-primary);
 		overflow: hidden;
-		color: white;
+		color: var(--color-white);
 		transition: 0.25s ease-out;
 	}
 
@@ -80,7 +81,7 @@
 		border-radius: 50%;
 		pointer-events: none;
 		touch-action: none;
-		background-color: var(--color-primary-2);
+		background-color: var(--color-primary-light);
 		transition:
 			width 0.25s ease-out,
 			height 0.25s ease-out;
@@ -90,14 +91,14 @@
 	button.secondary {
 		background-color: transparent;
 		border: 3px solid transparent;
-		box-shadow: inset 0 0 0 3px var(--color-primary-1);
-		color: var(--color-primary-1);
+		box-shadow: inset 0 0 0 var(--border-width) var(--color-primary);
+		color: var(--color-primary);
 		transition: color 0.25s ease-out;
 	}
 
 	a.secondary > div,
 	button.secondary > div {
-		background-color: var(--color-primary-1);
+		background-color: var(--color-primary);
 	}
 
 	@media (hover: hover) {
@@ -109,7 +110,7 @@
 
 		a.secondary:hover,
 		button.secondary:hover {
-			color: white;
+			color: var(--color-white);
 		}
 	}
 </style>
