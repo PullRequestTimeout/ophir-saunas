@@ -56,6 +56,7 @@
 		overflow: hidden;
 		color: var(--color-white);
 		transition: 0.25s ease-out;
+		width: fit-content;
 	}
 
 	button {
