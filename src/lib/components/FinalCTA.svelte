@@ -23,7 +23,7 @@
 		align-items: center;
 		text-align: center;
 		background-color: var(--color-background-tan);
-		gap: var(--spacing-m);
+		gap: var(--spacing-s);
 	}
 
 	section p.subheading {
