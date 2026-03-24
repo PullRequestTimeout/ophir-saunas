@@ -88,7 +88,7 @@
 	div.footer-bottom {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: var(--spacing-l);
+		gap: var(--spacing-m);
 	}
 
 	div.footer-heading {
@@ -108,7 +108,7 @@
 
 	p.footer-subheading {
 		font-weight: 700;
-		margin-bottom: var(--spacing-m);
+		margin-bottom: var(--spacing-s);
 	}
 
 	footer div.green-overlay {
@@ -193,7 +193,7 @@
 
 	@media screen and (min-width: 1024px) {
 		div.footer-body {
-			grid-template-columns: 1.5fr 1fr 1fr 1fr;
+			grid-template-columns: 2fr 1fr 1.5fr auto;
 			gap: var(--spacing-xl);
 		}
 
@@ -210,11 +210,11 @@
 		div.footer-quick-links > div a,
 		div.footer-policy > div button,
 		div.footer-body p {
-			font-size: var(--font-body-s);
+			font-size: var(--font-body-m);
 		}
 
 		div.footer-heading p {
-			font-size: var(--font-body-m);
+			font-size: var(--font-body-l);
 		}
 	}
 </style>
