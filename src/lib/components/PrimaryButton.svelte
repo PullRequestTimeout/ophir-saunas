@@ -47,11 +47,11 @@
 	button {
 		position: relative;
 		display: inline-block;
-		padding: 0.5rem 1.5rem;
+		padding: 0.35rem 1.5rem 0.5rem 1.5rem;
 		border-radius: var(--border-radius);
 		text-decoration: none;
 		font-size: var(--font-body-s);
-		font-weight: bold;
+		font-weight: 600;
 		background-color: var(--color-primary);
 		overflow: hidden;
 		color: var(--color-white);
@@ -84,17 +84,19 @@
 		touch-action: none;
 		background-color: var(--color-primary-light);
 		transition:
-			width 0.25s ease-out,
-			height 0.25s ease-out;
+			width 0.4s ease-out,
+			height 0.4s ease-out;
 	}
 
 	a.secondary,
 	button.secondary {
 		background-color: transparent;
-		border: 3px solid transparent;
+		border: none;
+		padding: calc(0.35rem + var(--border-width)) calc(1.5rem + var(--border-width)) calc(0.5rem + var(--border-width))
+			calc(1.5rem + var(--border-width));
 		box-shadow: inset 0 0 0 var(--border-width) var(--color-primary);
 		color: var(--color-primary);
-		transition: color 0.25s ease-out;
+		transition: color 0.4s ease-out;
 	}
 
 	a.secondary > div,
@@ -105,8 +107,8 @@
 	@media (hover: hover) {
 		a:hover > div,
 		button:hover > div {
-			width: 20rem;
-			height: 20rem;
+			width: 30rem;
+			height: 30rem;
 		}
 
 		a.secondary:hover,
