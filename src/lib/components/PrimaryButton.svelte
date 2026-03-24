@@ -50,7 +50,7 @@
 		padding: 0.35rem 1.5rem 0.5rem 1.5rem;
 		border-radius: var(--border-radius);
 		text-decoration: none;
-		font-size: var(--font-body-s);
+		font-size: 16px;
 		font-weight: 600;
 		background-color: var(--color-primary);
 		overflow: hidden;
