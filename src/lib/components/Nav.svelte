@@ -136,7 +136,7 @@
 		width: 100vw;
 		display: flex;
 		align-items: center;
-		padding: var(--spacing-m) var(--padding-inline);
+		padding: var(--spacing-s) var(--padding-inline);
 		justify-content: space-between;
 		position: fixed;
 		top: 0;
@@ -181,7 +181,7 @@
 
 	nav {
 		display: flex;
-		gap: var(--spacing-l);
+		gap: var(--spacing-m);
 		color: var(--color-white);
 		font-weight: 600;
 	}
@@ -205,9 +205,9 @@
 	}
 
 	header.small-screens nav hr {
-		width: 50%;
+		width: 40%;
 		border: none;
-		border-top: 1px solid #0000002d;
+		border-top: 2px solid #0000002d;
 	}
 
 	nav a {
@@ -217,6 +217,7 @@
 	@media (min-width: 1024px) {
 		header.large-screens {
 			display: flex;
+			padding: var(--spacing-m) var(--padding-inline);
 		}
 
 		header.small-screens {
@@ -225,6 +226,7 @@
 
 		nav {
 			position: relative;
+			gap: var(--spacing-l);
 		}
 
 		nav a::after {
