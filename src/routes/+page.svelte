@@ -1,6 +1,7 @@
 <script lang="ts">
 	import PrimaryButton from "$lib/components/PrimaryButton.svelte";
 	import SeoHead from "$lib/components/SeoHead.svelte";
+	import { openBookingModal } from "$lib/utils/globalStates.svelte";
 </script>
 
 <!-- Default SEO head content -->
@@ -56,6 +57,43 @@
 			<p class="text-light">The steady heat promotes relaxation, reduces stress, and leaves you feeling clearer and more grounded.</p>
 		</div>
 	</div>
+</section>
+<section class="howitworks">
+	<div class="howitworks-heading">
+		<h2 class="decorative-heading">How it works</h2>
+		<p class="text-light">Reservation to relaxation in just a few simple steps</p>
+	</div>
+	<div class="howitworks-steps">
+		<div class="howitworks-step-card">
+			<div class="howitworks-step-card-icon">
+				<img src="/assets/svgs/calendar.svg" alt="calendar icon" />
+			</div>
+			<div class="howitworks-step-card-text">
+				<p class="text-semi-bold">1. Choose your date</p>
+				<p class="text-light">Select your preferred dates and secure your booking in just a few minutes.</p>
+			</div>
+		</div>
+		<div class="howitworks-step-card">
+			<div class="howitworks-step-card-icon">
+				<img src="/assets/svgs/truck.svg" alt="truck icon" />
+			</div>
+			<div class="howitworks-step-card-text">
+				<p class="text-semi-bold">2. We Deliver & Set Up</p>
+				<p class="text-light">We bring the sauna to your location, position it safely, and get everything ready for use.</p>
+			</div>
+		</div>
+		<div class="howitworks-step-card">
+			<div class="howitworks-step-card-icon">
+				<img src="/assets/svgs/sauna.svg" alt="sauna icon" />
+			</div>
+			<div class="howitworks-step-card-text">
+				<p class="text-semi-bold">3. Heat, relax, repeat</p>
+				<p class="text-light">Fire it up, settle in, and enjoy the rhythm of hot and cold at your own pace.</p>
+			</div>
+		</div>
+		<img src="/assets/svgs/arrow.svg" alt="arrow pointing down" class="howitworks-arrow" />
+	</div>
+	<PrimaryButton onAction={openBookingModal} text="Check Availability" primary={false} />
 </section>
 
 <style>
@@ -183,6 +221,156 @@
 		div.value-prop-text-box,
 		div.value-prop-image {
 			max-height: 12rem;
+		}
+	}
+
+	/* How it works */
+	section.howitworks {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-m);
+		padding: 0 var(--padding-inline) var(--padding-block) var(--padding-inline);
+	}
+
+	section.howitworks div.howitworks-heading {
+		text-align: center;
+	}
+
+	section.howitworks div.howitworks-heading p {
+		font-size: var(--font-body-l);
+	}
+
+	div.howitworks-steps {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-m);
+		align-items: center;
+	}
+
+	div.howitworks-step-card {
+		position: relative;
+		display: grid;
+		grid-template-columns: auto 1fr;
+		width: 20rem;
+		max-width: calc(100vw - 2 * var(--padding-inline));
+		height: 6rem;
+		min-height: fit-content;
+		background-color: var(--color-background-white);
+		border-radius: var(--border-radius);
+		border: var(--border-width) solid var(--color-primary-transparent);
+		box-shadow: var(--shadow);
+		overflow: hidden;
+		z-index: 1;
+	}
+
+	div.howitworks-step-card p:first-child {
+		font-size: var(--font-body-m);
+	}
+
+	div.howitworks-step-card p:last-child {
+		font-size: var(--font-body-s);
+	}
+
+	div.howitworks-step-card-icon {
+		padding: var(--spacing-xs) var(--spacing-m);
+		background-color: var(--color-background-green);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	div.howitworks-step-card-icon img {
+		width: 3rem;
+	}
+
+	div.howitworks-step-card-text {
+		padding: var(--spacing-s) var(--spacing-s);
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-s);
+		justify-content: center;
+	}
+
+	img.howitworks-arrow {
+		display: none;
+	}
+
+	@media screen and (min-width: 768px) {
+		div.howitworks-steps {
+			margin: var(--spacing-l) 0;
+			gap: var(--spacing-m);
+		}
+
+		img.howitworks-arrow {
+			display: block;
+			position: absolute;
+			bottom: -2.4rem;
+			height: 120%;
+		}
+
+		div.howitworks-step-card {
+			width: 25rem;
+			height: 7rem;
+		}
+
+		div.howitworks-step-card p:last-child {
+			font-size: var(--font-body-m);
+		}
+
+		div.howitworks-step-card:first-child {
+			translate: -6rem 0;
+		}
+
+		div.howitworks-step-card:nth-child(2) {
+			translate: 6rem 0;
+		}
+
+		div.howitworks-step-card:nth-child(3) {
+			translate: -3rem -0.25rem;
+		}
+	}
+
+	@media screen and (min-width: 1024px) {
+		div.howitworks-steps {
+			gap: var(--spacing-l);
+			margin: 3rem 0;
+		}
+
+		img.howitworks-arrow {
+			bottom: -3rem;
+		}
+
+		div.howitworks-step-card {
+			width: 30rem;
+			height: 8rem;
+		}
+
+		div.howitworks-step-card-icon img {
+			width: 5rem;
+		}
+
+		div.howitworks-step-card-text {
+			padding: var(--spacing-m);
+		}
+
+		div.howitworks-step-card:first-child {
+			translate: -10rem 0;
+		}
+
+		div.howitworks-step-card:nth-child(2) {
+			translate: 10rem 0;
+		}
+
+		div.howitworks-step-card:nth-child(3) {
+			translate: -7rem -0.5rem;
+		}
+
+		@media screen and (min-width: 1280px) {
+			div.howitworks-step-card {
+				height: 9rem;
+			}
 		}
 	}
 </style>
