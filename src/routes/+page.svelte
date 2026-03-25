@@ -95,6 +95,42 @@
 	</div>
 	<PrimaryButton onAction={openBookingModal} text="Check Availability" primary={false} />
 </section>
+<section class="sauna-preview">
+	<div class="sauna-preview-images">
+		<img src="/assets/images/sauna-preview-1.png" alt="Sauna interior with wood stove and bench seating" />
+		<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior with wood stove and bench seating" />
+		<img src="/assets/images/sauna-preview-3.jpg" alt="Sauna exterior with wood stove and bench seating" />
+	</div>
+	<div class="sauna-preview-text">
+		<div class="sauna-preview-heading">
+			<div class="icon-heading">
+				<img src="/assets/svgs/maple-leaf.svg" alt="maple leaf icon" />
+				<p>Canada-Made</p>
+			</div>
+			<h3 class="long-heading">Designed and built locally in British Columbia by expert craftsmen.</h3>
+			<p class="text-light">Every detail is chosen to create a warm, balanced, and lasting sauna experience.</p>
+			<PrimaryButton href="/about" text="Learn More" />
+		</div>
+		<div class="sauna-preview-dotpoints">
+			<div class="sauna-preview-dotpoint">
+				<span class="material-icons">check_circle_outline</span>
+				<p>Seats up to 6 in comfort</p>
+			</div>
+			<div class="sauna-preview-dotpoint">
+				<span class="material-icons">check_circle_outline</span>
+				<p>Premium wood-fire heating for operation anywhere</p>
+			</div>
+			<div class="sauna-preview-dotpoint">
+				<span class="material-icons">check_circle_outline</span>
+				<p>Constructed from sustainably sourced Western Red Cedar</p>
+			</div>
+			<div class="sauna-preview-dotpoint">
+				<span class="material-icons">check_circle_outline</span>
+				<p>Cold plunge and premium quality towels available</p>
+			</div>
+		</div>
+	</div>
+</section>
 
 <style>
 	section.hero {
@@ -371,6 +407,101 @@
 			div.howitworks-step-card {
 				height: 9rem;
 			}
+		}
+	}
+
+	/* Sauna Preview */
+
+	section.sauna-preview {
+		background-color: var(--color-background-tan);
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--spacing-l);
+	}
+
+	div.sauna-preview-images {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: 12rem 8rem;
+		gap: var(--spacing-m);
+	}
+
+	div.sauna-preview-images img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: var(--border-radius);
+	}
+
+	div.sauna-preview-images img:first-child {
+		grid-column: 1 / 3;
+	}
+
+	div.sauna-preview-text {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-l);
+	}
+
+	div.sauna-preview-heading {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-s);
+	}
+
+	div.sauna-preview-heading div.icon-heading {
+		margin-bottom: -0.5rem;
+	}
+
+	div.sauna-preview-heading > p.text-light {
+		font-size: var(--font-body-l);
+		margin-bottom: var(--spacing-m);
+	}
+
+	div.sauna-preview-dotpoints {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-m);
+	}
+
+	div.sauna-preview-dotpoint {
+		display: flex;
+		gap: var(--spacing-s);
+	}
+
+	div.sauna-preview-dotpoint span {
+		translate: 0 1px;
+	}
+
+	div.sauna-preview-dotpoint p {
+		font-size: var(--font-body-l);
+		font-weight: 300;
+		color: var(--color-primary);
+	}
+
+	@media screen and (min-width: 640px) {
+		div.sauna-preview-images {
+			grid-template-rows: 10rem 10rem;
+		}
+	}
+
+	@media screen and (min-width: 1024px) {
+		section.sauna-preview {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		div.sauna-preview-images {
+			grid-template-rows: 16rem 12rem;
+		}
+
+		div.sauna-preview-text {
+			justify-content: space-between;
+		}
+	}
+
+	@media screen and (min-width: 1280px) {
+		div.sauna-preview-images {
+			grid-template-rows: 20rem 16rem;
 		}
 	}
 </style>
