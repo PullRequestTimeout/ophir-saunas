@@ -4,10 +4,7 @@
 	import { slide } from "svelte/transition";
 	import { clickOutside } from "$lib/utils/clickOutside";
 	import { onMount } from "svelte";
-
-	function handleBookingModal() {
-		alert("Booking modal opened!");
-	}
+	import { openBookingModal } from "$lib/utils/globalStates.svelte";
 
 	let showMobileMenu = $state(false);
 	let scrollPosition = $state(0);
@@ -82,7 +79,7 @@
 			<a href="/pricing" onclick={() => (showMobileMenu = false)}>Pricing</a>
 			<hr />
 			<a href="/contact" onclick={() => (showMobileMenu = false)}>Contact</a>
-			<PrimaryButton onAction={handleBookingModal} text="Book Now" />
+			<PrimaryButton onAction={openBookingModal} text="Book Now" />
 		</nav>
 	{/if}
 </header>
@@ -128,7 +125,7 @@
 		<a href="/pricing" class={page.url.pathname === "/pricing" ? "active" : ""}>Pricing</a>
 		<a href="/contact" class={page.url.pathname === "/contact" ? "active" : ""}>Contact</a>
 	</nav>
-	<PrimaryButton onAction={handleBookingModal} text="Book Now" />
+	<PrimaryButton onAction={openBookingModal} text="Book Now" />
 </header>
 
 <style>
