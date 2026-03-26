@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { uiStore, closeBookingModal } from "$lib/utils/globalStates.svelte";
 	import { clickOutside } from "$lib/utils/clickOutside";
+	import { fade } from "svelte/transition";
 </script>
 
 {#if uiStore.bookingModalOpen}
-	<div class="modal-overlay">
+	<div class="modal-overlay" transition:fade>
 		<div class="modal-content" use:clickOutside onoutclick={closeBookingModal}>
 			<button class="close" onclick={closeBookingModal}><span class="material-icons">close</span></button>
 			<h2>Booking Modal</h2>
