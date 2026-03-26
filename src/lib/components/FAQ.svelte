@@ -77,6 +77,7 @@
 		text-align: left;
 		font-size: var(--font-body-l);
 		font-weight: 400;
+		color: var(--color-primary);
 	}
 
 	div.faq-item button * {
@@ -86,6 +87,7 @@
 	div.faq-item div.faq-answer * {
 		margin: 0;
 		font-size: var(--font-body-l);
+		color: var(--color-primary);
 		font-weight: 300;
 		line-height: 1.4;
 	}
