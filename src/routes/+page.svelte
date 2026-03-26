@@ -1,7 +1,9 @@
 <script lang="ts">
 	import PrimaryButton from "$lib/components/PrimaryButton.svelte";
 	import SeoHead from "$lib/components/SeoHead.svelte";
+	import FAQ from "$lib/components/FAQ.svelte";
 	import { openBookingModal } from "$lib/utils/globalStates.svelte";
+	import { homeFaqs } from "$lib/data/faqs";
 </script>
 
 <!-- Default SEO head content -->
@@ -131,6 +133,16 @@
 		</div>
 	</div>
 </section>
+<!-- <section class="service-area"></section> -->
+<section class="pricing-preview">
+	<div class="pricing-preview-text">
+		<h2 class="long-heading">A private sauna experience designed to help you unwind, recover, and reconnect - wherever you are.</h2>
+		<p class="text-light">Packages starting from $300.</p>
+		<PrimaryButton href="/pricing" text="View Packages" primary />
+	</div>
+	<img src="/assets/images/footer.jpg" alt="Sauna interior" />
+</section>
+<FAQ faqs={homeFaqs} />
 
 <style>
 	section.hero {
@@ -175,8 +187,12 @@
 		font-size: var(--font-body-l);
 	}
 
+	div.value-prop-text-box > p:first-child {
+		font-size: var(--font-body-l);
+	}
+
 	div.value-prop-bullet > p,
-	div.value-prop-text-box > p {
+	div.value-prop-text-box > p:last-child {
 		font-size: var(--font-body-m);
 	}
 
@@ -196,7 +212,7 @@
 
 	div.value-prop-text-box {
 		padding: var(--spacing-m);
-		gap: var(--spacing-m);
+		gap: var(--spacing-s);
 		justify-content: center;
 	}
 
@@ -204,7 +220,7 @@
 		border: var(--border-width) solid var(--color-primary-transparent);
 	}
 
-	@media screen and (min-width: 768px) {
+	@media screen and (min-width: 640px) {
 		section.value-prop {
 			gap: var(--spacing-l);
 		}
@@ -224,7 +240,7 @@
 		}
 
 		div.value-prop-text-box {
-			padding: var(--spacing-l);
+			padding: var(--spacing-m);
 			gap: var(--spacing-s);
 		}
 	}
@@ -459,8 +475,8 @@
 	}
 
 	div.sauna-preview-dotpoints {
-		display: flex;
-		flex-direction: column;
+		display: grid;
+		grid-template-columns: 1fr;
 		gap: var(--spacing-m);
 	}
 
@@ -483,6 +499,10 @@
 		div.sauna-preview-images {
 			grid-template-rows: 10rem 10rem;
 		}
+
+		div.sauna-preview-dotpoints {
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 
 	@media screen and (min-width: 1024px) {
@@ -497,11 +517,63 @@
 		div.sauna-preview-text {
 			justify-content: space-between;
 		}
+
+		div.sauna-preview-dotpoints {
+			grid-template-columns: 1fr;
+		}
 	}
 
 	@media screen and (min-width: 1280px) {
 		div.sauna-preview-images {
 			grid-template-rows: 20rem 16rem;
+		}
+	}
+
+	/* Pricing Preview */
+	section.pricing-preview {
+		background-color: var(--color-background-green);
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: auto 10rem;
+		gap: var(--spacing-l);
+	}
+
+	div.pricing-preview-text h2 {
+		text-wrap: unset;
+	}
+
+	div.pricing-preview-text {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-s);
+	}
+
+	div.pricing-preview-text p {
+		font-size: var(--font-body-l);
+		margin-bottom: var(--spacing-s);
+	}
+
+	section.pricing-preview img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: var(--border-radius);
+	}
+
+	@media screen and (min-width: 1024px) {
+		section.pricing-preview {
+			grid-template-columns: 1.5fr 1fr;
+			grid-template-rows: 12rem;
+		}
+
+		div.pricing-preview-text {
+			justify-content: center;
+		}
+	}
+
+	@media screen and (min-width: 1280px) {
+		section.pricing-preview {
+			grid-template-rows: 14rem;
 		}
 	}
 </style>
