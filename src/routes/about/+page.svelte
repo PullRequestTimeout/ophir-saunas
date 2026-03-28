@@ -1,5 +1,7 @@
 <script lang="ts">
 	import SeoHead from "$lib/components/SeoHead.svelte";
+	import PrimaryButton from "$lib/components/PrimaryButton.svelte";
+	import { openBookingModal } from "$lib/utils/globalStates.svelte";
 </script>
 
 <SeoHead
@@ -82,6 +84,38 @@
 					The sauna is delivered, positioned, and prepared for your booking so you can focus on relaxing from the moment it arrives.
 				</p>
 			</div>
+		</div>
+	</div>
+</section>
+<section class="gallery">
+	<div class="gallery-heading">
+		<h2 class="decorative-heading">Experience the restoration</h2>
+		<p class="text-light">
+			The sauna invites a simple rhythm: warm up, cool down, and rest. It’s a quiet ritual that leaves both body and mind feeling renewed.
+		</p>
+		<div class="gallery-cta-buttons">
+			<PrimaryButton onAction={openBookingModal} text="Book Now" />
+			<PrimaryButton href="/contact" text="Ask a Question" primary={false} />
+		</div>
+	</div>
+	<div class="gallery-image-grid">
+		<div class="gallery-image">
+			<img src="/assets/images/sauna-preview-1.png" alt="Sauna interior with wooden benches and stove" />
+		</div>
+		<div class="gallery-image">
+			<img src="/assets/images/footer.jpg" alt="Interior of the sauna with someone sitting on the bench and steam rising from the stove" />
+		</div>
+		<div class="gallery-image">
+			<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior in a snowy landscape with pine trees in the background" />
+		</div>
+		<div class="gallery-image">
+			<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior in a snowy landscape with pine trees in the background" />
+		</div>
+		<div class="gallery-image">
+			<img src="/assets/images/sauna-preview-3.jpg" alt="Detail of the sauna stove with a kettle on top and steam rising from it" />
+		</div>
+		<div class="gallery-image">
+			<img src="/assets/images/value-prop.jpg" alt="Sauna interior with view out of the window showing a lake and mountains in the background" />
 		</div>
 	</div>
 </section>
@@ -184,6 +218,94 @@
 
 		section.sauna div.sauna-text {
 			gap: var(--spacing-l);
+		}
+	}
+
+	/* Gallery */
+	section.gallery {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-l);
+	}
+
+	section.gallery div.gallery-heading {
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-s);
+		width: 80%;
+		margin: 0 auto;
+	}
+
+	section.gallery div.gallery-heading p {
+		font-size: var(--font-body-l);
+		margin-bottom: var(--spacing-m);
+	}
+
+	section.gallery div.gallery-cta-buttons {
+		display: flex;
+		gap: var(--spacing-m);
+		align-items: center;
+	}
+
+	section.gallery div.gallery-image-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--spacing-m);
+	}
+
+	section.gallery div.gallery-image-grid div.gallery-image {
+		border-radius: var(--border-radius);
+		overflow: hidden;
+	}
+
+	section.gallery div.gallery-image-grid div.gallery-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	@media (min-width: 768px) {
+		section.gallery div.gallery-image-grid {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		section.gallery div.gallery-image {
+			height: 12rem;
+		}
+
+		section.gallery div.gallery-image-grid div.gallery-image:first-child,
+		section.gallery div.gallery-image-grid div.gallery-image:nth-child(4) {
+			grid-column: 1/3;
+		}
+	}
+
+	@media (min-width: 1024px) {
+		section.gallery div.gallery-image-grid {
+			grid-template-columns: repeat(4, 1fr);
+		}
+
+		section.gallery div.gallery-image {
+			height: 14rem;
+		}
+
+		section.gallery div.gallery-image-grid div.gallery-image:nth-child(4) {
+			grid-column: unset;
+		}
+
+		section.gallery div.gallery-image-grid div.gallery-image:last-child {
+			grid-column: 3/5;
+		}
+	}
+
+	@media (hover: hover) {
+		section.gallery div.gallery-image-grid div.gallery-image img {
+			transition: transform 0.3s ease;
+		}
+
+		section.gallery div.gallery-image-grid div.gallery-image img:hover {
+			transform: scale(1.05);
 		}
 	}
 </style>
