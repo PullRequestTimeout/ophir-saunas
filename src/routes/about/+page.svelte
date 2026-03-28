@@ -34,6 +34,57 @@
 		</p>
 	</div>
 </section>
+<section class="sauna">
+	<div class="sauna-image">
+		<img src="/assets/images/about-sauna.jpg" alt="Interior of an Ophir sauna, showing the wood bench and stove" />
+	</div>
+	<div class="sauna-text">
+		<div class="sauna-text-heading">
+			<div class="icon-heading">
+				<img src="/assets/svgs/maple.svg" alt="maple leaf icon" />
+				<p>Canada-Made</p>
+			</div>
+			<h2 class="long-heading">Designed and built locally in British Columbia by expert craftsmen.</h2>
+			<p class="text-light">Every detail is chosen to create a warm, balanced, and lasting sauna experience.</p>
+		</div>
+		<div class="sauna-text-dotpoints">
+			<div class="sauna-text-dotpoint">
+				<div class="icon-heading">
+					<span class="material-icons">local_fire_department</span>
+					<p>Woodfired Heater</p>
+				</div>
+				<p class="text-light">
+					A traditional wood-fired heater produces a deep, even heat and rich steam that defines the authentic sauna experience.
+				</p>
+			</div>
+			<div class="sauna-text-dotpoint">
+				<div class="icon-heading">
+					<span class="material-icons">park</span>
+					<p>Built for the Outdoors</p>
+				</div>
+				<p class="text-light">Sustainably constructed with Western Red Cedar suited to the changing weather and landscapes of the West Kootenays.</p>
+			</div>
+			<div class="sauna-text-dotpoint">
+				<div class="icon-heading">
+					<span class="material-icons">groups</span>
+					<p>Comfortable Size</p>
+				</div>
+				<p class="text-light">
+					The spacious interior comfortably accommodates groups of up to 6, making it ideal for sharing the experience with friends or family.
+				</p>
+			</div>
+			<div class="sauna-text-dotpoint">
+				<div class="icon-heading">
+					<span class="material-icons">local_shipping</span>
+					<p>Easy Delivery</p>
+				</div>
+				<p class="text-light">
+					The sauna is delivered, positioned, and prepared for your booking so you can focus on relaxing from the moment it arrives.
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
 
 <style>
 	section.hero {
@@ -71,6 +122,68 @@
 
 		section.story div.story-secondary-text {
 			padding: var(--spacing-l);
+		}
+	}
+
+	/* Sauna */
+	section.sauna {
+		background-color: var(--color-background-green);
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--spacing-l);
+	}
+
+	section.sauna div.sauna-image {
+		border-radius: var(--border-radius);
+		overflow: hidden;
+	}
+
+	section.sauna div.sauna-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	section.sauna div.sauna-text {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-m);
+	}
+
+	section.sauna div.sauna-text-heading h2,
+	section.sauna div.sauna-text-dotpoint div.icon-heading {
+		margin-bottom: var(--spacing-s);
+	}
+
+	section.sauna div.sauna-text-heading p {
+		font-size: var(--font-body-l);
+	}
+
+	section.sauna div.sauna-text-dotpoints {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--spacing-m);
+	}
+
+	section.sauna div.sauna-text-dotpoint > p {
+		font-size: var(--font-body-m);
+	}
+
+	@media (min-width: 768px) {
+		section.sauna div.sauna-text-dotpoints {
+			grid-template-columns: 1fr 1fr;
+			gap: var(--spacing-l);
+		}
+	}
+
+	@media (min-width: 1024px) {
+		section.sauna {
+			grid-template-columns: 1fr 1fr;
+			gap: var(--spacing-xl);
+		}
+
+		section.sauna div.sauna-text {
+			gap: var(--spacing-l);
 		}
 	}
 </style>
