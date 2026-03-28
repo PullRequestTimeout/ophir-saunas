@@ -13,7 +13,7 @@
 	<div class="hero-text">
 		<h2 class="decorative-heading">Relaxation delivered right to your door</h2>
 		<p class="subheading">Mobile sauna rentals in the West Kootenays, British Columbia</p>
-		<PrimaryButton href="/booking" text="Book Now" />
+		<PrimaryButton onAction={openBookingModal} text="Book Now" />
 	</div>
 </section>
 <section class="value-prop">
