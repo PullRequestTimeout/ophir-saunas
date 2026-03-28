@@ -160,7 +160,7 @@
 
 <style>
 	section.hero {
-		background: url(/assets/images/hero.jpg) center/cover no-repeat;
+		background: url(/assets/images/hero-home.jpg) center/cover no-repeat;
 	}
 
 	/* Value Prop */
