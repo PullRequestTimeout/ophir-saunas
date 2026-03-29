@@ -1,6 +1,7 @@
 <script lang="ts">
 	import SeoHead from "$lib/components/SeoHead.svelte";
 	import PrimaryButton from "$lib/components/PrimaryButton.svelte";
+	import ServiceArea from "$lib/components/ServiceArea.svelte";
 	import { openBookingModal } from "$lib/utils/globalStates.svelte";
 </script>
 
@@ -119,6 +120,49 @@
 		</div>
 	</div>
 </section>
+<section class="whoitsfor">
+	<div class="whoitsfor-heading">
+		<h2 class="long-heading">Perfect for shared moments and quiet resets alike.</h2>
+		<p class="text-light">
+			From small gatherings to post-adventure recovery, the sauna creates a warm space to slow down, reconnect, and enjoy the moment.
+		</p>
+	</div>
+	<div class="whoitsfor-dotpoints">
+		<div class="whoitsfor-dotpoint">
+			<div class="icon-heading">
+				<span class="material-icons">cabin</span>
+				<p>Cabin Weekends</p>
+			</div>
+			<p class="text-light">A traditional wood-fired heater produces a deep, even heat and rich steam that defines the authentic sauna experience.</p>
+		</div>
+		<div class="whoitsfor-dotpoint">
+			<div class="icon-heading">
+				<span class="material-icons">outdoor_grill</span>
+				<p>Backyard Gatherings</p>
+			</div>
+			<p class="text-light">
+				Turn an ordinary evening at home into something memorable, with warmth, conversation, and a simple ritual everyone can enjoy.
+			</p>
+		</div>
+		<div class="whoitsfor-dotpoint">
+			<div class="icon-heading">
+				<span class="material-icons">downhill_skiing</span>
+				<p>Adventure Recovery</p>
+			</div>
+			<p class="text-light">After long days skiing, riding, paddling, or hiking, the deep heat of the sauna helps the body relax and recover.</p>
+		</div>
+		<div class="whoitsfor-dotpoint">
+			<div class="icon-heading">
+				<span class="material-icons">self_improvement</span>
+				<p>Retreats & Events</p>
+			</div>
+			<p class="text-light">
+				A unique and memorable addition to wellness retreats, workshops, and small gatherings centred around rest and connection.
+			</p>
+		</div>
+	</div>
+</section>
+<ServiceArea />
 
 <style>
 	section.hero {
@@ -266,7 +310,7 @@
 		object-fit: cover;
 	}
 
-	@media (min-width: 768px) {
+	@media (min-width: 600px) {
 		section.gallery div.gallery-image-grid {
 			grid-template-columns: 1fr 1fr;
 		}
@@ -306,6 +350,49 @@
 
 		section.gallery div.gallery-image-grid div.gallery-image img:hover {
 			transform: scale(1.05);
+		}
+	}
+
+	/* Who It's For */
+	section.whoitsfor {
+		padding: 0 var(--padding-inline);
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--spacing-l);
+	}
+
+	section.whoitsfor div.whoitsfor-heading h2,
+	section.whoitsfor div.whoitsfor-dotpoint div.icon-heading {
+		margin-bottom: var(--spacing-s);
+	}
+
+	section.whoitsfor div.whoitsfor-heading p {
+		font-size: var(--font-body-l);
+	}
+
+	section.whoitsfor div.whoitsfor-dotpoints {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--spacing-m);
+	}
+
+	@media (min-width: 768px) {
+		section.whoitsfor div.whoitsfor-dotpoints {
+			grid-template-columns: 1fr 1fr;
+			gap: var(--spacing-l) var(--spacing-xl);
+		}
+	}
+
+	@media (min-width: 1024px) {
+		section.whoitsfor div.whoitsfor-heading {
+			width: 80%;
+		}
+	}
+
+	@media (min-width: 1280px) {
+		section.whoitsfor div.whoitsfor-dotpoints {
+			grid-template-columns: repeat(4, 1fr);
+			gap: var(--spacing-l);
 		}
 	}
 </style>
