@@ -150,6 +150,44 @@
 	</div>
 	<PrimaryButton onAction={openBookingModal} text="Book Now" />
 </section>
+<section class="sauna-preview">
+	<div class="sauna-preview-images">
+		<img src="/assets/images/sauna-preview-1.png" alt="Sauna interior with wood stove and bench seating" />
+		<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior with wood stove and bench seating" />
+		<img src="/assets/images/sauna-preview-3.jpg" alt="Sauna exterior with wood stove and bench seating" />
+	</div>
+	<div class="sauna-preview-text">
+		<div class="sauna-preview-heading">
+			<div class="icon-heading">
+				<img src="/assets/svgs/package.svg" alt="package icon" />
+				<p>Complete Package</p>
+			</div>
+			<h3 class="long-heading">Everything you need for a complete sauna experience</h3>
+			<p class="text-light">
+				Each rental is thoughtfully equipped and prepared, so you can focus on relaxing from the moment the heat begins to build.
+			</p>
+			<PrimaryButton onAction={openBookingModal} text="Check Availability" />
+		</div>
+		<div class="sauna-preview-dotpoints">
+			<div class="sauna-preview-dotpoint">
+				<span class="material-icons">check_circle_outline</span>
+				<p>Wood-fired Sauna Heater</p>
+			</div>
+			<div class="sauna-preview-dotpoint">
+				<span class="material-icons">check_circle_outline</span>
+				<p>Sauna stones, water bucket, and ladle for steam</p>
+			</div>
+			<div class="sauna-preview-dotpoint">
+				<span class="material-icons">check_circle_outline</span>
+				<p>Interior bench seating for up to 6</p>
+			</div>
+			<div class="sauna-preview-dotpoint">
+				<span class="material-icons">check_circle_outline</span>
+				<p>Fully cleaned and prepared before each booking</p>
+			</div>
+		</div>
+	</div>
+</section>
 <FAQ faqs={homeFaqs} />
 
 <style>
@@ -210,10 +248,112 @@
 		border-bottom: var(--border-width) dotted var(--color-primary);
 		width: 100%;
 		height: 1rem;
-		margin: 0 4px;
+		margin: 0 0.5rem;
 	}
 
 	div.pricing-item p.pricing-item-description {
 		font-size: var(--font-body-m);
+	}
+
+	/* Sauna Preview */
+	section.sauna-preview {
+		background-color: var(--color-background-green);
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--spacing-l);
+	}
+
+	div.sauna-preview-images {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: 12rem 8rem;
+		gap: var(--spacing-m);
+	}
+
+	div.sauna-preview-images img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: var(--border-radius);
+	}
+
+	div.sauna-preview-images img:first-child {
+		grid-column: 1 / 3;
+	}
+
+	div.sauna-preview-text {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-l);
+	}
+
+	div.sauna-preview-heading {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-s);
+	}
+
+	div.sauna-preview-heading div.icon-heading {
+		margin-bottom: -0.5rem;
+	}
+
+	div.sauna-preview-heading > p.text-light {
+		font-size: var(--font-body-l);
+		margin-bottom: var(--spacing-m);
+	}
+
+	div.sauna-preview-dotpoints {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: var(--spacing-m);
+	}
+
+	div.sauna-preview-dotpoint {
+		display: flex;
+		gap: var(--spacing-s);
+	}
+
+	div.sauna-preview-dotpoint span {
+		translate: 0 1px;
+	}
+
+	div.sauna-preview-dotpoint p {
+		font-size: var(--font-body-l);
+		font-weight: 300;
+		color: var(--color-primary);
+	}
+
+	@media screen and (min-width: 640px) {
+		div.sauna-preview-images {
+			grid-template-rows: 10rem 10rem;
+		}
+
+		div.sauna-preview-dotpoints {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media screen and (min-width: 1024px) {
+		section.sauna-preview {
+			grid-template-columns: 1fr 1fr;
+		}
+
+		div.sauna-preview-images {
+			grid-template-rows: 16rem 12rem;
+		}
+
+		div.sauna-preview-text {
+			justify-content: space-between;
+		}
+
+		div.sauna-preview-dotpoints {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media screen and (min-width: 1280px) {
+		div.sauna-preview-images {
+			grid-template-rows: 20rem 16rem;
+		}
 	}
 </style>
