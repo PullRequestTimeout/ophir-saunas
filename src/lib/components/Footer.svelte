@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { fade } from "svelte/transition";
+
 	function handleCookiePopup() {
-		// Placeholder function for cookie popup logic
-		alert("Cookie settings popup would appear here.");
+		cookiePopupVisible = true;
 	}
 
 	let cookiePopupVisible = $state(false);
@@ -75,6 +76,15 @@
 		</div>
 	</div>
 </footer>
+{#if cookiePopupVisible}
+	<div class="cookie-banner" transition:fade>
+		<span class="material-icons">cookie</span>
+		<p>This website uses only essential cookies. By continuing to browse, you agree to our use of cookies.</p>
+		<button onclick={() => (cookiePopupVisible = false)}>
+			<span class="material-icons"> close </span>
+		</button>
+	</div>
+{/if}
 
 <style>
 	footer {
@@ -215,6 +225,48 @@
 
 		div.footer-heading p {
 			font-size: var(--font-body-l);
+		}
+	}
+
+	/* Cookie banner */
+	div.cookie-banner {
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		background-color: var(--color-background-tan);
+		z-index: 1001;
+		padding: var(--spacing-m) calc(var(--padding-inline) + 2rem) var(--spacing-m) var(--padding-inline);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--spacing-m);
+		box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.25);
+	}
+
+	div.cookie-banner p {
+		font-size: var(--font-body-m);
+		color: var(--color-primary);
+	}
+
+	div.cookie-banner button {
+		background: none;
+		border: none;
+		cursor: pointer;
+		margin-left: var(--spacing-m);
+		position: absolute;
+		right: var(--padding-inline);
+		top: 50%;
+		transform: translateY(-40%);
+		transition: color 0.2s ease;
+	}
+
+	div.cookie-banner span {
+		color: var(--color-primary);
+	}
+
+	@media (hover: hover) {
+		div.cookie-banner button:hover span {
+			color: var(--color-secondary);
 		}
 	}
 </style>
