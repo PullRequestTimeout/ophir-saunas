@@ -131,25 +131,9 @@ button {
 	--shadow: 0 4px 6px #41418333;
 }
 
-@media screen and (max-width: 375px) {
-	:root {
-	}
-}
-
-@media screen and (min-width: 640px) {
-	:root {
-	}
-}
-
 @media screen and (min-width: 768px) {
 	:root {
 		--padding-inline: 2rem;
-	}
-}
-
-@media screen and (min-width: 1024px) {
-	:root {
-
 	}
 }
 
@@ -178,8 +162,9 @@ button {
 	}
 }
 
-@media screen and (min-width: 1536px) {
+@media screen and (min-width: 1600px) {
 	:root {
+		--padding-inline: 8rem;
 	}
 }
 
@@ -261,6 +246,7 @@ span.material-icons {
 	font-family: var(--font-body);
 	font-size: var(--font-heading-s);
 	font-size: var(--font-heading-m);
+	text-wrap: unset;
 }
 
 .decorative-heading,
@@ -325,6 +311,7 @@ div.hero-text h1 {
 	width: fit-content;
 	font-weight: 600;
 	border-radius: var(--border-radius);
+	margin-bottom: var(--spacing-s);
 }
 
 div.hero-text h2 {
