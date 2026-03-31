@@ -41,7 +41,7 @@
 		</div>
 		<div class="footer-bottom">
 			<div class="footer-socials">
-				<a href="https://www.facebook.com/ophirsaunas" target="_blank" rel="noopener noreferrer">
+				<a href="https://www.facebook.com/search/top?q=ophir%20mobile%20saunas%20-rossland%20bc" target="_blank" rel="noopener noreferrer">
 					<span class="material-icons">facebook</span>
 				</a>
 				<a href="https://www.instagram.com/ophirsaunas" aria-label="instagram" target="_blank" rel="noopener noreferrer">
