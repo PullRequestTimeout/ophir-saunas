@@ -376,6 +376,10 @@
 		gap: var(--spacing-m);
 	}
 
+	section.whoitsfor div.whoitsfor-dotpoint > p {
+		font-size: var(--font-body-m);
+	}
+
 	@media (min-width: 768px) {
 		section.whoitsfor div.whoitsfor-dotpoints {
 			grid-template-columns: 1fr 1fr;
