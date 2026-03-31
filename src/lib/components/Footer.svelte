@@ -44,7 +44,7 @@
 				<a href="https://www.facebook.com/search/top?q=ophir%20mobile%20saunas%20-rossland%20bc" target="_blank" rel="noopener noreferrer">
 					<span class="material-icons">facebook</span>
 				</a>
-				<a href="https://www.instagram.com/ophirsaunas" aria-label="instagram" target="_blank" rel="noopener noreferrer">
+				<!-- <a href="https://www.instagram.com/ophirsaunas" aria-label="instagram" target="_blank" rel="noopener noreferrer">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="32"
@@ -63,7 +63,7 @@
 							y2="6.5"
 						></line></svg
 					>
-				</a>
+				</a> -->
 			</div>
 			<hr />
 			<div class="footer-copyright">
