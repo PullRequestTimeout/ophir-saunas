@@ -45,19 +45,19 @@
 	<form action="" class="group-stagger-fade" use:isIntersecting>
 		<label
 			>First Name
-			<input type="text" placeholder="Please enter your first name" required />
+			<input type="text" placeholder="Enter first name here" required />
 		</label>
 		<label
 			>Last Name
-			<input type="text" placeholder="Please enter your last name" required />
+			<input type="text" placeholder="Enter last name here" required />
 		</label>
 		<label
 			>Email
-			<input type="email" placeholder="Please enter your email address" required />
+			<input type="email" placeholder="Enter email address here" required />
 		</label>
 		<label
 			>Phone Number
-			<input type="tel" placeholder="Please enter your phone number" required />
+			<input type="tel" placeholder="Enter phone number here" required />
 		</label>
 		<label
 			>Message
@@ -127,12 +127,18 @@
 
 	section.contact form label input,
 	section.contact form label textarea {
-		font-size: var(--font-body-s);
+		font-size: var(--font-body-m);
 		padding: var(--spacing-s);
 		border: var(--border-width) solid var(--color-primary);
 		border-radius: 10px;
 		background-color: transparent;
 		color: var(--color-primary);
+	}
+
+	section.contact form label input:focus-visible,
+	section.contact form label textarea:focus-visible {
+		outline: none;
+		border-color: var(--color-secondary);
 	}
 
 	section.contact form label textarea {
