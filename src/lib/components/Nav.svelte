@@ -1,7 +1,7 @@
 <script lang="ts">
 	import PrimaryButton from "$lib/components/PrimaryButton.svelte";
 	import { page } from "$app/state";
-	import { slide } from "svelte/transition";
+	import { slide, fade } from "svelte/transition";
 	import { clickOutside } from "$lib/utils/clickOutside";
 	import { onMount } from "svelte";
 	import { openBookingModal } from "$lib/utils/globalStates.svelte";
@@ -72,14 +72,16 @@
 	</button>
 	{#if showMobileMenu}
 		<nav transition:slide>
-			<a href="/" onclick={() => (showMobileMenu = false)}>Home</a>
-			<hr />
-			<a href="/about" onclick={() => (showMobileMenu = false)}>About</a>
-			<hr />
-			<a href="/pricing" onclick={() => (showMobileMenu = false)}>Pricing</a>
-			<hr />
-			<a href="/contact" onclick={() => (showMobileMenu = false)}>Contact</a>
-			<PrimaryButton onAction={openBookingModal} text="Book Now" />
+			<a href="/" onclick={() => (showMobileMenu = false)} in:fade={{ delay: 2 * 100 }} out:fade={{ duration: 100 }}>Home</a>
+			<hr in:fade={{ delay: 2.25 * 100 }} out:fade={{ duration: 100 }} />
+			<a href="/about" onclick={() => (showMobileMenu = false)} in:fade={{ delay: 2.5 * 100 }} out:fade={{ duration: 100 }}>About</a>
+			<hr in:fade={{ delay: 2.75 * 100 }} out:fade={{ duration: 100 }} />
+			<a href="/pricing" onclick={() => (showMobileMenu = false)} in:fade={{ delay: 3 * 100 }} out:fade={{ duration: 100 }}>Pricing</a>
+			<hr in:fade={{ delay: 3.25 * 100 }} out:fade={{ duration: 100 }} />
+			<a href="/contact" onclick={() => (showMobileMenu = false)} in:fade={{ delay: 3.5 * 100 }} out:fade={{ duration: 100 }}>Contact</a>
+			<div in:fade={{ delay: 5 * 100 }} out:fade={{ duration: 100 }}>
+				<PrimaryButton onAction={openBookingModal} text="Book Now" />
+			</div>
 		</nav>
 	{/if}
 </header>
