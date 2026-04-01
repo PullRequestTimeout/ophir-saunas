@@ -164,9 +164,15 @@
 </section>
 <section class="sauna-preview">
 	<div class="sauna-preview-images group-stagger-fade" use:isIntersecting>
-		<img src="/assets/images/sauna-preview-1.png" alt="Sauna interior with wood stove and bench seating" />
-		<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior with wood stove and bench seating" />
-		<img src="/assets/images/sauna-preview-3.jpg" alt="Sauna exterior with wood stove and bench seating" />
+		<div class="sauna-preview-image">
+			<img src="/assets/images/sauna-preview-1.png" alt="Sauna interior with wood stove and bench seating" />
+		</div>
+		<div class="sauna-preview-image">
+			<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior with wood stove and bench seating" />
+		</div>
+		<div class="sauna-preview-image">
+			<img src="/assets/images/sauna-preview-3.jpg" alt="Sauna exterior with wood stove and bench seating" />
+		</div>
 	</div>
 	<div class="sauna-preview-text">
 		<div class="sauna-preview-heading">
@@ -284,14 +290,18 @@
 		gap: var(--spacing-m);
 	}
 
+	div.sauna-preview-images div.sauna-preview-image {
+		border-radius: var(--border-radius);
+		overflow: hidden;
+	}
+
 	div.sauna-preview-images img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		border-radius: var(--border-radius);
 	}
 
-	div.sauna-preview-images img:first-child {
+	div.sauna-preview-images div.sauna-preview-image:first-child {
 		grid-column: 1 / 3;
 	}
 
