@@ -61,7 +61,7 @@
 	</a>
 	<button class="hamburger" aria-label="menu button" onclick={() => (showMobileMenu = !showMobileMenu)}>
 		<svg
-			class={"hamburgericon " + (showMobileMenu ? "active" : "") + " " + (scrollPosition > 10 ? " scrolled" : "")}
+			class={"hamburgericon " + (showMobileMenu ? "active" : "") + " " + (scrollPosition > 10 || page.url.pathname === "/privacy" ? " scrolled" : "")}
 			viewBox="0 0 100 100"
 			width="80"
 		>
@@ -84,7 +84,7 @@
 	{/if}
 </header>
 
-<header class={"large-screens" + (scrollPosition > 10 ? " scrolled" : "")}>
+<header class={"large-screens" + (scrollPosition > 10 || page.url.pathname === "/privacy" ? " scrolled" : "")}>
 	<a href="/" aria-label="Home">
 		<svg class="logo" viewBox="0 0 173 38" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
