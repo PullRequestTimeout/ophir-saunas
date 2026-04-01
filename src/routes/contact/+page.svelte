@@ -1,6 +1,8 @@
 <script lang="ts">
 	import PrimaryButton from "$lib/components/PrimaryButton.svelte";
 	import SeoHead from "$lib/components/SeoHead.svelte";
+	import { isIntersecting } from "$lib/utils/isIntersecting";
+	import SpanifyText from "$lib/components/SpanifyText.svelte";
 </script>
 
 <SeoHead
@@ -18,10 +20,12 @@
 <section class="contact">
 	<div class="contact-text">
 		<div class="contact-text-heading">
-			<h2 class="long-heading">Have a question?</h2>
+			<h2 class="long-heading heading-fade-in" use:isIntersecting>
+				<SpanifyText text="Have a question?" />
+			</h2>
 			<p class="text-light">If there's anything you'd like to ask or talk through, please don't hesitate to reach out at any time.</p>
 		</div>
-		<div class="contact-text-content">
+		<div class="contact-text-content scroll-fade-up" use:isIntersecting>
 			<a href="mailto:info@ophirsaunas.ca">
 				<div class="icon-heading">
 					<span class="material-icons">mail</span>
@@ -38,7 +42,7 @@
 			</div>
 		</div>
 	</div>
-	<form action="">
+	<form action="" class="group-stagger-fade" use:isIntersecting>
 		<label
 			>First Name
 			<input type="text" placeholder="Please enter your first name" required />

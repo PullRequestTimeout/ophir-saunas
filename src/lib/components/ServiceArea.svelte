@@ -1,5 +1,10 @@
+<script lang="ts">
+	import { isIntersecting } from "$lib/utils/isIntersecting";
+	import SpanifyText from "$lib/components/SpanifyText.svelte";
+</script>
+
 <section class="service-area">
-	<div class="service-area-image">
+	<div class="service-area-image scroll-fade-up" use:isIntersecting>
 		<h2 class="long-heading">Serving Rossland, Trail, Castlegar, Nelson, and Christina Lake</h2>
 		<img
 			class="service-area-image-small"

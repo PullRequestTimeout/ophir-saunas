@@ -4,6 +4,8 @@
 	import { openBookingModal } from "$lib/utils/globalStates.svelte";
 	import FAQ from "$lib/components/FAQ.svelte";
 	import { homeFaqs } from "$lib/data/faqs";
+	import { isIntersecting } from "$lib/utils/isIntersecting";
+	import SpanifyText from "$lib/components/SpanifyText.svelte";
 
 	const pricing = {
 		rentalRates: [
@@ -101,10 +103,12 @@
 </section>
 <section class="pricing">
 	<div class="pricing-heading">
-		<h2 class="decorative-heading">Sauna Rental Rates</h2>
+		<h2 class="decorative-heading heading-fade-in" use:isIntersecting>
+			<SpanifyText text="Sauna Rental Rates" />
+		</h2>
 		<p class="text-light">Select the package that best suits you.</p>
 	</div>
-	<div class="pricing-section">
+	<div class="pricing-section group-stagger-fade" use:isIntersecting>
 		{#each pricing.rentalRates as rate}
 			<div class="pricing-item">
 				<div class="pricing-item-heading">
@@ -119,39 +123,47 @@
 		{/each}
 	</div>
 	<div class="pricing-section">
-		<h3 class="long-heading">Available Add-Ons</h3>
-		{#each pricing.addOns as addOn}
-			<div class="pricing-item">
-				<div class="pricing-item-heading">
-					<p>{addOn.title}</p>
-					<div></div>
-					<p>{addOn.price}</p>
+		<h3 class="long-heading heading-fade-in" use:isIntersecting>
+			<SpanifyText text="Available Add-Ons" />
+		</h3>
+		<div class="pricing-section group-stagger-fade" use:isIntersecting>
+			{#each pricing.addOns as addOn}
+				<div class="pricing-item">
+					<div class="pricing-item-heading">
+						<p>{addOn.title}</p>
+						<div></div>
+						<p>{addOn.price}</p>
+					</div>
+					{#if addOn.description.length > 0}
+						<p class="text-light pricing-item-description">{addOn.description}</p>
+					{/if}
 				</div>
-				{#if addOn.description.length > 0}
-					<p class="text-light pricing-item-description">{addOn.description}</p>
-				{/if}
-			</div>
-		{/each}
+			{/each}
+		</div>
 	</div>
 	<div class="pricing-section">
-		<h3 class="long-heading">Delivery Rates</h3>
-		{#each pricing.deliveryRates as rate}
-			<div class="pricing-item">
-				<div class="pricing-item-heading">
-					<p>{rate.title}</p>
-					<div></div>
-					<p>{rate.price}</p>
+		<h3 class="long-heading heading-fade-in" use:isIntersecting>
+			<SpanifyText text="Delivery Rates" />
+		</h3>
+		<div class="pricing-section group-stagger-fade" use:isIntersecting>
+			{#each pricing.deliveryRates as rate}
+				<div class="pricing-item">
+					<div class="pricing-item-heading">
+						<p>{rate.title}</p>
+						<div></div>
+						<p>{rate.price}</p>
+					</div>
+					{#if rate.description.length > 0}
+						<p class="text-light pricing-item-description">{rate.description}</p>
+					{/if}
 				</div>
-				{#if rate.description.length > 0}
-					<p class="text-light pricing-item-description">{rate.description}</p>
-				{/if}
-			</div>
-		{/each}
+			{/each}
+		</div>
 	</div>
 	<PrimaryButton onAction={openBookingModal} text="Book Now" />
 </section>
 <section class="sauna-preview">
-	<div class="sauna-preview-images">
+	<div class="sauna-preview-images group-stagger-fade" use:isIntersecting>
 		<img src="/assets/images/sauna-preview-1.png" alt="Sauna interior with wood stove and bench seating" />
 		<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior with wood stove and bench seating" />
 		<img src="/assets/images/sauna-preview-3.jpg" alt="Sauna exterior with wood stove and bench seating" />
@@ -162,13 +174,15 @@
 				<img src="/assets/svgs/package.svg" alt="package icon" />
 				<p>Complete Package</p>
 			</div>
-			<h3 class="long-heading">Everything you need for a complete sauna experience</h3>
+			<h2 class="long-heading heading-fade-in" use:isIntersecting>
+				<SpanifyText text="Everything you need for a complete sauna experience" />
+			</h2>
 			<p class="text-light">
 				Each rental is thoughtfully equipped and prepared, so you can focus on relaxing from the moment the heat begins to build.
 			</p>
 			<PrimaryButton onAction={openBookingModal} text="Check Availability" />
 		</div>
-		<div class="sauna-preview-dotpoints">
+		<div class="sauna-preview-dotpoints group-stagger-fade" use:isIntersecting>
 			<div class="sauna-preview-dotpoint">
 				<span class="material-icons">check_circle_outline</span>
 				<p>Wood-fired Sauna Heater</p>

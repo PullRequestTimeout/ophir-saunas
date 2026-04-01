@@ -5,6 +5,8 @@
 	import ServiceArea from "$lib/components/ServiceArea.svelte";
 	import { openBookingModal } from "$lib/utils/globalStates.svelte";
 	import { homeFaqs } from "$lib/data/faqs";
+	import { isIntersecting } from "$lib/utils/isIntersecting";
+	import SpanifyText from "$lib/components/SpanifyText.svelte";
 </script>
 
 <!-- Default SEO head content -->
@@ -20,10 +22,12 @@
 <section class="value-prop">
 	<div class="value-prop-row1">
 		<div class="value-prop-heading">
-			<h3 class="long-heading">Bring wellness to your backyard, retreat, or cabin weekend.</h3>
+			<h3 class="long-heading heading-fade-in" use:isIntersecting>
+				<SpanifyText text="Bring wellness to your backyard, retreat, or cabin weekend." />
+			</h3>
 			<p class="text-light">Elevate any gathering with a rejuvenating experience.</p>
 		</div>
-		<div class="value-prop-bullets">
+		<div class="value-prop-bullets group-stagger-fade" use:isIntersecting>
 			<div class="value-prop-bullet">
 				<div class="icon-heading">
 					<span class="material-icons">spa</span>
@@ -47,7 +51,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="value-prop-row2">
+	<div class="value-prop-row2 group-stagger-fade" use:isIntersecting>
 		<div class="value-prop-image">
 			<img src="/assets/images/value-prop.jpg" alt="Sauna interior looking out on nature" />
 		</div>
@@ -63,11 +67,13 @@
 </section>
 <section class="howitworks">
 	<div class="howitworks-heading">
-		<h2 class="decorative-heading">How it works</h2>
+		<h2 class="decorative-heading heading-fade-in" use:isIntersecting>
+			<SpanifyText text="How it works" />
+		</h2>
 		<p class="text-light">Reservation to relaxation in just a few simple steps</p>
 	</div>
 	<div class="howitworks-steps">
-		<div class="howitworks-step-card">
+		<div class="howitworks-step-card scroll-fade-up" use:isIntersecting>
 			<div class="howitworks-step-card-icon">
 				<img src="/assets/svgs/calendar.svg" alt="calendar icon" />
 			</div>
@@ -76,7 +82,7 @@
 				<p class="text-light">Select your preferred dates and secure your booking in just a few minutes.</p>
 			</div>
 		</div>
-		<div class="howitworks-step-card">
+		<div class="howitworks-step-card scroll-fade-up" use:isIntersecting>
 			<div class="howitworks-step-card-icon">
 				<img src="/assets/svgs/truck.svg" alt="truck icon" />
 			</div>
@@ -85,7 +91,7 @@
 				<p class="text-light">We bring the sauna to your location, position it safely, and get everything ready for use.</p>
 			</div>
 		</div>
-		<div class="howitworks-step-card">
+		<div class="howitworks-step-card scroll-fade-up" use:isIntersecting>
 			<div class="howitworks-step-card-icon">
 				<img src="/assets/svgs/sauna.svg" alt="sauna icon" />
 			</div>
@@ -99,7 +105,7 @@
 	<PrimaryButton onAction={openBookingModal} text="Check Availability" primary={false} />
 </section>
 <section class="sauna-preview">
-	<div class="sauna-preview-images">
+	<div class="sauna-preview-images group-stagger-fade" use:isIntersecting>
 		<img src="/assets/images/sauna-preview-1.png" alt="Sauna interior with wood stove and bench seating" />
 		<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior with wood stove and bench seating" />
 		<img src="/assets/images/sauna-preview-3.jpg" alt="Sauna exterior with wood stove and bench seating" />
@@ -110,11 +116,13 @@
 				<img src="/assets/svgs/maple-leaf.svg" alt="maple leaf icon" />
 				<p>Canada-Made</p>
 			</div>
-			<h3 class="long-heading">Designed and built locally in British Columbia by expert craftsmen.</h3>
+			<h3 class="long-heading heading-fade-in" use:isIntersecting>
+				<SpanifyText text="Designed and built locally in British Columbia by expert craftsmen." />
+			</h3>
 			<p class="text-light">Every detail is chosen to create a warm, balanced, and lasting sauna experience.</p>
 			<PrimaryButton href="/about" text="Learn More" />
 		</div>
-		<div class="sauna-preview-dotpoints">
+		<div class="sauna-preview-dotpoints group-stagger-fade" use:isIntersecting>
 			<div class="sauna-preview-dotpoint">
 				<span class="material-icons">check_circle_outline</span>
 				<p>Seats up to 6 in comfort</p>
@@ -137,11 +145,13 @@
 <ServiceArea />
 <section class="pricing-preview">
 	<div class="pricing-preview-text">
-		<h2 class="long-heading">A private sauna experience designed to help you unwind, recover, and reconnect – wherever you are.</h2>
+		<h2 class="long-heading heading-fade-in" use:isIntersecting>
+			<SpanifyText text="A private sauna experience designed to help you unwind, recover, and reconnect – wherever you are." />
+		</h2>
 		<p class="text-light">Packages starting from $300.</p>
 		<PrimaryButton href="/pricing" text="View Packages" primary />
 	</div>
-	<img src="/assets/images/footer.jpg" alt="Sauna interior" />
+	<img src="/assets/images/footer.jpg" alt="Sauna interior" use:isIntersecting class="scroll-fade-up" />
 </section>
 <FAQ faqs={homeFaqs} />
 

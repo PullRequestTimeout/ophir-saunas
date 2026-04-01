@@ -3,6 +3,8 @@
 	import PrimaryButton from "$lib/components/PrimaryButton.svelte";
 	import ServiceArea from "$lib/components/ServiceArea.svelte";
 	import { openBookingModal } from "$lib/utils/globalStates.svelte";
+	import { isIntersecting } from "$lib/utils/isIntersecting";
+	import SpanifyText from "$lib/components/SpanifyText.svelte";
 </script>
 
 <SeoHead
@@ -19,14 +21,16 @@
 </section>
 <section class="story">
 	<div class="story-primary-text">
-		<h2 class="long-heading">Built out of a love for winter, water, and community.</h2>
+		<h2 class="long-heading heading-fade-in" use:isIntersecting>
+			<SpanifyText text="Built out of a love for winter, water, and community." />
+		</h2>
 		<p class="text-light">
 			Sauna has long been part of life in cold northern climates, where heat, water, and community naturally come together. The tradition invites
 			people to slow down, warm up, and share quiet moments between rounds of steam and cold air. What began centuries ago as a simple wooden room and
 			a fire has endured as a ritual that brings people together.
 		</p>
 	</div>
-	<div class="story-secondary-text">
+	<div class="story-secondary-text scroll-fade-up" use:isIntersecting>
 		<div class="icon-heading">
 			<span class="material-icons">spa</span>
 			<p>Restorative by Nature</p>
@@ -38,7 +42,7 @@
 	</div>
 </section>
 <section class="sauna">
-	<div class="sauna-image">
+	<div class="sauna-image scroll-fade-up" use:isIntersecting>
 		<img src="/assets/images/about-sauna.jpg" alt="Interior of an Ophir sauna, showing the wood bench and stove" />
 	</div>
 	<div class="sauna-text">
@@ -47,10 +51,12 @@
 				<img src="/assets/svgs/maple.svg" alt="maple leaf icon" />
 				<p>Canada-Made</p>
 			</div>
-			<h2 class="long-heading">Designed and built locally in British Columbia by expert craftsmen.</h2>
+			<h2 class="long-heading heading-fade-in" use:isIntersecting>
+				<SpanifyText text="Designed and built locally in British Columbia by expert craftsmen." />
+			</h2>
 			<p class="text-light">Every detail is chosen to create a warm, balanced, and lasting sauna experience.</p>
 		</div>
-		<div class="sauna-text-dotpoints">
+		<div class="sauna-text-dotpoints group-stagger-fade" use:isIntersecting>
 			<div class="sauna-text-dotpoint">
 				<div class="icon-heading">
 					<span class="material-icons">local_fire_department</span>
@@ -90,7 +96,9 @@
 </section>
 <section class="gallery">
 	<div class="gallery-heading">
-		<h2 class="decorative-heading">Experience the restoration</h2>
+		<h2 class="decorative-heading heading-fade-in" use:isIntersecting>
+			<SpanifyText text="Experience the restoration" />
+		</h2>
 		<p class="text-light">
 			The sauna invites a simple rhythm: warm up, cool down, and rest. It’s a quiet ritual that leaves both body and mind feeling renewed.
 		</p>
@@ -100,34 +108,36 @@
 		</div>
 	</div>
 	<div class="gallery-image-grid">
-		<div class="gallery-image">
+		<div class="gallery-image scroll-fade-up" use:isIntersecting>
 			<img src="/assets/images/sauna-preview-1.png" alt="Sauna interior with wooden benches and stove" />
 		</div>
-		<div class="gallery-image">
+		<div class="gallery-image scroll-fade-up" use:isIntersecting>
 			<img src="/assets/images/footer.jpg" alt="Interior of the sauna with someone sitting on the bench and steam rising from the stove" />
 		</div>
-		<div class="gallery-image">
+		<div class="gallery-image scroll-fade-up" use:isIntersecting>
 			<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior in a snowy landscape with pine trees in the background" />
 		</div>
-		<div class="gallery-image">
+		<div class="gallery-image scroll-fade-up" use:isIntersecting>
 			<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior in a snowy landscape with pine trees in the background" />
 		</div>
-		<div class="gallery-image">
+		<div class="gallery-image scroll-fade-up" use:isIntersecting>
 			<img src="/assets/images/sauna-preview-3.jpg" alt="Detail of the sauna stove with a kettle on top and steam rising from it" />
 		</div>
-		<div class="gallery-image">
+		<div class="gallery-image scroll-fade-up" use:isIntersecting>
 			<img src="/assets/images/value-prop.jpg" alt="Sauna interior with view out of the window showing a lake and mountains in the background" />
 		</div>
 	</div>
 </section>
 <section class="whoitsfor">
 	<div class="whoitsfor-heading">
-		<h2 class="long-heading">Perfect for shared moments and quiet resets alike.</h2>
+		<h2 class="long-heading heading-fade-in" use:isIntersecting>
+			<SpanifyText text="Perfect for shared moments and quiet resets alike." />
+		</h2>
 		<p class="text-light">
 			From small gatherings to post-adventure recovery, the sauna creates a warm space to slow down, reconnect, and enjoy the moment.
 		</p>
 	</div>
-	<div class="whoitsfor-dotpoints">
+	<div class="whoitsfor-dotpoints group-stagger-fade" use:isIntersecting>
 		<div class="whoitsfor-dotpoint">
 			<div class="icon-heading">
 				<span class="material-icons">cabin</span>
@@ -278,8 +288,11 @@
 		flex-direction: column;
 		align-items: center;
 		gap: var(--spacing-s);
-		width: 80%;
 		margin: 0 auto;
+	}
+	section.gallery div.gallery-heading h2,
+	section.gallery div.gallery-heading p {
+		width: 80%;
 	}
 
 	section.gallery div.gallery-heading p {

@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { slide } from "svelte/transition";
+	import { isIntersecting } from "$lib/utils/isIntersecting";
+	import SpanifyText from "$lib/components/SpanifyText.svelte";
 
 	let openFaqIndex: number | null = $state(null);
 
@@ -11,8 +13,10 @@
 </script>
 
 <section>
-	<h2 class="long-heading">Frequently Asked Questions</h2>
-	<div class="faq-group">
+	<h2 class="long-heading heading-fade-in" use:isIntersecting>
+		<SpanifyText text="Frequently Asked Questions" />
+	</h2>
+	<div class="faq-group group-stagger-fade" use:isIntersecting>
 		<hr />
 		{#each faqs as faq, i}
 			<div class="faq-item">
