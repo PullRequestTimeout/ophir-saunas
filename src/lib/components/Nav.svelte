@@ -79,7 +79,7 @@
 			<a href="/pricing" onclick={() => (showMobileMenu = false)} in:fade={{ delay: 3 * 100 }} out:fade={{ duration: 100 }}>Pricing</a>
 			<hr in:fade={{ delay: 3.25 * 100 }} out:fade={{ duration: 100 }} />
 			<a href="/contact" onclick={() => (showMobileMenu = false)} in:fade={{ delay: 3.5 * 100 }} out:fade={{ duration: 100 }}>Contact</a>
-			<div in:fade={{ delay: 5 * 100 }} out:fade={{ duration: 100 }}>
+			<div in:fade={{ delay: 4.5 * 100 }} out:fade={{ duration: 100 }}>
 				<PrimaryButton onAction={openBookingModal} text="Book Now" />
 			</div>
 		</nav>
