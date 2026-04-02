@@ -21,7 +21,7 @@
 		{#each faqs as faq, i}
 			<div class="faq-item">
 				<button onclick={() => toggleFaq(i)} aria-label="Toggle answer for {faq.question}">
-					<h4 class="faq-question">{faq.question}</h4>
+					<p class="faq-question">{faq.question}</p>
 					<span class="material-icons faq-icon" class:open={openFaqIndex === i}>keyboard_arrow_down</span>
 				</button>
 				{#if openFaqIndex === i}
@@ -77,7 +77,7 @@
 		gap: var(--spacing-xs);
 	}
 
-	div.faq-item button h4 {
+	div.faq-item button p {
 		text-align: left;
 		font-size: var(--font-body-l);
 		font-weight: 400;
