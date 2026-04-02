@@ -5,6 +5,11 @@
 	import { openBookingModal } from "$lib/utils/globalStates.svelte";
 	import { isIntersecting } from "$lib/utils/isIntersecting";
 	import SpanifyText from "$lib/components/SpanifyText.svelte";
+	import { onMount } from "svelte";
+
+	onMount(() => {
+		document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
+	});
 </script>
 
 <SeoHead
@@ -177,6 +182,7 @@
 <style>
 	section.hero {
 		background: url(/assets/images/hero-about.jpg) center/cover no-repeat;
+		height: calc(var(--vh) * 80);
 	}
 
 	/* Story */
