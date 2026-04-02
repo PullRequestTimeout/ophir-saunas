@@ -5,7 +5,7 @@ export const homeFaqs = [
 			{
 				element: "p",
 				content:
-					"We deliver the sauna to your location, set it up, and walk you through how everything works. At the end of your booking, we return to pick it up. Setup and teardown are included in your rental time unless otherwise specified."
+					"We deliver and set up a fully operational sauna at your location. Once it's ready, you enjoy your booked session, and we handle pickup afterward. Simple, private, and hassle-free."
 			}
 		]
 	},
@@ -14,15 +14,8 @@ export const homeFaqs = [
 		answer: [
 			{
 				element: "p",
-				content: "You'll need:"
-			},
-			{
-				element: "ul",
-				content: [
-					"A flat, accessible parking area",
-					"Adequate clearance for delivery",
-					"We'll confirm access details with you before your booking date."
-				]
+				content:
+					"Please ensure you have a flat, accessible space for the trailer (driveway, yard, or similar). We handle the rest. No power or water hookup required."
 			}
 		]
 	},
@@ -31,8 +24,7 @@ export const homeFaqs = [
 		answer: [
 			{
 				element: "p",
-				content:
-					"Our sauna is wood-fired, providing a traditional experience with natural heat and steam. We provide firewood packages and can offer guidance on how to use the stove for optimal comfort and safety. If you have specific questions about the sauna's features or operation, feel free to ask!"
+				content: "Our saunas are wood-fired for an authentic experience. No electrical hookups or connections are required."
 			}
 		]
 	},
@@ -41,8 +33,7 @@ export const homeFaqs = [
 		answer: [
 			{
 				element: "p",
-				content:
-					"Typically, 30-60 minutes depending on weather conditions and your desired temperature. We'll show you how to manage the heat for the perfect session."
+				content: "Typically 30-45 minutes depending on weather conditions."
 			}
 		]
 	},
@@ -51,8 +42,7 @@ export const homeFaqs = [
 		answer: [
 			{
 				element: "p",
-				content:
-					"The sauna comfortably fits 6 adults at a time. For the best experience, we recommend allowing space to sit and lie down comfortably rather than filling it to maximum capacity."
+				content: "Comfortably fits 4-6 people, depending on how cozy your group is."
 			}
 		]
 	},
@@ -61,8 +51,7 @@ export const homeFaqs = [
 		answer: [
 			{
 				element: "p",
-				content:
-					"In most residential settings, no permit is required. However, if you’re booking for a public event or commercial property, you may need to check with your local municipality."
+				content: "If you're placing the sauna on private property, you're good to go. For public spaces, permits may be required."
 			}
 		]
 	},
@@ -71,15 +60,8 @@ export const homeFaqs = [
 		answer: [
 			{
 				element: "p",
-				content: "Yes — when used responsibly. We provide clear safety instructions, including:"
-			},
-			{
-				element: "ul",
-				content: ["Staying hydrated", "Limiting session times", "Avoiding alcohol", "Not using the sauna if you have certain medical conditions"]
-			},
-			{
-				element: "p",
-				content: "If you have health concerns, consult your doctor before booking."
+				content:
+					"Yes. We provide clear instructions and safety guidelines. The sauna is professionally built and maintained. As with any sauna, stay hydrated and listen to your body. "
 			}
 		]
 	},
@@ -89,7 +71,22 @@ export const homeFaqs = [
 			{
 				element: "p",
 				content:
-					"Cancellations made at least 24 hours in advance will receive a full refund. Cancellations made less than 24 hours before the scheduled time may be subject to a fee."
+					"With 7+ days' notice, we will provide a full refund of your reservation amount. Cancellations made with less than 7 days' notice are non-refundable. However, we will do our best to rebook the sauna, and if successful, we are happy to issue a refund."
+			}
+		]
+	},
+	{
+		question: "Do you offer a cold plunge?",
+		answer: [
+			{
+				element: "p",
+				content:
+					"Yes, we offer a cold plunge as an optional addition to your sauna experience. Cold immersion is a great way to boost circulation and help stimulate the immune system after a session."
+			},
+			{
+				element: "p",
+				content:
+					"Our cold plunge tub is a 100-gallon Behlen Country stock tank, measuring 2 ft wide × 2 ft tall × 4 ft long. We will set it up for you upon arrival. Please note that we do not supply cold water."
 			}
 		]
 	}
