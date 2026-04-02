@@ -7,12 +7,7 @@
 	<link rel="stylesheet" href="app.css" />
 	%sveltekit.head%
 	<script>
-		// Set the --vh custom property to the actual viewport height on load and resize
-		function setVh() {
-			document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
-		}
-
-		window.addEventListener("load", setVh);
+		document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
 	</script>
 </head>
 
