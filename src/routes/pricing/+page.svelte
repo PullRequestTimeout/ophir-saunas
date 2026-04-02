@@ -94,59 +94,32 @@
 	description="Discover the pricing options for Ophir Mobile Saunas, a mobile sauna company based in Rossland, British Columbia. Explore our packages and find the perfect sauna experience for your needs."
 />
 
-<section class="hero">
-	<div class="hero-text">
-		<h1>Pricing</h1>
-		<h2 class="decorative-heading">Simple options for slowing down</h2>
-		<p class="subheading">Choose the package that fits your plans and we'll take care of the rest</p>
-	</div>
-</section>
-<section class="pricing">
-	<div class="pricing-heading">
-		<h2 class="decorative-heading heading-fade-in" use:isIntersecting>
-			<SpanifyText text="Sauna Rental Rates" />
-		</h2>
-		<p class="text-light">Select the package that best suits you.</p>
-	</div>
-	<div class="pricing-section group-stagger-fade" use:isIntersecting>
-		{#each pricing.rentalRates as rate}
-			<div class="pricing-item">
-				<div class="pricing-item-heading">
-					<p>{rate.title}</p>
-					<div></div>
-					<p>{rate.price}</p>
-				</div>
-				{#if rate.description.length > 0}
-					<p class="text-light pricing-item-description">{rate.description}</p>
-				{/if}
-			</div>
-		{/each}
-	</div>
-	<div class="pricing-section">
-		<h3 class="long-heading heading-fade-in" use:isIntersecting>
-			<SpanifyText text="Available Add-Ons" />
-		</h3>
-		<div class="pricing-section group-stagger-fade" use:isIntersecting>
-			{#each pricing.addOns as addOn}
-				<div class="pricing-item">
-					<div class="pricing-item-heading">
-						<p>{addOn.title}</p>
-						<div></div>
-						<p>{addOn.price}</p>
-					</div>
-					{#if addOn.description.length > 0}
-						<p class="text-light pricing-item-description">{addOn.description}</p>
-					{/if}
-				</div>
-			{/each}
+<svelte:head>
+	<style>
+		section.hero {
+			background: url(/assets/images/footer.jpg) center/cover no-repeat;
+			height: calc(var(--vh) * 80);
+		}
+	</style>
+</svelte:head>
+
+<main>
+	<section class="hero">
+		<div class="hero-text">
+			<h1>Pricing</h1>
+			<h2 class="decorative-heading">Simple options for slowing down</h2>
+			<p class="subheading">Choose the package that fits your plans and we'll take care of the rest</p>
 		</div>
-	</div>
-	<div class="pricing-section">
-		<h3 class="long-heading heading-fade-in" use:isIntersecting>
-			<SpanifyText text="Delivery Rates" />
-		</h3>
+	</section>
+	<section class="pricing">
+		<div class="pricing-heading">
+			<h2 class="decorative-heading heading-fade-in" use:isIntersecting>
+				<SpanifyText text="Sauna Rental Rates" />
+			</h2>
+			<p class="text-light">Select the package that best suits you.</p>
+		</div>
 		<div class="pricing-section group-stagger-fade" use:isIntersecting>
-			{#each pricing.deliveryRates as rate}
+			{#each pricing.rentalRates as rate}
 				<div class="pricing-item">
 					<div class="pricing-item-heading">
 						<p>{rate.title}</p>
@@ -159,63 +132,96 @@
 				</div>
 			{/each}
 		</div>
-	</div>
-	<PrimaryButton onAction={openBookingModal} text="Book Now" />
-</section>
-<section class="sauna-preview">
-	<div class="sauna-preview-images group-stagger-fade" use:isIntersecting>
-		<div class="sauna-preview-image">
-			<img src="/assets/images/sauna-preview-1.jpg" alt="Sauna interior with wood stove and bench seating" />
-		</div>
-		<div class="sauna-preview-image">
-			<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior with wood stove and bench seating" />
-		</div>
-		<div class="sauna-preview-image">
-			<img src="/assets/images/sauna-preview-3.jpg" alt="Sauna exterior with wood stove and bench seating" />
-		</div>
-	</div>
-	<div class="sauna-preview-text">
-		<div class="sauna-preview-heading">
-			<div class="icon-heading">
-				<img src="/assets/svgs/package.svg" alt="package icon" />
-				<p>Complete Package</p>
-			</div>
-			<h2 class="long-heading heading-fade-in" use:isIntersecting>
-				<SpanifyText text="Everything you need for a complete sauna experience" />
-			</h2>
-			<p class="text-light">
-				Each rental is thoughtfully equipped and prepared, so you can focus on relaxing from the moment the heat begins to build.
-			</p>
-			<PrimaryButton onAction={openBookingModal} text="Check Availability" />
-		</div>
-		<div class="sauna-preview-dotpoints group-stagger-fade" use:isIntersecting>
-			<div class="sauna-preview-dotpoint">
-				<span class="material-icons">check_circle_outline</span>
-				<p>Wood-fired Sauna Heater</p>
-			</div>
-			<div class="sauna-preview-dotpoint">
-				<span class="material-icons">check_circle_outline</span>
-				<p>Sauna stones, water bucket, and ladle for steam</p>
-			</div>
-			<div class="sauna-preview-dotpoint">
-				<span class="material-icons">check_circle_outline</span>
-				<p>Interior bench seating for up to 6</p>
-			</div>
-			<div class="sauna-preview-dotpoint">
-				<span class="material-icons">check_circle_outline</span>
-				<p>Fully cleaned and prepared before each booking</p>
+		<div class="pricing-section">
+			<h3 class="long-heading heading-fade-in" use:isIntersecting>
+				<SpanifyText text="Available Add-Ons" />
+			</h3>
+			<div class="pricing-section group-stagger-fade" use:isIntersecting>
+				{#each pricing.addOns as addOn}
+					<div class="pricing-item">
+						<div class="pricing-item-heading">
+							<p>{addOn.title}</p>
+							<div></div>
+							<p>{addOn.price}</p>
+						</div>
+						{#if addOn.description.length > 0}
+							<p class="text-light pricing-item-description">{addOn.description}</p>
+						{/if}
+					</div>
+				{/each}
 			</div>
 		</div>
-	</div>
-</section>
-<FAQ faqs={homeFaqs} />
+		<div class="pricing-section">
+			<h3 class="long-heading heading-fade-in" use:isIntersecting>
+				<SpanifyText text="Delivery Rates" />
+			</h3>
+			<div class="pricing-section group-stagger-fade" use:isIntersecting>
+				{#each pricing.deliveryRates as rate}
+					<div class="pricing-item">
+						<div class="pricing-item-heading">
+							<p>{rate.title}</p>
+							<div></div>
+							<p>{rate.price}</p>
+						</div>
+						{#if rate.description.length > 0}
+							<p class="text-light pricing-item-description">{rate.description}</p>
+						{/if}
+					</div>
+				{/each}
+			</div>
+		</div>
+		<PrimaryButton onAction={openBookingModal} text="Book Now" />
+	</section>
+	<section class="sauna-preview">
+		<div class="sauna-preview-images group-stagger-fade" use:isIntersecting>
+			<div class="sauna-preview-image">
+				<img src="/assets/images/sauna-preview-1.jpg" alt="Sauna interior with wood stove and bench seating" />
+			</div>
+			<div class="sauna-preview-image">
+				<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior with wood stove and bench seating" />
+			</div>
+			<div class="sauna-preview-image">
+				<img src="/assets/images/sauna-preview-3.jpg" alt="Sauna exterior with wood stove and bench seating" />
+			</div>
+		</div>
+		<div class="sauna-preview-text">
+			<div class="sauna-preview-heading">
+				<div class="icon-heading">
+					<img src="/assets/svgs/package.svg" alt="package icon" />
+					<p>Complete Package</p>
+				</div>
+				<h2 class="long-heading heading-fade-in" use:isIntersecting>
+					<SpanifyText text="Everything you need for a complete sauna experience" />
+				</h2>
+				<p class="text-light">
+					Each rental is thoughtfully equipped and prepared, so you can focus on relaxing from the moment the heat begins to build.
+				</p>
+				<PrimaryButton onAction={openBookingModal} text="Check Availability" />
+			</div>
+			<div class="sauna-preview-dotpoints group-stagger-fade" use:isIntersecting>
+				<div class="sauna-preview-dotpoint">
+					<span class="material-icons">check_circle_outline</span>
+					<p>Wood-fired Sauna Heater</p>
+				</div>
+				<div class="sauna-preview-dotpoint">
+					<span class="material-icons">check_circle_outline</span>
+					<p>Sauna stones, water bucket, and ladle for steam</p>
+				</div>
+				<div class="sauna-preview-dotpoint">
+					<span class="material-icons">check_circle_outline</span>
+					<p>Interior bench seating for up to 6</p>
+				</div>
+				<div class="sauna-preview-dotpoint">
+					<span class="material-icons">check_circle_outline</span>
+					<p>Fully cleaned and prepared before each booking</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<FAQ faqs={homeFaqs} />
+</main>
 
 <style>
-	section.hero {
-		background: url(/assets/images/footer.jpg) center/cover no-repeat;
-		height: calc(var(--vh) * 80);
-	}
-
 	/* Pricing */
 	section.pricing {
 		display: grid;

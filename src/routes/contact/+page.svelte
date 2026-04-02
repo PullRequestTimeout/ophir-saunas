@@ -51,63 +51,74 @@
 	description="Get in touch with Ophir Mobile Saunas. Whether you have questions, want to book a sauna experience, or need more information, we're here to help."
 />
 
-<section class="hero">
-	<div class="hero-text">
-		<h1>Contact</h1>
-		<h2 class="decorative-heading">The start of a good conversation</h2>
-		<p class="subheading">Whether you're just curious or ready to book, we'd love to hear from you</p>
-	</div>
-</section>
-<section class="contact">
-	<div class="contact-text">
-		<div class="contact-text-heading">
-			<h2 class="long-heading heading-fade-in" use:isIntersecting>
-				<SpanifyText text="Have a question?" />
-			</h2>
-			<p class="text-light">If there's anything you'd like to ask or talk through, please don't hesitate to reach out at any time.</p>
+<svelte:head>
+	<style>
+		section.hero {
+			background: url(/assets/images/value-prop.jpg) center/cover no-repeat;
+			height: calc(var(--vh) * 80);
+		}
+	</style>
+</svelte:head>
+
+<main>
+	<section class="hero">
+		<div class="hero-text">
+			<h1>Contact</h1>
+			<h2 class="decorative-heading">The start of a good conversation</h2>
+			<p class="subheading">Whether you're just curious or ready to book, we'd love to hear from you</p>
 		</div>
-		<div class="contact-text-content scroll-fade-up" use:isIntersecting>
-			<a href="mailto:info@ophirsaunas.ca">
-				<div class="icon-heading">
-					<span class="material-icons">mail</span>
-					<p>Email:</p>
+	</section>
+	<section class="contact">
+		<div class="contact-text">
+			<div class="contact-text-heading">
+				<h2 class="long-heading heading-fade-in" use:isIntersecting>
+					<SpanifyText text="Have a question?" />
+				</h2>
+				<p class="text-light">If there's anything you'd like to ask or talk through, please don't hesitate to reach out at any time.</p>
+			</div>
+			<div class="contact-text-content scroll-fade-up" use:isIntersecting>
+				<a href="mailto:info@ophirsaunas.ca">
+					<div class="icon-heading">
+						<span class="material-icons">mail</span>
+						<p>Email:</p>
+					</div>
+					<p>info@ophirsaunas.ca</p>
+				</a>
+				<div>
+					<div class="icon-heading">
+						<span class="material-icons">location_on</span>
+						<p>Location:</p>
+					</div>
+					<p>Rossland, BC</p>
 				</div>
-				<p>info@ophirsaunas.ca</p>
-			</a>
-			<div>
-				<div class="icon-heading">
-					<span class="material-icons">location_on</span>
-					<p>Location:</p>
-				</div>
-				<p>Rossland, BC</p>
 			</div>
 		</div>
-	</div>
-	<form onsubmit={handleSubmit} class="group-stagger-fade" use:isIntersecting>
-		<label
-			>First Name
-			<input type="text" name="first_name" placeholder="Enter first name here" required />
-		</label>
-		<label
-			>Last Name
-			<input type="text" name="last_name" placeholder="Enter last name here" required />
-		</label>
-		<label
-			>Email
-			<input type="email" name="email" placeholder="Enter email address here" required />
-		</label>
-		<label
-			>Phone Number
-			<input type="tel" name="phone" placeholder="Enter phone number here" required />
-		</label>
-		<label
-			>Message
-			<textarea name="message" placeholder="Write your message here" required></textarea>
-		</label>
-		<input type="hidden" name="access_key" value="d915efa9-c213-41dd-9cad-a51ca2a8571d" />
-		<PrimaryButton type="submit" text="Send Message" />
-	</form>
-</section>
+		<form onsubmit={handleSubmit} class="group-stagger-fade" use:isIntersecting>
+			<label
+				>First Name
+				<input type="text" name="first_name" placeholder="Enter first name here" required />
+			</label>
+			<label
+				>Last Name
+				<input type="text" name="last_name" placeholder="Enter last name here" required />
+			</label>
+			<label
+				>Email
+				<input type="email" name="email" placeholder="Enter email address here" required />
+			</label>
+			<label
+				>Phone Number
+				<input type="tel" name="phone" placeholder="Enter phone number here" required />
+			</label>
+			<label
+				>Message
+				<textarea name="message" placeholder="Write your message here" required></textarea>
+			</label>
+			<input type="hidden" name="access_key" value="d915efa9-c213-41dd-9cad-a51ca2a8571d" />
+			<PrimaryButton type="submit" text="Send Message" />
+		</form>
+	</section>
+</main>
 {#if !!toastMessage}
 	<div class="toast" transition:fly={{ y: 20, duration: 300 }}>
 		<p><span class="material-icons">{icon}</span>{toastMessage}</p>
@@ -115,11 +126,6 @@
 {/if}
 
 <style>
-	section.hero {
-		background: url(/assets/images/value-prop.jpg) center/cover no-repeat;
-		height: calc(var(--vh) * 80);
-	}
-
 	section.contact {
 		display: grid;
 		grid-template-columns: 1fr;

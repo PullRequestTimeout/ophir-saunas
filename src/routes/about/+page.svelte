@@ -12,174 +12,184 @@
 	description="Learn more about Ophir Mobile Saunas, a mobile sauna company based in Rossland, British Columbia. Discover our story, values, and commitment to quality craftsmanship in creating unique sauna experiences for our customers."
 />
 
-<section class="hero">
-	<div class="hero-text">
-		<h1>About Us</h1>
-		<h2 class="decorative-heading">An artfully built sauna for recovery and connection</h2>
-		<p class="subheading">Crafted locally in British Columbia and delivered to your location</p>
-	</div>
-</section>
-<section class="story">
-	<div class="story-primary-text">
-		<h2 class="long-heading heading-fade-in" use:isIntersecting>
-			<SpanifyText text="Built out of a love for winter, water, and community." />
-		</h2>
-		<p class="text-light">
-			Sauna has long been part of life in cold northern climates, where heat, water, and community naturally come together. The tradition invites
-			people to slow down, warm up, and share quiet moments between rounds of steam and cold air. What began centuries ago as a simple wooden room and
-			a fire has endured as a ritual that brings people together.
-		</p>
-	</div>
-	<div class="story-secondary-text scroll-fade-up" use:isIntersecting>
-		<div class="icon-heading">
-			<span class="material-icons">spa</span>
-			<p>Restorative by Nature</p>
+<svelte:head>
+	<style>
+		section.hero {
+			background: url(/assets/images/hero-about.jpg) center/cover no-repeat;
+			height: calc(var(--vh) * 80);
+		}
+	</style>
+</svelte:head>
+
+<main>
+	<section class="hero">
+		<div class="hero-text">
+			<h1>About Us</h1>
+			<h2 class="decorative-heading">An artfully built sauna for recovery and connection</h2>
+			<p class="subheading">Crafted locally in British Columbia and delivered to your location</p>
 		</div>
-		<p class="text-light">
-			The cycle of heat and cooling has long been associated with relaxation, improved circulation, and muscle recovery. Whether used after a day
-			outdoors or simply to unwind, sauna offers a natural way to slow down, reset, and support overall wellbeing.
-		</p>
-	</div>
-</section>
-<section class="sauna">
-	<div class="sauna-image scroll-fade-up" use:isIntersecting>
-		<img src="/assets/images/about-sauna.jpg" alt="Interior of an Ophir sauna, showing the wood bench and stove" />
-	</div>
-	<div class="sauna-text">
-		<div class="sauna-text-heading">
-			<div class="icon-heading">
-				<img src="/assets/svgs/maple.svg" alt="maple leaf icon" />
-				<p>Canada-Made</p>
-			</div>
+	</section>
+	<section class="story">
+		<div class="story-primary-text">
 			<h2 class="long-heading heading-fade-in" use:isIntersecting>
-				<SpanifyText text="Designed and built locally in British Columbia by expert craftsmen." />
+				<SpanifyText text="Built out of a love for winter, water, and community." />
 			</h2>
-			<p class="text-light">Every detail is chosen to create a warm, balanced, and lasting sauna experience.</p>
+			<p class="text-light">
+				Sauna has long been part of life in cold northern climates, where heat, water, and community naturally come together. The tradition invites
+				people to slow down, warm up, and share quiet moments between rounds of steam and cold air. What began centuries ago as a simple wooden room
+				and a fire has endured as a ritual that brings people together.
+			</p>
 		</div>
-		<div class="sauna-text-dotpoints group-stagger-fade" use:isIntersecting>
-			<div class="sauna-text-dotpoint">
+		<div class="story-secondary-text scroll-fade-up" use:isIntersecting>
+			<div class="icon-heading">
+				<span class="material-icons">spa</span>
+				<p>Restorative by Nature</p>
+			</div>
+			<p class="text-light">
+				The cycle of heat and cooling has long been associated with relaxation, improved circulation, and muscle recovery. Whether used after a day
+				outdoors or simply to unwind, sauna offers a natural way to slow down, reset, and support overall wellbeing.
+			</p>
+		</div>
+	</section>
+	<section class="sauna">
+		<div class="sauna-image scroll-fade-up" use:isIntersecting>
+			<img src="/assets/images/about-sauna.jpg" alt="Interior of an Ophir sauna, showing the wood bench and stove" />
+		</div>
+		<div class="sauna-text">
+			<div class="sauna-text-heading">
 				<div class="icon-heading">
-					<span class="material-icons">local_fire_department</span>
-					<p>Woodfired Heater</p>
+					<img src="/assets/svgs/maple.svg" alt="maple leaf icon" />
+					<p>Canada-Made</p>
+				</div>
+				<h2 class="long-heading heading-fade-in" use:isIntersecting>
+					<SpanifyText text="Designed and built locally in British Columbia by expert craftsmen." />
+				</h2>
+				<p class="text-light">Every detail is chosen to create a warm, balanced, and lasting sauna experience.</p>
+			</div>
+			<div class="sauna-text-dotpoints group-stagger-fade" use:isIntersecting>
+				<div class="sauna-text-dotpoint">
+					<div class="icon-heading">
+						<span class="material-icons">local_fire_department</span>
+						<p>Woodfired Heater</p>
+					</div>
+					<p class="text-light">
+						A traditional wood-fired heater produces a deep, even heat and rich steam that defines the authentic sauna experience.
+					</p>
+				</div>
+				<div class="sauna-text-dotpoint">
+					<div class="icon-heading">
+						<span class="material-icons">park</span>
+						<p>Built for the Outdoors</p>
+					</div>
+					<p class="text-light">
+						Sustainably constructed with Western Red Cedar suited to the changing weather and landscapes of the West Kootenays.
+					</p>
+				</div>
+				<div class="sauna-text-dotpoint">
+					<div class="icon-heading">
+						<span class="material-icons">groups</span>
+						<p>Comfortable Size</p>
+					</div>
+					<p class="text-light">
+						The spacious interior comfortably accommodates groups of up to 6, making it ideal for sharing the experience with friends or family.
+					</p>
+				</div>
+				<div class="sauna-text-dotpoint">
+					<div class="icon-heading">
+						<span class="material-icons">local_shipping</span>
+						<p>Easy Delivery</p>
+					</div>
+					<p class="text-light">
+						The sauna is delivered, positioned, and prepared for your booking so you can focus on relaxing from the moment it arrives.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="gallery">
+		<div class="gallery-heading">
+			<h2 class="decorative-heading heading-fade-in" use:isIntersecting>
+				<SpanifyText text="Experience the restoration" />
+			</h2>
+			<p class="text-light">
+				The sauna invites a simple rhythm: warm up, cool down, and rest. It’s a quiet ritual that leaves both body and mind feeling renewed.
+			</p>
+			<div class="gallery-cta-buttons">
+				<PrimaryButton onAction={openBookingModal} text="Book Now" />
+				<PrimaryButton href="/contact" text="Ask a Question" primary={false} />
+			</div>
+		</div>
+		<div class="gallery-image-grid">
+			<div class="gallery-image scroll-fade-up" use:isIntersecting>
+				<img src="/assets/images/sauna-preview-1.jpg" alt="Sauna interior with wooden benches and stove" />
+			</div>
+			<div class="gallery-image scroll-fade-up" use:isIntersecting>
+				<img src="/assets/images/footer.jpg" alt="Interior of the sauna with someone sitting on the bench and steam rising from the stove" />
+			</div>
+			<div class="gallery-image scroll-fade-up" use:isIntersecting>
+				<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior in a snowy landscape with pine trees in the background" />
+			</div>
+			<div class="gallery-image scroll-fade-up" use:isIntersecting>
+				<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior in a snowy landscape with pine trees in the background" />
+			</div>
+			<div class="gallery-image scroll-fade-up" use:isIntersecting>
+				<img src="/assets/images/sauna-preview-3.jpg" alt="Detail of the sauna stove with a kettle on top and steam rising from it" />
+			</div>
+			<div class="gallery-image scroll-fade-up" use:isIntersecting>
+				<img src="/assets/images/value-prop.jpg" alt="Sauna interior with view out of the window showing a lake and mountains in the background" />
+			</div>
+		</div>
+	</section>
+	<section class="whoitsfor">
+		<div class="whoitsfor-heading">
+			<h2 class="long-heading heading-fade-in" use:isIntersecting>
+				<SpanifyText text="Perfect for shared moments and quiet resets alike." />
+			</h2>
+			<p class="text-light">
+				From small gatherings to post-adventure recovery, the sauna creates a warm space to slow down, reconnect, and enjoy the moment.
+			</p>
+		</div>
+		<div class="whoitsfor-dotpoints group-stagger-fade" use:isIntersecting>
+			<div class="whoitsfor-dotpoint">
+				<div class="icon-heading">
+					<span class="material-icons">cabin</span>
+					<p>Cabin Weekends</p>
 				</div>
 				<p class="text-light">
 					A traditional wood-fired heater produces a deep, even heat and rich steam that defines the authentic sauna experience.
 				</p>
 			</div>
-			<div class="sauna-text-dotpoint">
+			<div class="whoitsfor-dotpoint">
 				<div class="icon-heading">
-					<span class="material-icons">park</span>
-					<p>Built for the Outdoors</p>
-				</div>
-				<p class="text-light">Sustainably constructed with Western Red Cedar suited to the changing weather and landscapes of the West Kootenays.</p>
-			</div>
-			<div class="sauna-text-dotpoint">
-				<div class="icon-heading">
-					<span class="material-icons">groups</span>
-					<p>Comfortable Size</p>
+					<span class="material-icons">outdoor_grill</span>
+					<p>Backyard Gatherings</p>
 				</div>
 				<p class="text-light">
-					The spacious interior comfortably accommodates groups of up to 6, making it ideal for sharing the experience with friends or family.
+					Turn an ordinary evening at home into something memorable, with warmth, conversation, and a simple ritual everyone can enjoy.
 				</p>
 			</div>
-			<div class="sauna-text-dotpoint">
+			<div class="whoitsfor-dotpoint">
 				<div class="icon-heading">
-					<span class="material-icons">local_shipping</span>
-					<p>Easy Delivery</p>
+					<span class="material-icons">downhill_skiing</span>
+					<p>Adventure Recovery</p>
+				</div>
+				<p class="text-light">After long days skiing, riding, paddling, or hiking, the deep heat of the sauna helps the body relax and recover.</p>
+			</div>
+			<div class="whoitsfor-dotpoint">
+				<div class="icon-heading">
+					<span class="material-icons">self_improvement</span>
+					<p>Retreats & Events</p>
 				</div>
 				<p class="text-light">
-					The sauna is delivered, positioned, and prepared for your booking so you can focus on relaxing from the moment it arrives.
+					A unique and memorable addition to wellness retreats, workshops, and small gatherings centred around rest and connection.
 				</p>
 			</div>
 		</div>
-	</div>
-</section>
-<section class="gallery">
-	<div class="gallery-heading">
-		<h2 class="decorative-heading heading-fade-in" use:isIntersecting>
-			<SpanifyText text="Experience the restoration" />
-		</h2>
-		<p class="text-light">
-			The sauna invites a simple rhythm: warm up, cool down, and rest. It’s a quiet ritual that leaves both body and mind feeling renewed.
-		</p>
-		<div class="gallery-cta-buttons">
-			<PrimaryButton onAction={openBookingModal} text="Book Now" />
-			<PrimaryButton href="/contact" text="Ask a Question" primary={false} />
-		</div>
-	</div>
-	<div class="gallery-image-grid">
-		<div class="gallery-image scroll-fade-up" use:isIntersecting>
-			<img src="/assets/images/sauna-preview-1.jpg" alt="Sauna interior with wooden benches and stove" />
-		</div>
-		<div class="gallery-image scroll-fade-up" use:isIntersecting>
-			<img src="/assets/images/footer.jpg" alt="Interior of the sauna with someone sitting on the bench and steam rising from the stove" />
-		</div>
-		<div class="gallery-image scroll-fade-up" use:isIntersecting>
-			<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior in a snowy landscape with pine trees in the background" />
-		</div>
-		<div class="gallery-image scroll-fade-up" use:isIntersecting>
-			<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior in a snowy landscape with pine trees in the background" />
-		</div>
-		<div class="gallery-image scroll-fade-up" use:isIntersecting>
-			<img src="/assets/images/sauna-preview-3.jpg" alt="Detail of the sauna stove with a kettle on top and steam rising from it" />
-		</div>
-		<div class="gallery-image scroll-fade-up" use:isIntersecting>
-			<img src="/assets/images/value-prop.jpg" alt="Sauna interior with view out of the window showing a lake and mountains in the background" />
-		</div>
-	</div>
-</section>
-<section class="whoitsfor">
-	<div class="whoitsfor-heading">
-		<h2 class="long-heading heading-fade-in" use:isIntersecting>
-			<SpanifyText text="Perfect for shared moments and quiet resets alike." />
-		</h2>
-		<p class="text-light">
-			From small gatherings to post-adventure recovery, the sauna creates a warm space to slow down, reconnect, and enjoy the moment.
-		</p>
-	</div>
-	<div class="whoitsfor-dotpoints group-stagger-fade" use:isIntersecting>
-		<div class="whoitsfor-dotpoint">
-			<div class="icon-heading">
-				<span class="material-icons">cabin</span>
-				<p>Cabin Weekends</p>
-			</div>
-			<p class="text-light">A traditional wood-fired heater produces a deep, even heat and rich steam that defines the authentic sauna experience.</p>
-		</div>
-		<div class="whoitsfor-dotpoint">
-			<div class="icon-heading">
-				<span class="material-icons">outdoor_grill</span>
-				<p>Backyard Gatherings</p>
-			</div>
-			<p class="text-light">
-				Turn an ordinary evening at home into something memorable, with warmth, conversation, and a simple ritual everyone can enjoy.
-			</p>
-		</div>
-		<div class="whoitsfor-dotpoint">
-			<div class="icon-heading">
-				<span class="material-icons">downhill_skiing</span>
-				<p>Adventure Recovery</p>
-			</div>
-			<p class="text-light">After long days skiing, riding, paddling, or hiking, the deep heat of the sauna helps the body relax and recover.</p>
-		</div>
-		<div class="whoitsfor-dotpoint">
-			<div class="icon-heading">
-				<span class="material-icons">self_improvement</span>
-				<p>Retreats & Events</p>
-			</div>
-			<p class="text-light">
-				A unique and memorable addition to wellness retreats, workshops, and small gatherings centred around rest and connection.
-			</p>
-		</div>
-	</div>
-</section>
-<ServiceArea />
+	</section>
+	<ServiceArea />
+</main>
 
 <style>
-	section.hero {
-		background: url(/assets/images/hero-about.jpg) center/cover no-repeat;
-		height: calc(var(--vh) * 80);
-	}
-
 	/* Story */
 	section.story {
 		display: grid;
