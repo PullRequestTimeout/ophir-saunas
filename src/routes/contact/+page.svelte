@@ -3,6 +3,47 @@
 	import SeoHead from "$lib/components/SeoHead.svelte";
 	import { isIntersecting } from "$lib/utils/isIntersecting";
 	import SpanifyText from "$lib/components/SpanifyText.svelte";
+	import { fly } from "svelte/transition";
+
+	let toastMessage: string = $state("");
+	let icon = $state("");
+
+	function handleToast(message: string) {
+		toastMessage = message;
+		if (message.toLowerCase().includes("failed")) {
+			icon = "error_outline";
+		} else {
+			icon = "mail";
+		}
+		setTimeout(() => {
+			toastMessage = "";
+		}, 3000);
+	}
+
+	async function handleSubmit(event: Event) {
+		event.preventDefault();
+		const form = event.target as HTMLFormElement;
+		const formData = new FormData(form);
+		try {
+			const res = await fetch("https://api.web3forms.com/submit", {
+				method: "POST",
+				body: formData
+			});
+
+			const data = await res.json();
+
+			if (data.success) {
+				handleToast("Thanks for reaching out! We'll get back to you as soon as we can.");
+				form.reset();
+			} else {
+				handleToast("Form submission failed. Please try again.");
+				console.error("Form submission error:", data.message);
+			}
+		} catch (err) {
+			handleToast("Form submission failed. Please try again.");
+			console.error("Form submission error:", err);
+		}
+	}
 </script>
 
 <SeoHead
@@ -42,7 +83,7 @@
 			</div>
 		</div>
 	</div>
-	<form method="POST" class="group-stagger-fade" use:isIntersecting>
+	<form onsubmit={handleSubmit} class="group-stagger-fade" use:isIntersecting>
 		<label
 			>First Name
 			<input type="text" name="first_name" placeholder="Enter first name here" required />
@@ -67,6 +108,11 @@
 		<PrimaryButton type="submit" text="Send Message" />
 	</form>
 </section>
+{#if !!toastMessage}
+	<div class="toast" transition:fly={{ y: 20, duration: 300 }}>
+		<p><span class="material-icons">{icon}</span>{toastMessage}</p>
+	</div>
+{/if}
 
 <style>
 	section.hero {
@@ -147,6 +193,34 @@
 		resize: none;
 	}
 
+	div.toast {
+		position: fixed;
+		bottom: var(--spacing-m);
+		left: 50%;
+		transform: translateX(-50%);
+		background-color: var(--color-background-white);
+		color: var(--color-primary);
+		padding: var(--spacing-m) var(--spacing-l);
+		border-radius: var(--spacing-m);
+		border: var(--border-width) solid var(--color-primary);
+		box-shadow: var(--shadow);
+		font-size: var(--font-body-l);
+		width: calc(100vw - var(--padding-inline) * 2);
+		z-index: 1000;
+		display: flex;
+		justify-content: center;
+	}
+
+	div.toast p {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-m);
+	}
+
+	div.toast p span.material-icons {
+		font-size: 32px;
+	}
+
 	@media screen and (min-width: 640px) {
 		section.contact form {
 			display: grid;
@@ -175,6 +249,11 @@
 		section.contact div.contact-text div.contact-text-content {
 			height: 150px;
 			margin-bottom: calc(var(--spacing-m) + 2rem);
+		}
+
+		div.toast {
+			width: 20rem;
+			right: var(--padding-inline);
 		}
 	}
 </style>
