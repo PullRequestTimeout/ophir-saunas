@@ -1,0 +1,4 @@
+<section>
+	<h1>Oops!</h1>
+	<p>There was an error sending your message. Please try again later.</p>
+</section>

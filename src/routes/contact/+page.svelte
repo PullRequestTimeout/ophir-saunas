@@ -42,27 +42,28 @@
 			</div>
 		</div>
 	</div>
-	<form action="" class="group-stagger-fade" use:isIntersecting>
+	<form method="POST" class="group-stagger-fade" use:isIntersecting>
 		<label
 			>First Name
-			<input type="text" placeholder="Enter first name here" required />
+			<input type="text" name="first_name" placeholder="Enter first name here" required />
 		</label>
 		<label
 			>Last Name
-			<input type="text" placeholder="Enter last name here" required />
+			<input type="text" name="last_name" placeholder="Enter last name here" required />
 		</label>
 		<label
 			>Email
-			<input type="email" placeholder="Enter email address here" required />
+			<input type="email" name="email" placeholder="Enter email address here" required />
 		</label>
 		<label
 			>Phone Number
-			<input type="tel" placeholder="Enter phone number here" required />
+			<input type="tel" name="phone" placeholder="Enter phone number here" required />
 		</label>
 		<label
 			>Message
-			<textarea placeholder="Write your message here" required></textarea>
+			<textarea name="message" placeholder="Write your message here" required></textarea>
 		</label>
+		<input type="hidden" name="access_key" value="d915efa9-c213-41dd-9cad-a51ca2a8571d" />
 		<PrimaryButton type="submit" text="Send Message" />
 	</form>
 </section>
