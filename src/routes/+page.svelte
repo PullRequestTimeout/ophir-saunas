@@ -12,161 +12,167 @@
 <!-- Default SEO head content -->
 <SeoHead />
 
-<section class="hero">
-	<div class="hero-text">
-		<h2 class="decorative-heading">Relaxation delivered right to your door</h2>
-		<p class="subheading">Mobile sauna rentals in the West Kootenays, British Columbia</p>
-		<PrimaryButton onAction={openBookingModal} text="Book Now" />
-	</div>
-</section>
-<section class="value-prop">
-	<div class="value-prop-row1">
-		<div class="value-prop-heading">
-			<h3 class="long-heading heading-fade-in" use:isIntersecting>
-				<SpanifyText text="Bring wellness to your backyard, retreat, or cabin weekend." />
-			</h3>
-			<p class="text-light">Elevate any gathering with a rejuvenating experience.</p>
+<svelte:head>
+	<style>
+		section.hero {
+			background: url(/assets/images/hero-home.jpg) center/cover no-repeat;
+			height: calc(var(--vh) * 80);
+		}
+	</style>
+</svelte:head>
+
+<main>
+	<section class="hero">
+		<div class="hero-text">
+			<h2 class="decorative-heading">Relaxation delivered right to your door</h2>
+			<p class="subheading">Mobile sauna rentals in the West Kootenays, British Columbia</p>
+			<PrimaryButton onAction={openBookingModal} text="Book Now" />
 		</div>
-		<div class="value-prop-bullets group-stagger-fade" use:isIntersecting>
-			<div class="value-prop-bullet">
-				<div class="icon-heading">
-					<span class="material-icons">spa</span>
-					<p>Restoration</p>
+	</section>
+	<section class="value-prop">
+		<div class="value-prop-row1">
+			<div class="value-prop-heading">
+				<h3 class="long-heading heading-fade-in" use:isIntersecting>
+					<SpanifyText text="Bring wellness to your backyard, retreat, or cabin weekend." />
+				</h3>
+				<p class="text-light">Elevate any gathering with a rejuvenating experience.</p>
+			</div>
+			<div class="value-prop-bullets group-stagger-fade" use:isIntersecting>
+				<div class="value-prop-bullet">
+					<div class="icon-heading">
+						<span class="material-icons">spa</span>
+						<p>Restoration</p>
+					</div>
+					<p class="text-light">Unwind and recover after adventure</p>
 				</div>
-				<p class="text-light">Unwind and recover after adventure</p>
-			</div>
-			<div class="value-prop-bullet">
-				<div class="icon-heading">
-					<span class="material-icons">groups</span>
-					<p>Connection</p>
+				<div class="value-prop-bullet">
+					<div class="icon-heading">
+						<span class="material-icons">groups</span>
+						<p>Connection</p>
+					</div>
+					<p class="text-light">Perfect for intimate gatherings</p>
 				</div>
-				<p class="text-light">Perfect for intimate gatherings</p>
-			</div>
-			<div class="value-prop-bullet">
-				<div class="icon-heading">
-					<span class="material-icons">local_shipping</span>
-					<p>Easy&nbsp;Delivery</p>
+				<div class="value-prop-bullet">
+					<div class="icon-heading">
+						<span class="material-icons">local_shipping</span>
+						<p>Easy&nbsp;Delivery</p>
+					</div>
+					<p class="text-light">Hassle-free setup at your location</p>
 				</div>
-				<p class="text-light">Hassle-free setup at your location</p>
 			</div>
 		</div>
-	</div>
-	<div class="value-prop-row2 group-stagger-fade" use:isIntersecting>
-		<div class="value-prop-image">
-			<img src="/assets/images/value-prop.jpg" alt="Sauna interior looking out on nature" />
-		</div>
-		<div class="value-prop-text-box bg-tan">
-			<p class="text-semi-bold">Physical Recovery</p>
-			<p class="text-light">Sauna use supports muscle recovery, improves circulation, and helps ease tension in the body.</p>
-		</div>
-		<div class="value-prop-text-box">
-			<p class="text-semi-bold">Mental Reset</p>
-			<p class="text-light">The steady heat promotes relaxation, reduces stress, and leaves you feeling clearer and more grounded.</p>
-		</div>
-	</div>
-</section>
-<section class="howitworks">
-	<div class="howitworks-heading">
-		<h2 class="decorative-heading heading-fade-in" use:isIntersecting>
-			<SpanifyText text="How it works" />
-		</h2>
-		<p class="text-light">Reservation to relaxation in just a few simple steps</p>
-	</div>
-	<div class="howitworks-steps">
-		<div class="howitworks-step-card scroll-fade-up" use:isIntersecting>
-			<div class="howitworks-step-card-icon">
-				<img src="/assets/svgs/calendar.svg" alt="calendar icon" />
+		<div class="value-prop-row2 group-stagger-fade" use:isIntersecting>
+			<div class="value-prop-image">
+				<img src="/assets/images/value-prop.jpg" alt="Sauna interior looking out on nature" loading="lazy" />
 			</div>
-			<div class="howitworks-step-card-text">
-				<p class="text-semi-bold">1. Choose your date</p>
-				<p class="text-light">Select your preferred dates and secure your booking in just a few minutes.</p>
+			<div class="value-prop-text-box bg-tan">
+				<p class="text-semi-bold">Physical Recovery</p>
+				<p class="text-light">Sauna use supports muscle recovery, improves circulation, and helps ease tension in the body.</p>
+			</div>
+			<div class="value-prop-text-box">
+				<p class="text-semi-bold">Mental Reset</p>
+				<p class="text-light">The steady heat promotes relaxation, reduces stress, and leaves you feeling clearer and more grounded.</p>
 			</div>
 		</div>
-		<div class="howitworks-step-card scroll-fade-up" use:isIntersecting>
-			<div class="howitworks-step-card-icon">
-				<img src="/assets/svgs/truck.svg" alt="truck icon" />
+	</section>
+	<section class="howitworks">
+		<div class="howitworks-heading">
+			<h2 class="decorative-heading heading-fade-in" use:isIntersecting>
+				<SpanifyText text="How it works" />
+			</h2>
+			<p class="text-light">Reservation to relaxation in just a few simple steps</p>
+		</div>
+		<div class="howitworks-steps">
+			<div class="howitworks-step-card scroll-fade-up" use:isIntersecting>
+				<div class="howitworks-step-card-icon">
+					<img src="/assets/svgs/calendar.svg" alt="calendar icon" loading="lazy" />
+				</div>
+				<div class="howitworks-step-card-text">
+					<p class="text-semi-bold">1. Choose your date</p>
+					<p class="text-light">Select your preferred dates and secure your booking in just a few minutes.</p>
+				</div>
 			</div>
-			<div class="howitworks-step-card-text">
-				<p class="text-semi-bold">2. We Deliver & Set Up</p>
-				<p class="text-light">We bring the sauna to your location, position it safely, and get everything ready for use.</p>
+			<div class="howitworks-step-card scroll-fade-up" use:isIntersecting>
+				<div class="howitworks-step-card-icon">
+					<img src="/assets/svgs/truck.svg" alt="truck icon" loading="lazy" />
+				</div>
+				<div class="howitworks-step-card-text">
+					<p class="text-semi-bold">2. We Deliver & Set Up</p>
+					<p class="text-light">We bring the sauna to your location, position it safely, and get everything ready for use.</p>
+				</div>
+			</div>
+			<div class="howitworks-step-card scroll-fade-up" use:isIntersecting>
+				<div class="howitworks-step-card-icon">
+					<img src="/assets/svgs/sauna.svg" alt="sauna icon" loading="lazy" />
+				</div>
+				<div class="howitworks-step-card-text">
+					<p class="text-semi-bold">3. Heat, relax, repeat</p>
+					<p class="text-light">Fire it up, settle in, and enjoy the rhythm of hot and cold at your own pace.</p>
+				</div>
+			</div>
+			<img src="/assets/svgs/arrow.svg" alt="arrow pointing down" class="howitworks-arrow" />
+		</div>
+		<PrimaryButton onAction={openBookingModal} text="Check Availability" primary={false} />
+	</section>
+	<section class="sauna-preview">
+		<div class="sauna-preview-images group-stagger-fade" use:isIntersecting>
+			<div class="sauna-preview-image">
+				<img src="/assets/images/sauna-preview-1.jpg" alt="Sauna interior with wood stove and bench seating" loading="lazy" />
+			</div>
+			<div class="sauna-preview-image">
+				<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior with wood stove and bench seating" loading="lazy" />
+			</div>
+			<div class="sauna-preview-image">
+				<img src="/assets/images/sauna-preview-3.jpg" alt="Sauna exterior with wood stove and bench seating" loading="lazy" />
 			</div>
 		</div>
-		<div class="howitworks-step-card scroll-fade-up" use:isIntersecting>
-			<div class="howitworks-step-card-icon">
-				<img src="/assets/svgs/sauna.svg" alt="sauna icon" />
+		<div class="sauna-preview-text">
+			<div class="sauna-preview-heading">
+				<div class="icon-heading">
+					<img src="/assets/svgs/maple-leaf.svg" alt="maple leaf icon" loading="lazy" />
+					<p>Canada-Made</p>
+				</div>
+				<h3 class="long-heading heading-fade-in" use:isIntersecting>
+					<SpanifyText text="Designed and built locally in British Columbia by expert craftsmen." />
+				</h3>
+				<p class="text-light">Every detail is chosen to create a warm, balanced, and lasting sauna experience.</p>
+				<PrimaryButton href="/about" text="Learn More" />
 			</div>
-			<div class="howitworks-step-card-text">
-				<p class="text-semi-bold">3. Heat, relax, repeat</p>
-				<p class="text-light">Fire it up, settle in, and enjoy the rhythm of hot and cold at your own pace.</p>
-			</div>
-		</div>
-		<img src="/assets/svgs/arrow.svg" alt="arrow pointing down" class="howitworks-arrow" />
-	</div>
-	<PrimaryButton onAction={openBookingModal} text="Check Availability" primary={false} />
-</section>
-<section class="sauna-preview">
-	<div class="sauna-preview-images group-stagger-fade" use:isIntersecting>
-		<div class="sauna-preview-image">
-			<img src="/assets/images/sauna-preview-1.png" alt="Sauna interior with wood stove and bench seating" />
-		</div>
-		<div class="sauna-preview-image">
-			<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior with wood stove and bench seating" />
-		</div>
-		<div class="sauna-preview-image">
-			<img src="/assets/images/sauna-preview-3.jpg" alt="Sauna exterior with wood stove and bench seating" />
-		</div>
-	</div>
-	<div class="sauna-preview-text">
-		<div class="sauna-preview-heading">
-			<div class="icon-heading">
-				<img src="/assets/svgs/maple-leaf.svg" alt="maple leaf icon" />
-				<p>Canada-Made</p>
-			</div>
-			<h3 class="long-heading heading-fade-in" use:isIntersecting>
-				<SpanifyText text="Designed and built locally in British Columbia by expert craftsmen." />
-			</h3>
-			<p class="text-light">Every detail is chosen to create a warm, balanced, and lasting sauna experience.</p>
-			<PrimaryButton href="/about" text="Learn More" />
-		</div>
-		<div class="sauna-preview-dotpoints group-stagger-fade" use:isIntersecting>
-			<div class="sauna-preview-dotpoint">
-				<span class="material-icons">check_circle_outline</span>
-				<p>Seats up to 6 in comfort</p>
-			</div>
-			<div class="sauna-preview-dotpoint">
-				<span class="material-icons">check_circle_outline</span>
-				<p>Premium wood-fire heating for operation anywhere</p>
-			</div>
-			<div class="sauna-preview-dotpoint">
-				<span class="material-icons">check_circle_outline</span>
-				<p>Constructed from sustainably sourced Western Red Cedar</p>
-			</div>
-			<div class="sauna-preview-dotpoint">
-				<span class="material-icons">check_circle_outline</span>
-				<p>Cold plunge and premium quality towels available</p>
+			<div class="sauna-preview-dotpoints group-stagger-fade" use:isIntersecting>
+				<div class="sauna-preview-dotpoint">
+					<span class="material-icons">check_circle_outline</span>
+					<p>Seats up to 6 in comfort</p>
+				</div>
+				<div class="sauna-preview-dotpoint">
+					<span class="material-icons">check_circle_outline</span>
+					<p>Premium wood-fire heating for operation anywhere</p>
+				</div>
+				<div class="sauna-preview-dotpoint">
+					<span class="material-icons">check_circle_outline</span>
+					<p>Constructed from sustainably sourced Western Red Cedar</p>
+				</div>
+				<div class="sauna-preview-dotpoint">
+					<span class="material-icons">check_circle_outline</span>
+					<p>Cold plunge and premium quality towels available</p>
+				</div>
 			</div>
 		</div>
-	</div>
-</section>
-<ServiceArea />
-<section class="pricing-preview">
-	<div class="pricing-preview-text">
-		<h2 class="long-heading heading-fade-in" use:isIntersecting>
-			<SpanifyText text="A private sauna experience designed to help you unwind, recover, and reconnect – wherever you are." />
-		</h2>
-		<p class="text-light">Packages starting from $300.</p>
-		<PrimaryButton href="/pricing" text="View Packages" primary />
-	</div>
-	<img src="/assets/images/footer.jpg" alt="Sauna interior" use:isIntersecting class="scroll-fade-up" />
-</section>
-<FAQ faqs={homeFaqs} />
+	</section>
+	<ServiceArea />
+	<section class="pricing-preview">
+		<div class="pricing-preview-text">
+			<h2 class="long-heading heading-fade-in" use:isIntersecting>
+				<SpanifyText text="A private sauna experience designed to help you unwind, recover, and reconnect – wherever you are." />
+			</h2>
+			<p class="text-light">Packages starting from $300.</p>
+			<PrimaryButton href="/pricing" text="View Packages" primary />
+		</div>
+		<img src="/assets/images/footer.jpg" alt="Sauna interior" use:isIntersecting class="scroll-fade-up" loading="lazy" />
+	</section>
+	<FAQ faqs={homeFaqs} />
+</main>
 
 <style>
-	section.hero {
-		background: url(/assets/images/hero-home.jpg) center/cover no-repeat;
-		height: calc(var(--vh) * 80);
-	}
-
 	/* Value Prop */
 	section.value-prop,
 	div.value-prop-row1,
