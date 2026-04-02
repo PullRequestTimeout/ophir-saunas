@@ -4,7 +4,10 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="app.css" />
+	<link rel="preload" href="%sveltekit.assets%/global.css" as="style" onload="this.rel='stylesheet'">
+	<link rel="preload" href="/assets/fonts/Abigail-Bold.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="/assets/fonts/Abigail-Bold.woff" as="font" type="font/woff" crossorigin>
+	<link rel="stylesheet" href="global.css" />
 	%sveltekit.head%
 	<script>
 		document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
@@ -13,6 +16,7 @@
 
 <body data-sveltekit-preload-data="hover">
 	<div style="display: contents">%sveltekit.body%</div>
+	<link rel="stylesheet" href="%sveltekit.assets%/global-noncritical.css" />
 </body>
 
 </html>
