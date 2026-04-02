@@ -4,11 +4,6 @@
 	import { isIntersecting } from "$lib/utils/isIntersecting";
 	import SpanifyText from "$lib/components/SpanifyText.svelte";
 	import { fly } from "svelte/transition";
-	import { onMount } from "svelte";
-
-	onMount(() => {
-		document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
-	});
 
 	let toastMessage: string = $state("");
 	let icon = $state("");

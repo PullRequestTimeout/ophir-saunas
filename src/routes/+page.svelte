@@ -7,11 +7,6 @@
 	import { homeFaqs } from "$lib/data/faqs";
 	import { isIntersecting } from "$lib/utils/isIntersecting";
 	import SpanifyText from "$lib/components/SpanifyText.svelte";
-	import { onMount } from "svelte";
-
-	onMount(() => {
-		document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
-	});
 </script>
 
 <!-- Default SEO head content -->

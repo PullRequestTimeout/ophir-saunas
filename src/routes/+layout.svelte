@@ -5,6 +5,11 @@
 	import "material-icons/iconfont/filled.css";
 	import FinalCTA from "$lib/components/FinalCTA.svelte";
 	import BookingModal from "$lib/components/BookingModal.svelte";
+	import { onMount } from "svelte";
+
+	onMount(() => {
+		document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
+	});
 </script>
 
 <Nav />
