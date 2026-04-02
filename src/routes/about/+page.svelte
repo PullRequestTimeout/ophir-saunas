@@ -109,7 +109,7 @@
 	</div>
 	<div class="gallery-image-grid">
 		<div class="gallery-image scroll-fade-up" use:isIntersecting>
-			<img src="/assets/images/sauna-preview-1.png" alt="Sauna interior with wooden benches and stove" />
+			<img src="/assets/images/sauna-preview-1.jpg" alt="Sauna interior with wooden benches and stove" />
 		</div>
 		<div class="gallery-image scroll-fade-up" use:isIntersecting>
 			<img src="/assets/images/footer.jpg" alt="Interior of the sauna with someone sitting on the bench and steam rising from the stove" />

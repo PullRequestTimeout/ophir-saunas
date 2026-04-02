@@ -165,7 +165,7 @@
 <section class="sauna-preview">
 	<div class="sauna-preview-images group-stagger-fade" use:isIntersecting>
 		<div class="sauna-preview-image">
-			<img src="/assets/images/sauna-preview-1.png" alt="Sauna interior with wood stove and bench seating" />
+			<img src="/assets/images/sauna-preview-1.jpg" alt="Sauna interior with wood stove and bench seating" />
 		</div>
 		<div class="sauna-preview-image">
 			<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior with wood stove and bench seating" />
