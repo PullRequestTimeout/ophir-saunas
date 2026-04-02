@@ -24,6 +24,13 @@
 		event.preventDefault();
 		const form = event.target as HTMLFormElement;
 		const formData = new FormData(form);
+		const honeypot = formData.get("company");
+
+		if (typeof honeypot === "string" && honeypot.trim() !== "") {
+			form.reset();
+			return;
+		}
+
 		try {
 			const res = await fetch("https://api.web3forms.com/submit", {
 				method: "POST",
@@ -115,6 +122,7 @@
 				<textarea name="message" placeholder="Write your message here" required></textarea>
 			</label>
 			<input type="hidden" name="access_key" value="d915efa9-c213-41dd-9cad-a51ca2a8571d" />
+			<input type="text" name="company" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
 			<PrimaryButton type="submit" text="Send Message" />
 		</form>
 	</section>
@@ -200,6 +208,13 @@
 		resize: none;
 	}
 
+	section.contact form .hp-field {
+		position: absolute;
+		left: -10000px;
+		opacity: 0;
+		pointer-events: none;
+	}
+
 	div.toast {
 		position: fixed;
 		bottom: var(--spacing-m);
@@ -259,8 +274,10 @@
 		}
 
 		div.toast {
-			width: 20rem;
+			width: 30rem;
 			right: var(--padding-inline);
+			left: unset;
+			transform: unset;
 		}
 	}
 </style>
