@@ -9,8 +9,7 @@
 	import SpanifyText from "$lib/components/SpanifyText.svelte";
 </script>
 
-<!-- Default SEO head content -->
-<SeoHead />
+<SeoHead title="Ophir Mobile Saunas — Mobile sauna rentals in the West Kootenays, British Columbia" />
 
 <svelte:head>
 	<style>
