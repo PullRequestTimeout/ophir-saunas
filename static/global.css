@@ -335,3 +335,17 @@ div.hero-text p.subheading {
 	}
 		
 }
+
+/* Above fold animations */
+.heading-fade-in span {
+	opacity: 0;
+	filter: blur(2px);
+	transition:
+		opacity 0.5s ease,
+		filter 0.5s ease;
+}
+
+.heading-fade-in.show span {
+	opacity: 1;
+	filter: blur(0);
+}
