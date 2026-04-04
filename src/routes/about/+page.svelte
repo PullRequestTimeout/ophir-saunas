@@ -190,6 +190,11 @@
 </main>
 
 <style>
+	/* Remove before launch */
+	main {
+		display: none;
+	}
+
 	/* Story */
 	section.story {
 		display: grid;
