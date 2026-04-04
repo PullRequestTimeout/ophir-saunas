@@ -28,6 +28,8 @@
 			return;
 		}
 
+		formData.delete("company");
+
 		try {
 			const res = await fetch("https://api.web3forms.com/submit", {
 				method: "POST",
@@ -284,7 +286,7 @@
 		box-shadow: var(--shadow);
 		font-size: var(--font-body-l);
 		width: calc(100vw - var(--padding-inline) * 2);
-		z-index: 1000;
+		z-index: 10000;
 		display: flex;
 		justify-content: center;
 	}
