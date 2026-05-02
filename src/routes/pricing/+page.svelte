@@ -98,7 +98,7 @@
 	<style>
 		section.hero {
 			background: url(/assets/images/9.jpg) center/cover no-repeat;
-			height: calc(var(--vh) * 80);
+			height: calc(var(--vh) * 85);
 		}
 	</style>
 </svelte:head>

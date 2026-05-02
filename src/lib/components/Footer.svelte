@@ -12,7 +12,10 @@
 	<div class="green-overlay">
 		<div class="footer-body">
 			<div class="footer-heading">
-				<img src="/assets/ophir-logo.svg" alt="Ophir Saunas Logo" />
+				<div class="footer-logo">
+					<img src="/assets/svgs/logo-inverted.svg" alt="Ophir Saunas Logo" />
+					<img src="/assets/ophir-logo.svg" alt="Ophir Saunas Logo" />
+				</div>
 				<p class="semi-bold">Delivering relaxation right to your door in the West Kootenays of British Columbia.</p>
 			</div>
 			<div class="footer-quick-links">
@@ -45,7 +48,7 @@
 				<a href="https://www.facebook.com/search/top?q=ophir%20mobile%20saunas%20-rossland%20bc" target="_blank" rel="noopener noreferrer">
 					<span class="material-icons">facebook</span>
 				</a>
-				<!-- <a href="https://www.instagram.com/ophirsaunas" aria-label="instagram" target="_blank" rel="noopener noreferrer">
+				<a href="https://www.instagram.com/ophirsaunas" aria-label="instagram" target="_blank" rel="noopener noreferrer">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="32"
@@ -64,7 +67,7 @@
 							y2="6.5"
 						></line></svg
 					>
-				</a> -->
+				</a>
 			</div>
 			<hr />
 			<div class="footer-copyright">
@@ -107,7 +110,19 @@
 		gap: var(--spacing-s);
 	}
 
-	div.footer-heading img {
+	div.footer-heading div.footer-logo {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	div.footer-heading div.footer-logo img:first-child {
+		width: 3rem;
+		transform: translateY(-0.5rem);
+		margin-bottom: -0.25rem;
+	}
+
+	div.footer-heading div.footer-logo img:last-child {
 		width: 12rem;
 	}
 

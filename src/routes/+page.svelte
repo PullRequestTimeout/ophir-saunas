@@ -15,7 +15,7 @@
 <svelte:head>
 	<style>
 		section.hero {
-			background: url(/assets/video/hero-home.jpg) center/cover no-repeat;
+			background: url(/assets/video/10.jpg) center/cover no-repeat;
 			height: calc(var(--vh) * 100);
 		}
 	</style>
@@ -111,7 +111,7 @@
 					<p class="text-light">Fire it up, settle in, and enjoy the rhythm of hot and cold at your own pace.</p>
 				</div>
 			</div>
-			<img src="/assets/svgs/arrow.svg" alt="arrow pointing down" class="howitworks-arrow" />
+			<img src="/assets/svgs/arrow.svg" alt="arrow pointing down" class="howitworks-arrow scroll-fade-up" use:isIntersecting />
 		</div>
 		<PrimaryButton onAction={openBookingModal} text="Check Availability" primary={false} />
 	</section>

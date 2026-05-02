@@ -80,7 +80,7 @@
 	div.faq-item button p {
 		text-align: left;
 		font-size: var(--font-body-l);
-		font-weight: 400;
+		font-weight: 600;
 		color: var(--color-primary);
 	}
 
