@@ -16,7 +16,8 @@
 	<style>
 		section.hero {
 			background: url(/assets/video/10.jpg) center/cover no-repeat;
-			height: calc(var(--vh) * 100);
+			height: calc(var(--vh) * 100 - 4.5rem);
+			margin-top: 4.5rem;
 		}
 	</style>
 </svelte:head>
