@@ -86,7 +86,8 @@
 	{/if}
 </header>
 
-<header class={"large-screens" + (scrollPosition > 10 || page.url.pathname === "/privacy" ? " scrolled" : "")}>
+<header class={"large-screens" + (scrollPosition > 10 || page.url.pathname === "/privacy" || page.url.pathname === "/" ? " scrolled" : "")}>
+	<!-- <header class="large-screens scrolled"> -->
 	<a href="/" aria-label="Home">
 		<svg class="logo" viewBox="0 0 173 38" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
@@ -142,6 +143,7 @@
 		left: 0;
 		z-index: 1000;
 		transition: 0.3s ease;
+		backdrop-filter: blur(2px);
 	}
 
 	header.scrolled,

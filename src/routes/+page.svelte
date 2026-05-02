@@ -7,6 +7,7 @@
 	import { homeFaqs } from "$lib/data/faqs";
 	import { isIntersecting } from "$lib/utils/isIntersecting";
 	import SpanifyText from "$lib/components/SpanifyText.svelte";
+	import HeroVideo from "$lib/components/HeroVideo.svelte";
 </script>
 
 <SeoHead title="Ophir Mobile Saunas — Mobile sauna rentals in the West Kootenays, British Columbia" />
@@ -16,16 +17,6 @@
 		section.hero {
 			background: url(/assets/video/hero-home.jpg) center/cover no-repeat;
 			height: calc(var(--vh) * 100);
-		}
-
-		section.hero video {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			z-index: -1;
 		}
 	</style>
 </svelte:head>
@@ -37,7 +28,7 @@
 			<p class="subheading">Mobile sauna rentals in the West Kootenays, British Columbia</p>
 			<PrimaryButton onAction={openBookingModal} text="Book Now" />
 		</div>
-		<video src="/assets/video/ophir.mp4" autoplay muted loop playsinline></video>
+		<HeroVideo />
 	</section>
 	<section class="value-prop">
 		<div class="value-prop-row1">
