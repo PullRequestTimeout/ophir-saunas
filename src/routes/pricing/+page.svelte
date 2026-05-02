@@ -222,10 +222,6 @@
 </main>
 
 <style>
-	/* Remove before launch */
-	main {
-		display: none;
-	}
 	/* Pricing */
 	section.pricing {
 		display: grid;

@@ -172,11 +172,6 @@
 </main>
 
 <style>
-	/* Remove before launch */
-	main {
-		display: none;
-	}
-
 	/* Value Prop */
 	section.value-prop,
 	div.value-prop-row1,

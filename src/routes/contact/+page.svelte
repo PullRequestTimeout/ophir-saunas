@@ -134,11 +134,6 @@
 {/if}
 
 <style>
-	/* Remove before launch */
-	main {
-		display: none;
-	}
-
 	section.contact {
 		display: grid;
 		grid-template-columns: 1fr;
