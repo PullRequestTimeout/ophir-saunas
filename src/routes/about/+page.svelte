@@ -15,7 +15,7 @@
 <svelte:head>
 	<style>
 		section.hero {
-			background: url(/assets/images/hero-about.jpg) center/cover no-repeat;
+			background: url(/assets/images/1.jpg) center/cover no-repeat;
 			height: calc(var(--vh) * 80);
 		}
 	</style>
@@ -53,7 +53,7 @@
 	</section>
 	<section class="sauna">
 		<div class="sauna-image scroll-fade-up" use:isIntersecting>
-			<img src="/assets/images/about-sauna.jpg" alt="Interior of an Ophir sauna, showing the wood bench and stove" />
+			<img src="/assets/images/4.jpg" alt="Exterior of the Ophir sauna, showing the wood bench and stove inside" />
 		</div>
 		<div class="sauna-text">
 			<div class="sauna-text-heading">
@@ -121,22 +121,22 @@
 		</div>
 		<div class="gallery-image-grid">
 			<div class="gallery-image scroll-fade-up" use:isIntersecting>
-				<img src="/assets/images/sauna-preview-1.jpg" alt="Sauna interior with wooden benches and stove" />
+				<img src="/assets/images/10.jpg" alt="Sauna interior with wooden benches and stove" />
 			</div>
 			<div class="gallery-image scroll-fade-up" use:isIntersecting>
-				<img src="/assets/images/footer.jpg" alt="Interior of the sauna with someone sitting on the bench and steam rising from the stove" />
+				<img src="/assets/images/5.jpg" alt="Interior of the sauna with someone sitting on the bench and steam rising from the stove" />
 			</div>
 			<div class="gallery-image scroll-fade-up" use:isIntersecting>
-				<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior in a snowy landscape with pine trees in the background" />
+				<img src="/assets/images/7.jpg" alt="Sauna exterior in a snowy landscape with pine trees in the background" />
 			</div>
 			<div class="gallery-image scroll-fade-up" use:isIntersecting>
-				<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior in a snowy landscape with pine trees in the background" />
+				<img src="/assets/images/11.jpg" alt="Sauna exterior in a snowy landscape with pine trees in the background" />
 			</div>
 			<div class="gallery-image scroll-fade-up" use:isIntersecting>
-				<img src="/assets/images/sauna-preview-3.jpg" alt="Detail of the sauna stove with a kettle on top and steam rising from it" />
+				<img src="/assets/images/6.jpg" alt="Detail of the sauna stove with a kettle on top and steam rising from it" />
 			</div>
 			<div class="gallery-image scroll-fade-up" use:isIntersecting>
-				<img src="/assets/images/value-prop.jpg" alt="Sauna interior with view out of the window showing a lake and mountains in the background" />
+				<img src="/assets/images/3.jpg" alt="Sauna interior with view out of the window showing a lake and mountains in the background" />
 			</div>
 		</div>
 	</section>
@@ -240,6 +240,7 @@
 	section.sauna div.sauna-image img {
 		width: 100%;
 		height: 100%;
+		aspect-ratio: 1/1;
 		object-fit: cover;
 	}
 
@@ -283,6 +284,7 @@
 
 		section.sauna div.sauna-text {
 			gap: var(--spacing-l);
+			justify-content: center;
 		}
 	}
 

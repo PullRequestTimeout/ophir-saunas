@@ -14,8 +14,18 @@
 <svelte:head>
 	<style>
 		section.hero {
-			background: url(/assets/images/hero-home.jpg) center/cover no-repeat;
-			height: calc(var(--vh) * 80);
+			background: url(/assets/video/hero-home.jpg) center/cover no-repeat;
+			height: calc(var(--vh) * 100);
+		}
+
+		section.hero video {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			z-index: -1;
 		}
 	</style>
 </svelte:head>
@@ -27,6 +37,7 @@
 			<p class="subheading">Mobile sauna rentals in the West Kootenays, British Columbia</p>
 			<PrimaryButton onAction={openBookingModal} text="Book Now" />
 		</div>
+		<video src="/assets/video/ophir.mp4" autoplay muted loop playsinline></video>
 	</section>
 	<section class="value-prop">
 		<div class="value-prop-row1">
@@ -62,7 +73,7 @@
 		</div>
 		<div class="value-prop-row2 group-stagger-fade" use:isIntersecting>
 			<div class="value-prop-image">
-				<img src="/assets/images/value-prop.jpg" alt="Sauna interior looking out on nature" loading="lazy" />
+				<img src="/assets/images/2.jpg" alt="Sauna interior looking out on nature" loading="lazy" />
 			</div>
 			<div class="value-prop-text-box bg-tan">
 				<p class="text-semi-bold">Physical Recovery</p>
@@ -116,13 +127,13 @@
 	<section class="sauna-preview">
 		<div class="sauna-preview-images group-stagger-fade" use:isIntersecting>
 			<div class="sauna-preview-image">
-				<img src="/assets/images/sauna-preview-1.jpg" alt="Sauna interior with wood stove and bench seating" loading="lazy" />
+				<img src="/assets/images/10.jpg" alt="Sauna interior with wood stove and bench seating" loading="lazy" />
 			</div>
 			<div class="sauna-preview-image">
-				<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior with wood stove and bench seating" loading="lazy" />
+				<img src="/assets/images/1.jpg" alt="Sauna exterior with wood stove and bench seating" loading="lazy" />
 			</div>
 			<div class="sauna-preview-image">
-				<img src="/assets/images/sauna-preview-3.jpg" alt="Sauna exterior with wood stove and bench seating" loading="lazy" />
+				<img src="/assets/images/6.jpg" alt="Sauna exterior with wood stove and bench seating" loading="lazy" />
 			</div>
 		</div>
 		<div class="sauna-preview-text">
@@ -166,7 +177,7 @@
 			<p class="text-light">Packages starting from $300.</p>
 			<PrimaryButton href="/pricing" text="View Packages" primary />
 		</div>
-		<img src="/assets/images/footer.jpg" alt="Sauna interior" use:isIntersecting class="scroll-fade-up" loading="lazy" />
+		<img src="/assets/images/7.jpg" alt="Sauna interior" use:isIntersecting class="scroll-fade-up" loading="lazy" />
 	</section>
 	<FAQ faqs={homeFaqs} />
 </main>
@@ -225,6 +236,12 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+	}
+
+	div.value-prop-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
 	}
 
 	div.value-prop-text-box,

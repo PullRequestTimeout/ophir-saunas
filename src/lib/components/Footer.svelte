@@ -88,7 +88,7 @@
 
 <style>
 	footer {
-		background: url(/assets/images/footer.jpg) center/cover no-repeat;
+		background: url(/assets/images/7.jpg) center/cover no-repeat;
 		color: var(--color-white);
 		padding: 0;
 	}

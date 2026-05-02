@@ -97,7 +97,7 @@
 <svelte:head>
 	<style>
 		section.hero {
-			background: url(/assets/images/footer.jpg) center/cover no-repeat;
+			background: url(/assets/images/9.jpg) center/cover no-repeat;
 			height: calc(var(--vh) * 80);
 		}
 	</style>
@@ -175,13 +175,13 @@
 	<section class="sauna-preview">
 		<div class="sauna-preview-images group-stagger-fade" use:isIntersecting>
 			<div class="sauna-preview-image">
-				<img src="/assets/images/sauna-preview-1.jpg" alt="Sauna interior with wood stove and bench seating" />
+				<img src="/assets/images/10.jpg" alt="Sauna interior with wood stove and bench seating" />
 			</div>
 			<div class="sauna-preview-image">
-				<img src="/assets/images/sauna-preview-2.jpg" alt="Sauna exterior with wood stove and bench seating" />
+				<img src="/assets/images/1.jpg" alt="Sauna exterior with wood stove and bench seating" />
 			</div>
 			<div class="sauna-preview-image">
-				<img src="/assets/images/sauna-preview-3.jpg" alt="Sauna exterior with wood stove and bench seating" />
+				<img src="/assets/images/6.jpg" alt="Sauna exterior with wood stove and bench seating" />
 			</div>
 		</div>
 		<div class="sauna-preview-text">

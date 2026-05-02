@@ -61,7 +61,7 @@
 <svelte:head>
 	<style>
 		section.hero {
-			background: url(/assets/images/value-prop.jpg) center/cover no-repeat;
+			background: url(/assets/images/7.jpg) center/cover no-repeat;
 			height: calc(var(--vh) * 80);
 		}
 	</style>
