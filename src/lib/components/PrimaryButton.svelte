@@ -5,11 +5,13 @@
 		text?: string;
 		primary?: boolean;
 		type?: "button" | "submit" | "reset";
+		/** Unavailable but still focusable (aria-disabled), so keyboard focus isn't lost while e.g. a form submits */
+		disabled?: boolean;
 		onAction?: (event: MouseEvent) => void;
 	};
 
 	// Destructure props with default values
-	let { href, text = "Button", primary = true, type = "button", onAction }: PrimaryButtonProps = $props();
+	let { href, text = "Button", primary = true, type = "button", disabled = false, onAction }: PrimaryButtonProps = $props();
 
 	//
 	let buttonEl: HTMLAnchorElement | HTMLButtonElement | undefined = $state();
@@ -24,6 +26,7 @@
 	}
 
 	function handleClick(event: MouseEvent) {
+		if (disabled) return;
 		onAction?.(event);
 	}
 
@@ -36,7 +39,14 @@
 		<div style="--top: {mousePos.y}px; --left: {mousePos.x}px;"></div>
 	</a>
 {:else}
-	<button bind:this={buttonEl} {type} class={primary ? "primary" : "secondary"} onmouseenter={getMousePos} onclick={handleClick}>
+	<button
+		bind:this={buttonEl}
+		{type}
+		aria-disabled={disabled || undefined}
+		class={primary ? "primary" : "secondary"}
+		onmouseenter={getMousePos}
+		onclick={handleClick}
+	>
 		<span>{text}</span>
 		<div style="--top: {mousePos.y}px; --left: {mousePos.x}px;"></div>
 	</button>
@@ -62,6 +72,15 @@
 	button {
 		border: 0;
 		cursor: pointer;
+	}
+
+	button[aria-disabled="true"] {
+		opacity: 0.6;
+		cursor: not-allowed;
+	}
+
+	button[aria-disabled="true"] > div {
+		display: none;
 	}
 
 	a span,
