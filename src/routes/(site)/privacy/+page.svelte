@@ -393,7 +393,7 @@
 	<p>If you have any questions about this Privacy Policy, You can contact us:</p>
 	<ul>
 		<li>
-			<p>By email: info@ophirsaunas.com</p>
+			<p>By email: info@ophirsaunas.ca</p>
 		</li>
 		<li>
 			<p>

@@ -31,7 +31,7 @@
 				<p class="footer-subheading">Contact Us</p>
 				<div>
 					<!-- <p><span class="material-icons">phone</span><a href="tel:+12505551234"> +1 (250) 555-1234</a></p> -->
-					<p><span class="material-icons">email</span> <a href="mailto:info@ophirsaunas.com">info@ophirsaunas.com</a></p>
+					<p><span class="material-icons">email</span> <a href="mailto:info@ophirsaunas.ca">info@ophirsaunas.ca</a></p>
 					<p><span class="material-icons">location_on</span>Rossland, British Columbia</p>
 				</div>
 			</div>
