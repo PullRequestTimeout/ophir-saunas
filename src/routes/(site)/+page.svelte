@@ -8,6 +8,9 @@
 	import { isIntersecting } from "$lib/utils/isIntersecting";
 	import SpanifyText from "$lib/components/SpanifyText.svelte";
 	import HeroVideo from "$lib/components/HeroVideo.svelte";
+	import TimeOffBanner from "$lib/components/TimeOffBanner.svelte";
+
+	let { data } = $props();
 </script>
 
 <SeoHead title="Ophir Mobile Saunas — Mobile sauna rentals in the West Kootenays, British Columbia" />
@@ -23,7 +26,11 @@
 </svelte:head>
 
 <main>
-	<section class="hero">
+	{#if data.timeOff}
+		<TimeOffBanner period={data.timeOff} />
+	{/if}
+	<!-- The banner already clears the fixed nav -->
+	<section class="hero" style:margin-top={data.timeOff ? "0" : undefined}>
 		<div class="hero-text">
 			<h2 class="decorative-heading">Relaxation delivered right to your door</h2>
 			<p class="subheading">Mobile sauna rentals in the West Kootenays, British Columbia</p>

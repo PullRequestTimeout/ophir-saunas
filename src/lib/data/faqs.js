@@ -10,6 +10,16 @@ export const homeFaqs = [
 		]
 	},
 	{
+		question: "How do I book and pay?",
+		answer: [
+			{
+				element: "p",
+				content:
+					"Use any Book Now button to choose a private rental or a drop-in session, pick your dates and send your booking. Nothing is charged online: we'll email you a confirmation and arrange payment with you directly."
+			}
+		]
+	},
+	{
 		question: "What do I need to provide at my location?",
 		answer: [
 			{

@@ -1,6 +1,6 @@
 <section class="hero">
 	<h1>Privacy Policy</h1>
-	<p>Last updated: April 01, 2026</p>
+	<p>Last updated: October 25, 2026</p>
 </section>
 <section>
 	<p>
@@ -98,6 +98,13 @@
 		<li>Phone number</li>
 		<li>Address, State, Province, ZIP/Postal code, City</li>
 	</ul>
+	<h4>Booking Information</h4>
+	<p>
+		When You book a private rental or a drop-in session on our Website, We collect the details needed to provide it: Your name, email address and
+		phone number, the delivery address (for rentals), the dates, times and options You choose, and any notes You add. We use this information to
+		confirm, deliver and manage Your booking, and to email You about it, including a confirmation and a reminder before Your booking. No payment
+		details are collected on the Website.
+	</p>
 	<h4>Usage Data</h4>
 	<p>Usage Data is collected automatically when using the Service.</p>
 	<p>
@@ -224,7 +231,7 @@
 	<ul>
 		<li>
 			<strong>With Service Providers:</strong> We may share Your Personal Data with Service Providers to monitor and analyze the use of our Service, to
-			contact You.
+			contact You. Booking information is stored with Supabase, our database provider, and booking emails are sent through Resend, our email provider.
 		</li>
 		<li>
 			<strong>For business transfers:</strong> We may share or transfer Your Personal Data in connection with, or during negotiations of, any merger, sale
