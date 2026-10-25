@@ -1,0 +1,310 @@
+/* Shared admin styles. Loaded only by the admin layout; uses the site tokens from static/global.css. */
+
+.admin {
+	--color-danger: #9b2c1f;
+	--color-danger-bg: #f1d9d4;
+}
+
+.admin a:focus-visible,
+.admin button:focus-visible {
+	outline: 3px solid var(--color-primary);
+	outline-offset: 2px;
+}
+
+.admin h1 {
+	font-family: var(--font-heading);
+	font-size: var(--font-heading-m);
+	color: var(--color-primary);
+	line-height: 1;
+}
+
+.admin h2 {
+	font-size: var(--font-heading-s);
+	color: var(--color-primary);
+}
+
+.admin p,
+.admin li,
+.admin td,
+.admin th {
+	color: var(--color-grey);
+}
+
+.admin .card {
+	background-color: var(--color-white);
+	border-radius: var(--border-radius);
+	padding: var(--spacing-l) var(--spacing-m);
+	box-shadow: var(--shadow);
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-m);
+	min-width: 0;
+}
+
+@media screen and (min-width: 768px) {
+	.admin .card {
+		padding: var(--spacing-l);
+	}
+}
+
+/* Forms
+   Hints and errors sit outside the <label> (so they aren't read as part of the field's name) and are linked to the input:
+   <label for="x">Name</label> <input id="x" aria-describedby="x-hint x-error" aria-invalid={!!error} />
+   <small id="x-hint" class="hint">…</small> <small id="x-error" class="field-error">…</small> */
+.admin form {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-m);
+}
+
+.admin label {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xs);
+	font-weight: 600;
+	color: var(--color-primary);
+}
+
+.admin label.checkbox {
+	flex-direction: row;
+	align-items: center;
+	gap: var(--spacing-s);
+	font-weight: 400;
+}
+
+.admin input:not([type="checkbox"]):not([type="radio"]),
+.admin select,
+.admin textarea {
+	font-size: 16px; /* not a token: below 16px iOS zooms into the field */
+	padding: var(--spacing-s);
+	border: 2px solid var(--color-primary);
+	border-radius: 10px;
+	background-color: var(--color-white);
+	color: var(--color-primary);
+	min-width: 0;
+}
+
+.admin input:focus-visible,
+.admin select:focus-visible,
+.admin textarea:focus-visible {
+	outline: 2px solid var(--color-secondary);
+	outline-offset: 1px;
+}
+
+.admin [aria-invalid="true"] {
+	border-color: var(--color-danger) !important;
+}
+
+.admin input[type="checkbox"] {
+	width: 1.25rem;
+	height: 1.25rem;
+	accent-color: var(--color-primary);
+}
+
+.admin textarea {
+	min-height: 6rem;
+	resize: vertical;
+}
+
+.admin .hint {
+	font-size: 14px;
+	font-weight: 400;
+	color: var(--color-grey);
+}
+
+.admin .form-error,
+.admin .field-error {
+	color: var(--color-danger);
+	font-weight: 600;
+}
+
+.admin .field-error {
+	font-size: 14px;
+}
+
+.admin .form-success {
+	color: var(--color-primary);
+	font-weight: 600;
+}
+
+/* Small utility buttons for dense admin UI; PrimaryButton is used for the main call to action. */
+.admin .btn {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--spacing-xs);
+	padding: 0.4rem 1rem;
+	border-radius: var(--border-radius);
+	border: 2px solid var(--color-primary);
+	background-color: transparent;
+	color: var(--color-primary);
+	font-size: 14px;
+	font-weight: 600;
+	width: fit-content;
+	transition:
+		background-color 0.2s ease-out,
+		color 0.2s ease-out;
+}
+
+.admin .btn.solid {
+	background-color: var(--color-primary);
+	color: var(--color-white);
+}
+
+.admin .btn.danger {
+	border-color: var(--color-danger);
+	color: var(--color-danger);
+}
+
+.admin .btn span.material-icons {
+	font-size: 18px;
+	color: inherit;
+}
+
+.admin .btn:active {
+	transform: translateY(1px);
+}
+
+.admin .btn:disabled,
+.admin .btn[aria-disabled="true"] {
+	opacity: 0.5;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+@media (pointer: coarse) {
+	.admin .btn {
+		min-height: 2.75rem;
+	}
+}
+
+@media (hover: hover) {
+	.admin .btn:hover {
+		background-color: var(--color-primary);
+		color: var(--color-white);
+	}
+
+	.admin .btn.solid:hover {
+		background-color: var(--color-primary-light);
+		border-color: var(--color-primary-light);
+	}
+
+	.admin .btn.danger:hover {
+		background-color: var(--color-danger);
+		color: var(--color-white);
+	}
+}
+
+/* Status badges: the text carries the meaning, colour only reinforces it */
+.admin .badge {
+	display: inline-block;
+	padding: 0.15rem 0.6rem;
+	border-radius: var(--border-radius);
+	border: 1px solid currentColor;
+	font-size: var(--font-body-s);
+	font-weight: 600;
+	text-transform: capitalize;
+	background-color: var(--color-background-white);
+	color: var(--color-primary);
+}
+
+.admin .badge.pending {
+	background-color: var(--color-background-tan);
+}
+
+.admin .badge.confirmed {
+	background-color: var(--color-background-green);
+}
+
+.admin .badge.declined {
+	background-color: var(--color-danger-bg);
+	color: var(--color-danger);
+}
+
+.admin .badge.cancelled {
+	background-color: transparent;
+	color: var(--color-grey);
+	text-decoration: line-through;
+}
+
+/* Tables: wrap in <div class="table-wrap" tabindex="0" role="region" aria-label="…"> so wide tables scroll on their own */
+.admin .table-wrap {
+	overflow-x: auto;
+}
+
+.admin .table-wrap:focus-visible {
+	outline: 3px solid var(--color-primary);
+}
+
+.admin table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.admin caption {
+	text-align: left;
+	font-weight: 600;
+	color: var(--color-primary);
+	padding-bottom: var(--spacing-s);
+}
+
+.admin th {
+	text-align: left;
+	font-weight: 600;
+	color: var(--color-primary);
+	white-space: nowrap;
+}
+
+.admin :is(th, td) {
+	padding: var(--spacing-s);
+	border-bottom: 1px solid var(--color-primary-transparent);
+	vertical-align: top;
+}
+
+/* Expandable sections (edit forms, "Add …") */
+.admin summary {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--spacing-xs) var(--spacing-s);
+	min-height: 2.75rem;
+	cursor: pointer;
+	font-weight: 600;
+	color: var(--color-primary);
+	list-style: none;
+}
+
+.admin summary::-webkit-details-marker {
+	display: none;
+}
+
+.admin summary:focus-visible {
+	outline: 3px solid var(--color-primary);
+	outline-offset: 2px;
+	border-radius: 4px;
+}
+
+.admin details[open] > summary {
+	margin-bottom: var(--spacing-m);
+}
+
+/* Upcoming / Past style tabs */
+.admin nav.tabs {
+	display: flex;
+	gap: var(--spacing-s);
+}
+
+.admin nav.tabs a {
+	display: inline-flex;
+	align-items: center;
+	min-height: 2.75rem;
+	padding: 0 var(--spacing-m);
+	border-radius: var(--border-radius);
+	font-weight: 600;
+	color: var(--color-primary);
+	border: 2px solid var(--color-primary);
+}
+
+.admin nav.tabs a[aria-current="page"] {
+	background-color: var(--color-primary);
+	color: var(--color-white);
+}
