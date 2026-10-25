@@ -112,8 +112,7 @@
 						<p>{formatCents(data.dropIn.priceCents)}</p>
 					</div>
 					<p class="text-light pricing-item-description">
-						Join a shared session on select days. Choose {Object.values(dropInSlotLabels).join(" or ")}, with up to {data.dropIn.capacity} people per
-						session.
+						Join a shared session on select days. Choose {Object.values(dropInSlotLabels).join(" or ")}, with up to {data.dropIn.capacity} people per session.
 					</p>
 				</div>
 			</div>
@@ -144,7 +143,7 @@
 				<p class="text-light">
 					Each rental is thoughtfully equipped and prepared, so you can focus on relaxing from the moment the heat begins to build.
 				</p>
-				<PrimaryButton onAction={openBookingModal} text="Check Availability" />
+				<PrimaryButton onAction={() => openBookingModal("rental")} text="Check Availability" />
 			</div>
 			<div class="sauna-preview-dotpoints group-stagger-fade" use:isIntersecting>
 				<div class="sauna-preview-dotpoint">

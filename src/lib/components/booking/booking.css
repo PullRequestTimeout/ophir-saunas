@@ -1,0 +1,296 @@
+/* Shared styles for the booking modal's steps (imported by BookingModal). Uses the site tokens from static/global.css.
+
+   Choice cards are real radio inputs inside a label, so they keep native keyboard and screen reader behaviour:
+   <fieldset><legend>…</legend><label class="choice"><input type="radio" … /><span class="choice-body">…</span></label></fieldset> */
+
+.booking {
+	--color-danger: #9b2c1f;
+	--color-danger-bg: #f1d9d4;
+	color: var(--color-grey);
+}
+
+.booking :is(a, button, input, select, textarea, summary):focus-visible {
+	outline: 3px solid var(--color-secondary);
+	outline-offset: 2px;
+}
+
+.booking p {
+	line-height: 1.5;
+}
+
+.booking .step {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-m);
+}
+
+.booking fieldset {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-s);
+}
+
+.booking legend,
+.booking .label {
+	font-weight: 600;
+	color: var(--color-primary);
+	padding: 0;
+	margin-bottom: var(--spacing-s);
+}
+
+.booking .choices {
+	display: grid;
+	gap: var(--spacing-s);
+}
+
+/* For short options, e.g. delivery areas */
+@media screen and (min-width: 768px) {
+	.booking .choices.two-up {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+.booking label.choice {
+	display: flex;
+	gap: var(--spacing-s);
+	align-items: flex-start;
+	padding: var(--spacing-m);
+	border: 2px solid var(--color-background-green);
+	border-radius: 14px;
+	background-color: var(--color-white);
+	cursor: pointer;
+	transition: border-color 0.15s ease-out;
+}
+
+@media (hover: hover) {
+	.booking label.choice:hover {
+		border-color: var(--color-primary-light);
+	}
+}
+
+.booking label.choice:has(input:checked) {
+	border-color: var(--color-primary);
+	box-shadow: inset 0 0 0 1px var(--color-primary);
+}
+
+.booking label.choice:has(input:focus-visible) {
+	outline: 3px solid var(--color-secondary);
+	outline-offset: 2px;
+}
+
+.booking label.choice:has(input:disabled) {
+	opacity: 0.55;
+	cursor: not-allowed;
+}
+
+.booking label.choice input {
+	margin: 0.2rem 0 0;
+	width: 1.25rem;
+	height: 1.25rem;
+	flex-shrink: 0;
+	accent-color: var(--color-primary);
+}
+
+.booking label.choice input:focus-visible {
+	outline: none;
+}
+
+.booking .choice-body {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xs);
+	flex: 1;
+	min-width: 0;
+}
+
+.booking .choice-title {
+	display: flex;
+	justify-content: space-between;
+	gap: var(--spacing-s);
+	font-weight: 600;
+	color: var(--color-primary);
+}
+
+.booking .choice-meta {
+	font-size: 14px;
+}
+
+/* Compact pill choices, e.g. delivery times */
+.booking .pills {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
+	gap: var(--spacing-s);
+}
+
+.booking label.pill {
+	position: relative;
+	display: grid;
+	place-items: center;
+	min-height: 44px;
+	border: 2px solid var(--color-background-green);
+	border-radius: 10px;
+	background-color: var(--color-white);
+	color: var(--color-primary);
+	font-weight: 600;
+	cursor: pointer;
+}
+
+@media (hover: hover) {
+	.booking label.pill:hover {
+		border-color: var(--color-primary-light);
+	}
+}
+
+.booking label.pill:has(input:checked) {
+	background-color: var(--color-primary);
+	border-color: var(--color-primary);
+	color: var(--color-white);
+}
+
+.booking label.pill:has(input:focus-visible) {
+	outline: 3px solid var(--color-secondary);
+	outline-offset: 2px;
+}
+
+.booking label.pill input {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+
+/* Text fields */
+.booking .field {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xs);
+	min-width: 0;
+}
+
+.booking .field label {
+	font-weight: 600;
+	color: var(--color-primary);
+}
+
+.booking .field input,
+.booking .field textarea {
+	font-size: 16px; /* not a token: below 16px iOS zooms into the field */
+	padding: var(--spacing-s) var(--spacing-s);
+	min-height: 44px;
+	border: 2px solid var(--color-primary);
+	border-radius: 10px;
+	background-color: var(--color-white);
+	color: var(--color-primary);
+	min-width: 0;
+}
+
+.booking .field textarea {
+	min-height: 5rem;
+	resize: vertical;
+}
+
+.booking [aria-invalid="true"] {
+	border-color: var(--color-danger);
+}
+
+.booking .hint {
+	font-size: 14px;
+}
+
+.booking .field-error {
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--color-danger);
+}
+
+.booking .error {
+	padding: var(--spacing-s) var(--spacing-m);
+	border-radius: 10px;
+	background-color: var(--color-danger-bg);
+	color: var(--color-danger);
+	font-weight: 600;
+}
+
+/* Quantity stepper */
+.booking .stepper {
+	display: inline-flex;
+	align-items: center;
+	border: 2px solid var(--color-primary);
+	border-radius: 999px;
+	background-color: var(--color-white);
+}
+
+.booking .stepper button {
+	display: grid;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	border: 0;
+	border-radius: 999px;
+	background: none;
+}
+
+.booking .stepper button[aria-disabled="true"] {
+	opacity: 0.3;
+	cursor: not-allowed;
+}
+
+.booking .stepper output {
+	min-width: 2ch;
+	text-align: center;
+	font-weight: 600;
+	color: var(--color-primary);
+}
+
+/* Summary card, e.g. drop-off and pickup */
+.booking .summary {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xs);
+	padding: var(--spacing-m);
+	border-radius: 14px;
+	background-color: var(--color-background-green);
+	color: var(--color-primary);
+}
+
+.booking .summary p {
+	color: var(--color-primary);
+}
+
+.booking .summary strong {
+	font-weight: 700;
+}
+
+.booking button.link {
+	padding: 0;
+	border: 0;
+	background: none;
+	color: var(--color-secondary);
+	font-weight: 600;
+	text-decoration: underline;
+	min-height: 0;
+}
+
+.booking .visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+/* The secondary link colour is too low-contrast on the green card */
+.booking .summary button.link {
+	align-self: flex-start;
+	min-height: 44px;
+	margin-block: -0.5rem;
+	color: var(--color-primary);
+}
