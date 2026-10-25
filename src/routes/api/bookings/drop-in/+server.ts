@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db, rpcErrorMessage } from "$lib/server/supabase";
 import { dropInRequest } from "$lib/server/bookingSchemas";
 import { rateLimited } from "$lib/server/rateLimit";
+import { getDropIn, notifyNewDropIn } from "$lib/server/bookings";
 import type { DropInBooking } from "$lib/types/booking";
 import type { RequestHandler } from "./$types";
 
@@ -34,6 +35,14 @@ export const POST: RequestHandler = async ({ request, getClientAddress }) => {
 		if (message) return json({ message }, { status: 409 });
 		console.error("create_drop_in_booking failed", error);
 		return json({ message: "Something went wrong saving your booking. Please try again or contact us." }, { status: 500 });
+	}
+
+	// Awaited so the emails go out before the serverless function ends; they never fail the booking.
+	try {
+		const booking = await getDropIn(data.id);
+		if (booking) await notifyNewDropIn(booking);
+	} catch (err) {
+		console.error("Emailing about drop-in booking failed", err);
 	}
 
 	return json(

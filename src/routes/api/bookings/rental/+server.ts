@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db, rpcErrorMessage } from "$lib/server/supabase";
 import { rentalRequest } from "$lib/server/bookingSchemas";
 import { rateLimited } from "$lib/server/rateLimit";
+import { notifyNewRental } from "$lib/server/bookings";
 import type { Rental } from "$lib/types/booking";
 import type { RequestHandler } from "./$types";
 
@@ -39,6 +40,9 @@ export const POST: RequestHandler = async ({ request, getClientAddress }) => {
 		console.error("create_rental failed", error);
 		return json({ message: "Something went wrong saving your booking. Please try again or contact us." }, { status: 500 });
 	}
+
+	// Awaited so the emails go out before the serverless function ends; they never fail the booking.
+	await notifyNewRental(data);
 
 	return json(
 		{

@@ -41,6 +41,7 @@
 		<Field label="Reminder emails (days before)" name="reminder_days_before" hint="0 sends the reminder on the day." {errors}>
 			{#snippet children(attrs)}<input type="number" min="0" max="14" value={s.reminder_days_before} required {...attrs} />{/snippet}
 		</Field>
+		<a class="text-link" href="/admin/emails">Preview the booking emails</a>
 	</section>
 
 	<section class="card">
