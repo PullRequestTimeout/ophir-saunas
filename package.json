@@ -11,7 +11,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check .",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"test": "vitest run"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^7.0.0",
@@ -23,9 +24,14 @@
 		"svelte": "^5.51.0",
 		"svelte-check": "^4.3.6",
 		"typescript": "^5.9.3",
-		"vite": "^7.3.1"
+		"vite": "^7.3.1",
+		"vitest": "^5.0.5"
 	},
 	"dependencies": {
-		"material-icons": "^1.13.14"
+		"@supabase/ssr": "^0.12.7",
+		"@supabase/supabase-js": "^2.118.0",
+		"material-icons": "^1.13.14",
+		"resend": "^6.34.1",
+		"zod": "^4.6.7"
 	}
 }
