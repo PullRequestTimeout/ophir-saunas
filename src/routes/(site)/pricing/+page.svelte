@@ -6,87 +6,17 @@
 	import { homeFaqs } from "$lib/data/faqs";
 	import { isIntersecting } from "$lib/utils/isIntersecting";
 	import SpanifyText from "$lib/components/SpanifyText.svelte";
+	import { formatCents } from "$lib/utils/format";
+	import { dropInSlotLabels } from "$lib/types/booking";
 
-	const pricing = {
-		rentalRates: [
-			{
-				title: "1 Night Mid-Week Rental*",
-				price: "$300",
-				description: "*Delivery must be scheduled for Monday through Thursday."
-			},
-			{
-				title: "2 Night Mid-Week Rental*",
-				price: "$350",
-				description: "*Delivery must be scheduled for Monday through Wednesday."
-			},
-			{
-				title: "3 Night Weekend Rental*",
-				price: "$450",
-				description:
-					"*Friday Delivery, Monday Pickup. Delivery to your property or secure location on Friday at agreed upon time. Pick up scheduled for following Monday."
-			},
-			{
-				title: "4 Night Weekday Rental*",
-				price: "$450",
-				description:
-					"*Monday Delivery, Friday Pickup. 4 for the cost of 3! Delivery to your property or secure location on Monday & picked up Friday morning of the same week."
-			}
-		],
-		addOns: [
-			{
-				title: "3 Hour Burn Wood Bundle",
-				price: "$40",
-				description: ""
-			},
-			{
-				title: "6 Hour Burn Wood Bundle",
-				price: "$80",
-				description: ""
-			},
-			{
-				title: "9 Hour Burn Wood Bundle",
-				price: "$120",
-				description: ""
-			},
-			{
-				title: "Cold Plunge Pool Rental",
-				price: "$50",
-				description: ""
-			}
-		],
-		deliveryRates: [
-			{
-				title: "Rossland",
-				price: "$25",
-				description: ""
-			},
-			{
-				title: "Warfield",
-				price: "$30",
-				description: ""
-			},
-			{
-				title: "Trail",
-				price: "$35",
-				description: ""
-			},
-			{
-				title: "Montrose, Fruitvale, & Genelle",
-				price: "$40",
-				description: ""
-			},
-			{
-				title: "Castlegar & Robson",
-				price: "$60",
-				description: ""
-			},
-			{
-				title: "Nelson & Christina Lake",
-				price: "$100",
-				description: ""
-			}
-		]
-	};
+	let { data } = $props();
+
+	// Prices are managed in the admin dashboard; shape them for the price lists below.
+	const pricing = $derived({
+		rentalRates: data.packages.map((p) => ({ title: p.name, price: formatCents(p.price_cents), description: p.description })),
+		addOns: data.addOns.map((a) => ({ title: a.name, price: formatCents(a.price_cents), description: a.description })),
+		deliveryRates: data.zones.map((z) => ({ title: z.name, price: formatCents(z.price_cents), description: "" }))
+	});
 </script>
 
 <SeoHead
@@ -168,6 +98,24 @@
 						{/if}
 					</div>
 				{/each}
+			</div>
+		</div>
+		<div class="pricing-section">
+			<h3 class="long-heading heading-fade-in" use:isIntersecting>
+				<SpanifyText text="Drop-In Sessions" />
+			</h3>
+			<div class="pricing-section group-stagger-fade" use:isIntersecting>
+				<div class="pricing-item">
+					<div class="pricing-item-heading">
+						<p>Per Person</p>
+						<div></div>
+						<p>{formatCents(data.dropIn.priceCents)}</p>
+					</div>
+					<p class="text-light pricing-item-description">
+						Join a shared session on select days. Choose {Object.values(dropInSlotLabels).join(" or ")}, with up to {data.dropIn.capacity} people per
+						session.
+					</p>
+				</div>
 			</div>
 		</div>
 		<PrimaryButton onAction={openBookingModal} text="Book Now" />
