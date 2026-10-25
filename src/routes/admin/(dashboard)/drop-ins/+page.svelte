@@ -63,7 +63,10 @@
 						<ul>
 							{#each bookings as booking (booking.id)}
 								<li>
-									<span class="who">{booking.customer_name} · {booking.party_size} {booking.party_size === 1 ? "person" : "people"}</span>
+									<span class="who"
+										><a href="/admin/bookings/drop-in/{booking.id}">{booking.customer_name}</a> · {booking.party_size}
+										{booking.party_size === 1 ? "person" : "people"}</span
+									>
 									<span class="badge {booking.status}">{booking.status}</span>
 									<span class="contact">
 										<a href="tel:{booking.customer_phone}">{booking.customer_phone}</a>
@@ -149,6 +152,10 @@
 	span.who {
 		font-weight: 600;
 		color: var(--color-primary);
+	}
+
+	span.who a {
+		text-decoration: underline;
 	}
 
 	span.contact {

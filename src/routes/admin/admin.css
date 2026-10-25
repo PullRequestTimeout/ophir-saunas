@@ -308,3 +308,99 @@
 	background-color: var(--color-primary);
 	color: var(--color-white);
 }
+
+/* Label/value lists on detail pages: <dl class="details"><div><dt>…</dt><dd>…</dd></div></dl> */
+.admin dl.details {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+.admin dl.details > div {
+	display: grid;
+	grid-template-columns: minmax(6rem, 9rem) minmax(0, 1fr);
+	gap: var(--spacing-s);
+	padding-block: var(--spacing-s);
+	border-bottom: 1px solid var(--color-primary-transparent);
+}
+
+.admin dl.details dt {
+	font-weight: 600;
+	color: var(--color-primary);
+}
+
+.admin dl.details dd {
+	margin: 0;
+	color: var(--color-grey);
+	overflow-wrap: anywhere;
+}
+
+.admin dl.details a,
+.admin a.text-link {
+	color: var(--color-primary);
+	text-decoration: underline;
+}
+
+.admin .pre {
+	white-space: pre-line;
+}
+
+/* Booking detail pages: back link, title with badges, and two columns on wide screens */
+.admin a.back {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--spacing-xs);
+	min-height: 2.75rem;
+	width: fit-content;
+	font-weight: 600;
+}
+
+.admin a.back span.material-icons {
+	font-size: 20px;
+}
+
+.admin .page-header {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--spacing-s);
+}
+
+.admin .layout {
+	display: grid;
+	gap: var(--spacing-l);
+	align-items: start;
+}
+
+.admin .layout .column {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-l);
+	min-width: 0;
+}
+
+@media screen and (min-width: 1280px) {
+	.admin .layout {
+		grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+	}
+}
+
+.admin td.amount {
+	text-align: right;
+	white-space: nowrap;
+}
+
+.admin td.total,
+.admin tfoot th {
+	font-weight: 700;
+	color: var(--color-primary);
+}
+
+.admin .visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}

@@ -71,3 +71,8 @@ export function formatWeekdays(days: number[]) {
 	const isRun = sorted.length > 2 && sorted.every((d, i) => i === 0 || d === sorted[i - 1] + 1);
 	return isRun ? `${short(sorted[0])}–${short(sorted[sorted.length - 1])}` : sorted.map(short).join(", ");
 }
+
+/** A stored timestamp in Rossland time, e.g. "Oct 25, 2026, 11:49 a.m." */
+export function formatTimestamp(timestamp: string) {
+	return new Date(timestamp).toLocaleString("en-CA", { timeZone: TIMEZONE, dateStyle: "medium", timeStyle: "short" });
+}
