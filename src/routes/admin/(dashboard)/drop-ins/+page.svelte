@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from "$app/state";
 	import Toast from "$lib/components/admin/Toast.svelte";
 	import DayForm from "./DayForm.svelte";
 	import { formatDate } from "$lib/utils/format";
@@ -28,7 +29,8 @@
 </p>
 
 {#if !data.showPast}
-	<details class="card add" open={!!errorsFor("new")}>
+	<!-- ?add (linked from New booking) opens the form straight away -->
+	<details class="card add" open={!!errorsFor("new") || page.url.searchParams.has("add")}>
 		<summary><span class="material-icons" aria-hidden="true">add</span>Add a drop-in day</summary>
 		<DayForm errors={errorsFor("new")} today={data.today} />
 	</details>

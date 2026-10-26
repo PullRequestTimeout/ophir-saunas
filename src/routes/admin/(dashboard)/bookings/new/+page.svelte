@@ -132,7 +132,7 @@
 	</form>
 {:else if data.days.length === 0}
 	<div class="card">
-		<p>There are no upcoming drop-in days. <a class="text-link" href="/admin/drop-ins">Add a drop-in day</a> first.</p>
+		<p>There are no upcoming drop-in days. <a class="text-link" href="/admin/drop-ins?add">Add a drop-in day</a> first.</p>
 	</div>
 {:else}
 	<form class="card" method="POST" action="?/dropIn" use:enhance={submit}>

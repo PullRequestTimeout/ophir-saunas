@@ -74,5 +74,9 @@ export function formatWeekdays(days: number[]) {
 
 /** A stored timestamp in Rossland time, e.g. "Oct 25, 2026, 11:49 a.m." */
 export function formatTimestamp(timestamp: string) {
-	return new Date(timestamp).toLocaleString("en-CA", { timeZone: TIMEZONE, dateStyle: "medium", timeStyle: "short" });
+	const instant = new Date(timestamp);
+	const day = instant.toLocaleDateString("en-CA", { timeZone: TIMEZONE, dateStyle: "medium" });
+	const time = instant.toLocaleTimeString("en-CA", { timeZone: TIMEZONE, hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
+	// Same "6:00pm" style as booking times, rather than the locale's "6:00 p.m."
+	return `${day}, ${formatTime(time)}`;
 }

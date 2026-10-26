@@ -19,7 +19,7 @@
 <div class="shell">
 	<header>
 		<a href="/admin" class="brand">
-			<img src="/assets/svgs/logo.svg" alt="" />
+			<img src="/assets/svgs/logo-inverted.svg" alt="" />
 			<span>Ophir Admin</span>
 		</a>
 		<nav aria-label="Admin">
@@ -91,15 +91,18 @@
 		display: flex;
 		align-items: center;
 		gap: var(--spacing-s);
-		font-family: var(--font-heading);
 		font-size: var(--font-heading-s);
 		color: var(--color-white);
 		width: fit-content;
 	}
 
+	/* global.css gives every non-heading element the body font, so the heading font goes on the span itself */
+	a.brand span {
+		font-family: var(--font-heading);
+	}
+
 	a.brand img {
 		width: 2rem;
-		filter: brightness(0) invert(1);
 	}
 
 	/* Wraps into a grid on small screens so every section stays visible */

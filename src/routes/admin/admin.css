@@ -5,6 +5,12 @@
 	--color-danger-bg: #f1d9d4;
 }
 
+/* No rubber-band overscroll in the dashboard. :has() keeps it off the public site, since this stylesheet stays loaded after client-side navigation */
+html:has(.admin),
+html:has(.admin) body {
+	overscroll-behavior: none;
+}
+
 .admin a:focus-visible,
 .admin button:focus-visible {
 	outline: 3px solid var(--color-primary);
@@ -202,9 +208,13 @@
 	border: 1px solid currentColor;
 	font-size: var(--font-body-s);
 	font-weight: 600;
-	text-transform: capitalize;
 	background-color: var(--color-background-white);
 	color: var(--color-primary);
+}
+
+/* Statuses are stored lowercase; capitalise only the first letter so "Added by admin" stays sentence case */
+.admin .badge::first-letter {
+	text-transform: uppercase;
 }
 
 .admin .badge.pending {
