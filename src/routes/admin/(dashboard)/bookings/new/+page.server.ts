@@ -1,6 +1,7 @@
 import { error, fail, redirect } from "@sveltejs/kit";
 import { z } from "zod";
 import { db, must, rpcErrorMessage } from "$lib/server/supabase";
+import { sendCreatedEmail } from "$lib/server/adminBookings";
 import { checkbox, date, parseForm, time } from "$lib/server/forms";
 import { emailDropInCustomer, emailRentalCustomer, getDropIn } from "$lib/server/bookings";
 import { emailConfigured } from "$lib/server/email/send";
@@ -109,9 +110,9 @@ export const actions: Actions = {
 		}
 
 		if (data.admin_notes) await db().from("rentals").update({ admin_notes: data.admin_notes }).eq("id", rental.id);
-		if (data.notify && data.email) await emailRentalCustomer("confirmed", rental);
+		const created = await sendCreatedEmail(data.notify, data.email, () => emailRentalCustomer("confirmed", rental));
 
-		redirect(303, `/admin/bookings/rental/${rental.id}`);
+		redirect(303, `/admin/bookings/rental/${rental.id}?created=${created}`);
 	},
 
 	dropIn: async ({ request }) => {
@@ -137,11 +138,11 @@ export const actions: Actions = {
 		}
 
 		if (data.admin_notes) await db().from("drop_in_bookings").update({ admin_notes: data.admin_notes }).eq("id", created.id);
-		if (data.notify && data.email) {
+		const outcome = await sendCreatedEmail(data.notify, data.email, async () => {
 			const booking = await getDropIn(created.id);
-			if (booking) await emailDropInCustomer("confirmed", booking);
-		}
+			return !!booking && emailDropInCustomer("confirmed", booking);
+		});
 
-		redirect(303, `/admin/bookings/drop-in/${created.id}`);
+		redirect(303, `/admin/bookings/drop-in/${created.id}?created=${outcome}`);
 	}
 };

@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { onMount } from "svelte";
+	import { replaceState } from "$app/navigation";
+	import { page } from "$app/state";
 	import Toast from "$lib/components/admin/Toast.svelte";
 	import BookingActions from "../../BookingActions.svelte";
 	import CustomerCard from "../../CustomerCard.svelte";
@@ -9,8 +12,19 @@
 
 	const rental = $derived(data.rental);
 	const errors = $derived(form && "errors" in form ? form.errors : null);
-	const toast = $derived(form && "message" in form ? form.message : null);
+	// A manual booking lands here with ?created=, which carries its toast
+	const result = $derived(form ?? data.created);
+	const toast = $derived(result && "message" in result ? result.message : null);
+	const warning = $derived(result && "warning" in result ? result.warning : null);
 	const mapUrl = $derived(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(rental.address)}`);
+
+	// Drop ?created= so a reload doesn't repeat the toast
+	onMount(() => {
+		if (!page.url.searchParams.has("created")) return;
+		const url = new URL(page.url);
+		url.searchParams.delete("created");
+		replaceState(url, page.state);
+	});
 </script>
 
 <svelte:head>
@@ -86,4 +100,4 @@
 	</div>
 </div>
 
-<Toast message={toast} trigger={form} />
+<Toast message={toast} {warning} trigger={result} />

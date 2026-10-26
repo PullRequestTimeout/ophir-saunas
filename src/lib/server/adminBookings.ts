@@ -26,10 +26,38 @@ async function emailCustomer(type: BookingType, id: string, kind?: Parameters<ty
 	return !!booking && emailDropInCustomer(kind ?? statusEmailKind(booking.status), booking);
 }
 
-function emailNote(wanted: boolean, sent: boolean) {
-	if (!wanted) return "";
-	if (sent) return " The customer has been emailed.";
-	return emailConfigured() ? " The email to the customer couldn't be sent." : " No email was sent because email isn't set up yet.";
+/** The toast for an action that may email the customer; a wanted email that didn't go out becomes a warning that stays on screen */
+function withEmailNote(done: string, wanted: boolean, sent: boolean, hasEmail = true) {
+	if (!wanted) return { message: done };
+	if (sent) return { message: `${done} The customer has been emailed.` };
+	if (!hasEmail) return { message: done, warning: "No email was sent because the booking has no email address." };
+	return {
+		message: done,
+		warning: emailConfigured() ? "The email to the customer couldn't be sent." : "No email was sent because email isn't set up yet."
+	};
+}
+
+/** What happened to the confirmation email for a manual booking, passed to the detail page as `?created=` */
+const createdOutcomes = {
+	none: { wanted: false, sent: false, hasEmail: true },
+	sent: { wanted: true, sent: true, hasEmail: true },
+	failed: { wanted: true, sent: false, hasEmail: true },
+	"no-address": { wanted: true, sent: false, hasEmail: false }
+};
+type CreatedOutcome = keyof typeof createdOutcomes;
+
+/** Sends a manual booking's confirmation if asked to, and returns the outcome for the detail page's `?created=` */
+export async function sendCreatedEmail(notify: boolean, email: string, send: () => Promise<boolean>): Promise<CreatedOutcome> {
+	if (!notify) return "none";
+	if (!email) return "no-address";
+	return (await send()) ? "sent" : "failed";
+}
+
+/** The detail page's toast after a manual booking redirects to it */
+export function createdToast(outcome: string | null) {
+	if (!outcome || !(outcome in createdOutcomes)) return null;
+	const { wanted, sent, hasEmail } = createdOutcomes[outcome as CreatedOutcome];
+	return withEmailNote("Booking created.", wanted, sent, hasEmail);
 }
 
 function statusAction(type: BookingType, name: keyof typeof transitions) {
@@ -50,7 +78,7 @@ function statusAction(type: BookingType, name: keyof typeof transitions) {
 		if (!updated?.length) return fail(409, { errors: { form: ["This booking has already changed. Reload the page to see its current status."] } });
 
 		const sent = notify && (await emailCustomer(type, id));
-		return { message: transition.done + emailNote(notify, sent) };
+		return withEmailNote(transition.done, notify, sent);
 	};
 }
 
