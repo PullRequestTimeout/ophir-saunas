@@ -25,7 +25,8 @@ function rentalDetails(rental: Rental): [string, string][] {
 		["Drop-off", `${formatDate(rental.delivery_date, { long: true })}, ${formatTime(rental.delivery_time)}`],
 		["Pickup", `${formatDate(rental.pickup_date, { long: true })}, around ${formatTime(rental.pickup_time)}`],
 		["Package", rental.package_name],
-		["Address", `${rental.address}\n${rental.delivery_zone_name}`]
+		["Address", rental.address],
+		["Delivery area", rental.delivery_zone_name]
 	];
 }
 
