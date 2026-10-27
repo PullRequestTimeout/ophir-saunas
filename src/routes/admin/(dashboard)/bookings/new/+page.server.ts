@@ -5,7 +5,8 @@ import { sendCreatedEmail } from "$lib/server/adminBookings";
 import { checkbox, date, parseForm, time } from "$lib/server/forms";
 import { emailDropInCustomer, emailRentalCustomer, getDropIn } from "$lib/server/bookings";
 import { emailConfigured } from "$lib/server/email/send";
-import { localToday } from "$lib/utils/format";
+import { addOnChoiceError } from "$lib/server/availability";
+import { formatWeekdays, isoWeekday, localToday } from "$lib/utils/format";
 import type { AddOn, DeliveryZone, DropInDay, Package, Rental, Settings } from "$lib/types/booking";
 import type { Actions, PageServerLoad } from "./$types";
 
@@ -56,6 +57,7 @@ const rentalSchema = z.object({
 	delivery_time: time,
 	zone_id: z.uuid("Choose a delivery area"),
 	address: z.string().trim().min(1, "Enter the delivery address").max(300),
+	ignore_weekdays: checkbox,
 	...contact
 });
 
@@ -82,11 +84,34 @@ export const actions: Actions = {
 		const { data, errors } = parseForm(rentalSchema, form);
 		if (errors) return failure("rental", errors);
 
+		// The RPC skips the website's weekday rule for admins, so it's checked here unless the admin chose to ignore it.
+		if (!data.ignore_weekdays) {
+			const { data: pkg } = await db()
+				.from("packages")
+				.select("allowed_delivery_weekdays")
+				.eq("id", data.package_id)
+				.maybeSingle<Pick<Package, "allowed_delivery_weekdays">>();
+			if (pkg && !pkg.allowed_delivery_weekdays.includes(isoWeekday(data.delivery_date))) {
+				return failure("rental", {
+					delivery_date: [
+						`This package drops off ${formatWeekdays(pkg.allowed_delivery_weekdays)}. Choose another date, or tick “Ignore the package's drop-off days”.`
+					]
+				});
+			}
+		}
+
+		// Single choices arrive as addon_choice_N = id; everything else as addon_<id> = quantity.
 		const addOns: { id: string; quantity: number }[] = [];
 		for (const [key, value] of form) {
+			if (key.startsWith("addon_choice_")) {
+				if (z.uuid().safeParse(value).success) addOns.push({ id: String(value), quantity: 1 });
+				continue;
+			}
 			const quantity = Number(value);
 			if (key.startsWith("addon_") && Number.isInteger(quantity) && quantity > 0) addOns.push({ id: key.slice(6), quantity });
 		}
+		const addOnError = await addOnChoiceError(addOns.map((a) => a.id));
+		if (addOnError) return failure("rental", { form: [addOnError] });
 
 		const { data: rental, error: rpcError } = await db()
 			.rpc("create_rental", {

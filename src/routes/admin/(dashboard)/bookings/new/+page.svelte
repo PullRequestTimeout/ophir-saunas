@@ -2,12 +2,16 @@
 	import { enhance } from "$app/forms";
 	import Field from "$lib/components/admin/Field.svelte";
 	import { dropInSlotLabels, type DropInSlot } from "$lib/types/booking";
-	import { formatCents, formatDate } from "$lib/utils/format";
+	import { formatCents, formatDate, formatWeekdays } from "$lib/utils/format";
+	import { addOnSections } from "$lib/utils/addOns";
 
 	let { data, form } = $props();
 
 	const errors = $derived(form && "errors" in form && form.type === data.type ? form.errors : null);
 	const slots = Object.keys(dropInSlotLabels) as DropInSlot[];
+	const addOnGroups = $derived(addOnSections(data.addOns));
+	let packageId = $state("");
+	const selectedPackage = $derived(data.packages.find((p) => p.id === packageId));
 	let saving = $state(false);
 
 	const submit = () => {
@@ -26,8 +30,9 @@
 <a class="back text-link" href="/admin/bookings"><span class="material-icons" aria-hidden="true">arrow_back</span>All bookings</a>
 <h1>New booking</h1>
 <p>
-	For phone bookings and bookings moved over from YouCanBookMe. These are confirmed straight away and skip the website's rules for lead time, delivery
-	days and times, but still can't overlap other bookings, drop-in days or time off.
+	For phone bookings and bookings moved over from YouCanBookMe. These are confirmed straight away and skip the website's rules for lead time and
+	drop-off times, but still can't overlap other bookings, drop-in days or time off. Each package's drop-off days still apply unless you choose to
+	ignore them.
 </p>
 
 <nav class="tabs" aria-label="Booking type">
@@ -84,7 +89,7 @@
 			<div class="grid">
 				<Field label="Package" name="package_id" {errors}>
 					{#snippet children(attrs)}
-						<select required {...attrs}>
+						<select required bind:value={packageId} {...attrs}>
 							<option value="">Choose a package</option>
 							{#each data.packages as pkg (pkg.id)}
 								<option value={pkg.id}>{pkg.name} · {formatCents(pkg.price_cents)}{pkg.active ? "" : " (hidden)"}</option>
@@ -92,7 +97,14 @@
 						</select>
 					{/snippet}
 				</Field>
-				<Field label="Drop-off date" name="delivery_date" hint="Pickup is set from the package's nights." {errors}>
+				<Field
+					label="Drop-off date"
+					name="delivery_date"
+					hint={selectedPackage
+						? `Drops off ${formatWeekdays(selectedPackage.allowed_delivery_weekdays)}; pickup is ${selectedPackage.nights} night${selectedPackage.nights === 1 ? "" : "s"} later.`
+						: "Pickup is set from the package's nights."}
+					{errors}
+				>
 					{#snippet children(attrs)}<input type="date" required {...attrs} />{/snippet}
 				</Field>
 				<Field label="Drop-off time" name="delivery_time" {errors}>
@@ -109,21 +121,45 @@
 					{/snippet}
 				</Field>
 			</div>
+			<label class="checkbox">
+				<input type="checkbox" name="ignore_weekdays" />
+				Ignore the package's drop-off days (for one-off deals and moved bookings)
+			</label>
 			<Field label="Address" name="address" {errors}>
-				{#snippet children(attrs)}<textarea required maxlength="300" {...attrs}></textarea>{/snippet}
+				{#snippet children(attrs)}<input type="text" required maxlength="300" autocomplete="off" {...attrs} />{/snippet}
 			</Field>
 		</fieldset>
 
 		{#if data.addOns.length}
 			<fieldset>
 				<legend>Add-ons</legend>
-				<div class="grid">
-					{#each data.addOns as addOn (addOn.id)}
-						<Field label="{addOn.name} ({formatCents(addOn.price_cents)})" name="addon_{addOn.id}" hint="Up to {addOn.max_quantity}">
-							{#snippet children(attrs)}<input type="number" min="0" max={addOn.max_quantity} value="0" inputmode="numeric" {...attrs} />{/snippet}
-						</Field>
-					{/each}
-				</div>
+				{#each addOnGroups as section, i (section.group || section.addOns[0].id)}
+					{#if section.group}
+						<!-- Submitted as addon_choice_N = the chosen add-on's id ("" for none) -->
+						<fieldset class="choice-group">
+							<legend>{section.group}</legend>
+							<label class="checkbox"><input type="radio" name="addon_choice_{i}" value="" checked />None</label>
+							{#each section.addOns as addOn (addOn.id)}
+								<label class="checkbox">
+									<input type="radio" name="addon_choice_{i}" value={addOn.id} />
+									{addOn.name} ({formatCents(addOn.price_cents)}){addOn.active ? "" : " (hidden)"}
+								</label>
+							{/each}
+						</fieldset>
+					{:else}
+						{@const addOn = section.addOns[0]}
+						{#if addOn.max_quantity <= 1}
+							<label class="checkbox">
+								<input type="checkbox" name="addon_{addOn.id}" value="1" />
+								{addOn.name} ({formatCents(addOn.price_cents)}){addOn.active ? "" : " (hidden)"}
+							</label>
+						{:else}
+							<Field label="{addOn.name} ({formatCents(addOn.price_cents)})" name="addon_{addOn.id}" hint="Up to {addOn.max_quantity}">
+								{#snippet children(attrs)}<input type="number" min="0" max={addOn.max_quantity} value="0" inputmode="numeric" {...attrs} />{/snippet}
+							</Field>
+						{/if}
+					{/if}
+				{/each}
 			</fieldset>
 		{/if}
 
@@ -194,6 +230,15 @@
 		color: var(--color-primary);
 		padding: 0;
 		margin-bottom: var(--spacing-m);
+	}
+
+	fieldset.choice-group {
+		gap: var(--spacing-s);
+	}
+
+	fieldset.choice-group legend {
+		font-size: inherit;
+		margin-bottom: var(--spacing-s);
 	}
 
 	div.grid {
