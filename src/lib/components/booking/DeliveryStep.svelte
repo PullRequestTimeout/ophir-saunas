@@ -22,14 +22,18 @@
 
 	<div class="field">
 		<label for="booking-address">Delivery address</label>
-		<textarea
+		<input
 			id="booking-address"
-			autocomplete="street-address"
+			type="text"
+			maxlength="300"
+			autocomplete="address-line1"
 			bind:value={flow.address}
 			aria-describedby="booking-address-hint{flow.fieldErrors.address ? ' booking-address-error' : ''}"
 			aria-invalid={flow.fieldErrors.address ? true : undefined}
-		></textarea>
-		<small id="booking-address-hint" class="hint">Add anything that helps us find a flat spot for the sauna, like a back lane or gate code.</small>
+		/>
+		<small id="booking-address-hint" class="hint"
+			>Street address, e.g. 123 Columbia Ave. You can add access details like a back lane or gate code on the next steps.</small
+		>
 		{#if flow.fieldErrors.address}<small id="booking-address-error" class="field-error">{flow.fieldErrors.address}</small>{/if}
 	</div>
 </div>
