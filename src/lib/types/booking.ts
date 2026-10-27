@@ -25,6 +25,8 @@ export interface AddOn {
 	name: string;
 	price_cents: number;
 	max_quantity: number;
+	/** Add-ons with the same non-empty group are a single choice: a booking may have at most one of them */
+	choice_group: string;
 	description: string;
 	sort_order: number;
 	active: boolean;

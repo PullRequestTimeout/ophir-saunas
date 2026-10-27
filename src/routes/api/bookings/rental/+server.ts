@@ -2,6 +2,7 @@ import { json } from "@sveltejs/kit";
 import { z } from "zod";
 import { db, rpcErrorMessage } from "$lib/server/supabase";
 import { rentalRequest } from "$lib/server/bookingSchemas";
+import { addOnChoiceError } from "$lib/server/availability";
 import { rateLimited } from "$lib/server/rateLimit";
 import { notifyNewRental } from "$lib/server/bookings";
 import type { Rental } from "$lib/types/booking";
@@ -17,6 +18,9 @@ export const POST: RequestHandler = async ({ request, getClientAddress }) => {
 		return json({ message: "Please check your details and try again.", errors: z.flattenError(parsed.error).fieldErrors }, { status: 400 });
 	}
 	const b = parsed.data;
+
+	const addOnError = await addOnChoiceError(b.add_ons.map((a) => a.id));
+	if (addOnError) return json({ message: addOnError }, { status: 400 });
 
 	// Totals, statuses and availability are all decided in the database, never trusted from the client.
 	const { data, error } = await db()

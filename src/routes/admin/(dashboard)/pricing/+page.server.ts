@@ -48,6 +48,7 @@ const kinds = {
 		schema: z.object({
 			...common,
 			max_quantity: z.coerce.number().int().min(1, "At least 1").max(20, "At most 20"),
+			choice_group: z.string().trim().max(50).default(""),
 			description: z.string().trim().max(500).default("")
 		})
 	},

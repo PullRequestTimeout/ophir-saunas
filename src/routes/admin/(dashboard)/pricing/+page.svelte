@@ -22,9 +22,12 @@
 		const parts = [formatCents(item.price_cents)];
 		if ("nights" in item)
 			parts.push(`${item.nights} night${item.nights === 1 ? "" : "s"}`, `delivers ${formatWeekdays(item.allowed_delivery_weekdays)}`);
-		if ("max_quantity" in item && item.max_quantity > 1) parts.push(`up to ${item.max_quantity}`);
+		if ("choice_group" in item && item.choice_group) parts.push(`one of ${item.choice_group}`);
+		else if ("max_quantity" in item && item.max_quantity > 1) parts.push(`up to ${item.max_quantity}`);
 		return parts.join(" · ");
 	}
+
+	const groups = $derived([...new Set(data.addOns.map((a) => a.choice_group).filter(Boolean))]);
 
 	// Only show validation errors on the form that was submitted
 	const errorsFor = (key: string) => (form && "errors" in form && form.id === key ? form.errors : null);
@@ -51,14 +54,14 @@
 							<span class="meta">{summary(item)}</span>
 							{#if !item.active}<span class="badge cancelled">Hidden</span>{/if}
 						</summary>
-						<ItemForm kind={section.kind} {item} errors={errorsFor(item.id)} />
+						<ItemForm kind={section.kind} {item} {groups} errors={errorsFor(item.id)} />
 					</details>
 				</li>
 			{/each}
 		</ul>
 		<details class="add" open={!!errorsFor(`new-${section.kind}`)}>
 			<summary><span class="material-icons" aria-hidden="true">add</span>Add {section.singular}</summary>
-			<ItemForm kind={section.kind} errors={errorsFor(`new-${section.kind}`)} />
+			<ItemForm kind={section.kind} {groups} errors={errorsFor(`new-${section.kind}`)} />
 		</details>
 	</section>
 {/each}

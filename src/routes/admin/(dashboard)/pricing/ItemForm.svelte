@@ -13,8 +13,16 @@
 		kind,
 		item = {},
 		errors = null,
+		groups = [],
 		onsaved
-	}: { kind: Kind; item?: Item; errors?: Record<string, string[] | undefined> | null; onsaved?: () => void } = $props();
+	}: {
+		kind: Kind;
+		item?: Item;
+		errors?: Record<string, string[] | undefined> | null;
+		/** Existing add-on groups, suggested so a typo doesn't start a new group */
+		groups?: string[];
+		onsaved?: () => void;
+	} = $props();
 
 	const isNew = $derived(!item.id);
 	const prefix = $derived(`${kind}-${item.id ?? "new"}-`);
@@ -54,9 +62,21 @@
 			</Field>
 		{/if}
 		{#if kind === "addOn"}
-			<Field label="Max quantity" name="max_quantity" idPrefix={prefix} hint="How many a customer can add." {errors}>
+			<Field label="Max quantity" name="max_quantity" idPrefix={prefix} hint="How many a customer can add. Ignored in a group." {errors}>
 				{#snippet children(attrs)}<input type="number" min="1" max="20" value={item.max_quantity ?? 1} required {...attrs} />{/snippet}
 			</Field>
+			<Field
+				label="Group (optional)"
+				name="choice_group"
+				idPrefix={prefix}
+				hint="Add-ons with the same group, e.g. “Firewood”, are a pick-one choice."
+				{errors}
+			>
+				{#snippet children(attrs)}<input type="text" maxlength="50" value={item.choice_group ?? ""} list="{prefix}groups" {...attrs} />{/snippet}
+			</Field>
+			<datalist id="{prefix}groups">
+				{#each groups as group (group)}<option value={group}></option>{/each}
+			</datalist>
 		{/if}
 		<Field label="Display order" name="sort_order" idPrefix={prefix} hint="Lower numbers show first." {errors}>
 			{#snippet children(attrs)}<input type="number" value={item.sort_order ?? 0} {...attrs} />{/snippet}

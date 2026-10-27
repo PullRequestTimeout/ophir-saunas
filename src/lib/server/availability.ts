@@ -1,6 +1,7 @@
 import { db, must } from "$lib/server/supabase";
 import { addDays, localToday, TIMEZONE } from "$lib/utils/format";
 import { dropInSlotStart, isTimeOff, type Calendar } from "$lib/utils/availability";
+import { doubledChoiceGroup } from "$lib/utils/addOns";
 import type { AddOn, DeliveryZone, DropInSlot, Package, Settings } from "$lib/types/booking";
 
 /** The settings the public booking form needs; never includes the owner's email */
@@ -17,7 +18,7 @@ export type PublicSettings = Pick<
 
 export interface BookingOptions {
 	packages: Pick<Package, "id" | "name" | "nights" | "price_cents" | "allowed_delivery_weekdays" | "description">[];
-	addOns: Pick<AddOn, "id" | "name" | "price_cents" | "max_quantity" | "description">[];
+	addOns: Pick<AddOn, "id" | "name" | "price_cents" | "max_quantity" | "choice_group" | "description">[];
 	zones: Pick<DeliveryZone, "id" | "name" | "price_cents">[];
 	settings: PublicSettings;
 }
@@ -30,7 +31,7 @@ export async function getBookingOptions(): Promise<BookingOptions> {
 			.eq("active", true)
 			.order("sort_order")
 			.then(must),
-		db().from("add_ons").select("id, name, price_cents, max_quantity, description").eq("active", true).order("sort_order").then(must),
+		db().from("add_ons").select("id, name, price_cents, max_quantity, choice_group, description").eq("active", true).order("sort_order").then(must),
 		db().from("delivery_zones").select("id, name, price_cents").eq("active", true).order("sort_order").then(must),
 		db()
 			.from("settings")
@@ -45,6 +46,14 @@ export async function getBookingOptions(): Promise<BookingOptions> {
 		zones: zones as BookingOptions["zones"],
 		settings
 	};
+}
+
+/** Why a booking's add-ons can't go together (two from one choice group), or null. The RPCs check everything else about them. */
+export async function addOnChoiceError(selectedIds: string[]) {
+	if (selectedIds.length < 2) return null;
+	const addOns = await db().from("add_ons").select("id, choice_group").in("id", selectedIds).then(must);
+	const group = doubledChoiceGroup(addOns as { id: string; choice_group: string }[], selectedIds);
+	return group ? `Choose only one ${group.toLowerCase()} option.` : null;
 }
 
 export interface PublicDropInDay {
