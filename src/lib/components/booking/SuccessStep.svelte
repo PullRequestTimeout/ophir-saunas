@@ -16,6 +16,7 @@
 			Thanks, {flow.contact.name.split(" ")[0]}. We've received your request and will email <strong>{flow.contact.email}</strong> once it's confirmed.
 		</p>
 	{/if}
+	<p>Don't see our email in a few minutes? Check your junk or spam folder.</p>
 	{#if flow.result}
 		<p>Estimated total: <strong>{formatCents(flow.result.total_cents)}</strong>. Nothing has been charged.</p>
 	{/if}
