@@ -50,8 +50,10 @@
 		if (uiStore.bookingModalOpen) {
 			untrack(() => flow.open(uiStore.bookingService));
 			if (!dialog.open) dialog.showModal();
-		} else if (dialog.open) {
-			dialog.close();
+		} else {
+			if (dialog.open) dialog.close();
+			// Closing abandons the booking, so the next open starts again from the choice of booking type.
+			untrack(() => flow.reset());
 		}
 	});
 
@@ -93,10 +95,18 @@
 		continueStep();
 	}
 
+	// Closing resets the flow, so it waits while a booking is being sent (otherwise the customer would never see the result)
+	// and checks before throwing away a booking in progress.
+	function close() {
+		if (flow.submitting) return;
+		if (flow.started && flow.step !== "success" && !confirm("Leave your booking? What you've entered so far will be cleared.")) return;
+		closeBookingModal();
+	}
+
 	// Only close on a click that started and ended on the backdrop, not a text selection dragged out of a field.
 	let pressedBackdrop = false;
 	function onBackdropClick(event: MouseEvent) {
-		if (pressedBackdrop && event.target === dialog) closeBookingModal();
+		if (pressedBackdrop && event.target === dialog) close();
 		pressedBackdrop = false;
 	}
 </script>
@@ -105,6 +115,18 @@
 	bind:this={dialog}
 	class="booking"
 	aria-labelledby="booking-title"
+	onkeydown={(event) => {
+		// Esc goes through the same checks as the close button. Handled here rather than in oncancel: Chrome stops letting
+		// a page cancel repeated Esc presses, so a second Esc would close (and clear) the booking without asking.
+		if (event.key !== "Escape") return;
+		event.preventDefault();
+		close();
+	}}
+	oncancel={(event) => {
+		// Other close requests, e.g. Android's back gesture
+		event.preventDefault();
+		close();
+	}}
 	onclose={closeBookingModal}
 	onpointerdown={(event) => (pressedBackdrop = event.target === dialog)}
 	onclick={onBackdropClick}
@@ -119,7 +141,7 @@
 				{/if}
 				<h2 id="booking-title" tabindex="-1" bind:this={heading}>{title}</h2>
 			</div>
-			<button type="button" class="close" onclick={closeBookingModal} aria-label="Close booking">
+			<button type="button" class="close" onclick={close} disabled={flow.submitting} aria-label="Close booking">
 				<span class="material-icons" aria-hidden="true">close</span>
 			</button>
 		</header>

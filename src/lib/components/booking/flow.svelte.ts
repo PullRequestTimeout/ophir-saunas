@@ -1,5 +1,5 @@
-// State for the multi-step booking modal. One instance lives in BookingModal and is passed to each step, so a
-// customer who closes the modal by accident can reopen it without losing what they entered.
+// State for the multi-step booking modal. One instance lives in BookingModal and is passed to each step; the modal
+// resets it on close, so every open starts a fresh booking.
 
 import type { Availability, BookingOptions, PublicDropInDay } from "$lib/server/availability";
 import type { BookingStatus, DropInSlot, LineItem } from "$lib/types/booking";
@@ -136,22 +136,21 @@ export class BookingFlow {
 		this.step = this.steps[0];
 	}
 
-	/** Opens the modal on a fresh flow, or on `service` if the customer hasn't started one yet */
+	/** Starts the (freshly reset) flow, on `service` if one was asked for */
 	open(service: BookingService | null) {
-		if (this.step === "success") this.reset();
-		if (service && (this.step === "service" || !this.started)) this.start(service);
-		// Calendars may have changed since they were last shown; a flow in progress keeps its own until a submit conflicts.
-		if (!this.started) this.months = {};
+		if (service) this.start(service);
 		this.loadOptions();
 		this.loadMonth(monthOf(localToday()));
 	}
 
-	/** Whether the customer has chosen anything yet */
+	/** Whether the customer has chosen anything yet, so closing would lose something */
 	get started() {
 		return !!(this.packageId || this.dropInDay || this.contact.name);
 	}
 
 	reset() {
+		// Calendars may have changed by the next open; a flow in progress keeps its own until a submit conflicts.
+		this.months = {};
 		this.service = null;
 		this.step = "service";
 		this.packageId = this.deliveryDate = this.deliveryTime = this.zoneId = null;
@@ -163,6 +162,7 @@ export class BookingFlow {
 		this.contact = { name: "", email: "", phone: "", notes: "", website: "" };
 		this.error = null;
 		this.fieldErrors = {};
+		this.conflict = false;
 		this.result = null;
 		this.returnToReview = false;
 	}
