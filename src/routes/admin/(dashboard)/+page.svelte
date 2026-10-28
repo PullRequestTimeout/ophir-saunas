@@ -8,9 +8,12 @@
 
 	type Event = { kind: "pickup" | "delivery" | "drop-in" | "away" | "out"; time?: string; label: string; href?: string; pending?: boolean };
 
+	const awayOnly = (events: Event[]) => events.length === 1 && events[0].kind === "away";
+
 	// Each day's events in the order they happen: pickups in the morning, drop-ins and drop-offs in the evening.
+	// Back-to-back days with nothing but time off collapse into one entry running from `date` to `end`.
 	const schedule = $derived.by(() => {
-		const result: { date: string; events: Event[] }[] = [];
+		const result: { date: string; end: string; events: Event[] }[] = [];
 		for (let date = data.today; date <= data.end; date = addDays(date, 1)) {
 			const events: Event[] = [];
 
@@ -44,7 +47,9 @@
 
 			const order = { away: 0, out: 1, pickup: 2, "drop-in": 3, delivery: 4 };
 			events.sort((a, b) => order[a.kind] - order[b.kind] || (a.time ?? "").localeCompare(b.time ?? ""));
-			if (events.length) result.push({ date, events });
+			const last = result.at(-1);
+			if (last && awayOnly(events) && awayOnly(last.events) && addDays(last.end, 1) === date) last.end = date;
+			else if (events.length) result.push({ date, end: date, events });
 		}
 		return result;
 	});
@@ -102,7 +107,7 @@
 		<ol class="schedule">
 			{#each schedule as day (day.date)}
 				<li>
-					<h3>{dayLabel(day.date)}</h3>
+					<h3>{day.end === day.date ? dayLabel(day.date) : `${dayLabel(day.date)} → ${formatDate(day.end)}`}</h3>
 					<ul>
 						{#each day.events as event, i (i)}
 							<li class={event.kind}>

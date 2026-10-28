@@ -107,7 +107,7 @@ export const sections: Section[] = [
 						type: "list",
 						items: [
 							"“Requests to review” lists every pending rental and drop-in, soonest first. Click a name to open it.",
-							"“Next two weeks” shows each day from today: time off, a sauna that's currently out with a customer, pickups, drop-in days (with how many are booked in each session) and drop-offs. Pending items have a “Pending” badge.",
+							"“Next two weeks” shows each day from today: time off, a sauna that's currently out with a customer, pickups, drop-in days (with how many are booked in each session) and drop-offs. Pending items have a “Pending” badge. Days off in a row show as one line, like “Nov 2 → Nov 5”; a day off that also has something else on it gets its own line.",
 							"“Time off” lists current and upcoming time off, and whether its homepage banner is on."
 						]
 					},
