@@ -9,6 +9,7 @@
 		{ href: "/admin/drop-ins", label: "Drop-ins", icon: "groups" },
 		{ href: "/admin/time-off", label: "Time Off", icon: "beach_access" },
 		{ href: "/admin/pricing", label: "Pricing", icon: "sell" },
+		{ href: "/admin/help", label: "Help", icon: "help_outline" },
 		{ href: "/admin/settings", label: "Settings", icon: "settings" }
 	];
 
