@@ -58,4 +58,17 @@
 		font-size: 18px;
 		color: var(--color-primary);
 	}
+
+	/* Side by side once the modal widens; the icon moves above the text so each column keeps a usable line length */
+	@media screen and (min-width: 768px) {
+		div.step {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+		}
+
+		button.service {
+			flex-direction: column;
+			gap: var(--spacing-s);
+		}
+	}
 </style>
