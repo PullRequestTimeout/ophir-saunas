@@ -138,7 +138,7 @@
 							: `${formatDate(period.start_date)} – ${formatDate(period.end_date, { year: true })}`}</span
 					>
 					{#if period.start_date <= data.today}<span class="badge confirmed">Now</span>{/if}
-					{#if period.show_banner}<span class="hint">Banner on the homepage</span>{/if}
+					{#if period.show_banner}<span class="hint">Banner on the website</span>{/if}
 				</li>
 			{/each}
 		</ul>

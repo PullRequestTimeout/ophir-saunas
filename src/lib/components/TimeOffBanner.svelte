@@ -1,4 +1,4 @@
-<!-- Homepage notice for upcoming or current time off, managed in Admin → Time Off -->
+<!-- Site-wide notice for upcoming or current time off, managed in Admin → Time Off -->
 
 <script lang="ts">
 	import { slide } from "svelte/transition";

@@ -1,13 +1,14 @@
 import { db } from "$lib/server/supabase";
 import { addDays, localToday } from "$lib/utils/format";
 import type { TimeOff } from "$lib/types/booking";
-import type { PageServerLoad } from "./$types";
+import type { LayoutServerLoad } from "./$types";
 
 // Announce time off from a month ahead until it ends.
 const NOTICE_DAYS = 30;
 
-export const load: PageServerLoad = async ({ setHeaders }) => {
-	// A short cache keeps the homepage fast while banner edits still show within a minute.
+export const load: LayoutServerLoad = async ({ setHeaders }) => {
+	// A short cache keeps public pages fast while banner and price edits still show within a minute.
+	// Set here for every page, since setting the same header again in a page load throws.
 	setHeaders({ "cache-control": "public, max-age=60" });
 
 	const today = localToday();
@@ -21,7 +22,7 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 		.limit(1)
 		.returns<TimeOff[]>();
 
-	// The banner is a nice-to-have; never break the homepage over it.
+	// The banner is a nice-to-have; never break a page over it.
 	if (error) console.error("Loading the time-off banner failed", error);
 	return { timeOff: data?.[0] ?? null };
 };

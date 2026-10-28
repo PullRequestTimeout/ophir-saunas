@@ -54,7 +54,7 @@ export function localToday() {
 	return new Intl.DateTimeFormat("en-CA", { timeZone: TIMEZONE }).format(new Date());
 }
 
-/** The homepage banner text for a time-off period: the admin's own message, or a default built from the dates */
+/** The website banner text for a time-off period: the admin's own message, or a default built from the dates */
 export function timeOffMessage(period: { start_date: string; end_date: string; banner_message: string }) {
 	if (period.banner_message.trim()) return period.banner_message.trim();
 	const dates =

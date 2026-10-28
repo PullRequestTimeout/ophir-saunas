@@ -18,7 +18,7 @@
 </svelte:head>
 
 <h1>Time off</h1>
-<p>Dates you're away can't be booked for rentals or drop-ins. You can also show a banner on the homepage so customers know.</p>
+<p>Dates you're away can't be booked for rentals or drop-ins. You can also show a banner across the website so customers know.</p>
 
 {#if overlaps.length}
 	<div class="card warning" role="alert">
@@ -55,7 +55,7 @@
 		{#if period.show_banner}
 			<p class="banner-preview"><span class="material-icons" aria-hidden="true">campaign</span>{timeOffMessage(period)}</p>
 		{:else}
-			<p>No homepage banner.</p>
+			<p>No website banner.</p>
 		{/if}
 		<details open={!!errorsFor(period.id)}>
 			<summary>Edit</summary>

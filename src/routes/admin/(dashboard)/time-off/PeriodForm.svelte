@@ -33,7 +33,7 @@
 		</Field>
 	</div>
 	<Field
-		label="Homepage banner message (optional)"
+		label="Banner message (optional)"
 		name="banner_message"
 		idPrefix={prefix}
 		hint="Leave blank to use: “We're taking a break [dates]. Bookings resume [date].”"
@@ -43,7 +43,7 @@
 	</Field>
 	<label class="checkbox">
 		<input type="checkbox" name="show_banner" checked={period?.show_banner ?? true} />
-		Show a banner on the homepage
+		Show a banner on the website
 	</label>
 	<div class="actions">
 		<button class="btn solid" type="submit" disabled={saving}>{isNew ? "Add time off" : "Save changes"}</button>

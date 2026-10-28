@@ -56,7 +56,7 @@ export const sections: Section[] = [
 							"Overview: requests waiting for you, everything happening in the next two weeks, and upcoming time off.",
 							"Bookings: every rental and drop-in booking, with search. Open one to approve, decline, cancel or add notes. “New booking” adds a phone booking.",
 							"Drop-ins: the days you run drop-in sessions, and who's booked on each.",
-							"Time Off: dates you're away, which can't be booked, and the homepage banner.",
+							"Time Off: dates you're away, which can't be booked, and the website banner.",
 							"Pricing: rental packages, add-ons, delivery areas and the drop-in price.",
 							"Help: this page.",
 							"Settings: auto-confirm, same-day turnaround, where notifications go, reminders, delivery times and drop-in capacity."
@@ -108,7 +108,7 @@ export const sections: Section[] = [
 						items: [
 							"“Requests to review” lists every pending rental and drop-in, soonest first. Click a name to open it.",
 							"“Next two weeks” shows each day from today: time off, a sauna that's currently out with a customer, pickups, drop-in days (with how many are booked in each session) and drop-offs. Pending items have a “Pending” badge. Days off in a row show as one line, like “Nov 2 → Nov 5”; a day off that also has something else on it gets its own line.",
-							"“Time off” lists current and upcoming time off, and whether its homepage banner is on."
+							"“Time off” lists current and upcoming time off, and whether its website banner is on."
 						]
 					},
 					{
@@ -480,19 +480,19 @@ export const sections: Section[] = [
 				]
 			},
 			{
-				id: "homepage-banner",
-				title: "The homepage banner",
+				id: "website-banner",
+				title: "The website banner",
 				blocks: [
 					{
 						type: "p",
-						text: "With “Show a banner on the homepage” ticked, a banner tells visitors you're away. It appears from 30 days before your first day off until your last day off. If you leave the message blank it reads “We're taking a break [dates]. Bookings resume [date].”, where bookings resume the day after your last day off."
+						text: "With “Show a banner on the website” ticked, a banner on every page of the website tells visitors you're away. It appears from 30 days before your first day off until your last day off. If you leave the message blank it reads “We're taking a break [dates]. Bookings resume [date].”, where bookings resume the day after your last day off."
 					},
 					{
 						type: "list",
 						items: [
 							"Only one banner shows at a time: the earliest time off that's within 30 days.",
-							"Changes can take about a minute to appear on the homepage.",
-							"The banner sits above the menu at the top of the homepage and stays there as visitors scroll. They can close it with the ✕; it comes back next time they visit."
+							"Changes can take about a minute to appear on the website.",
+							"The banner sits above the menu at the top of each page and stays there as visitors scroll. They can close it with the ✕; it stays closed as they move between pages and comes back next time they visit."
 						]
 					}
 				]
