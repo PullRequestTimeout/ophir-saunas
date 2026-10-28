@@ -5,12 +5,6 @@
 	--color-danger-bg: #f1d9d4;
 }
 
-/* No rubber-band overscroll in the dashboard. :has() keeps it off the public site, since this stylesheet stays loaded after client-side navigation */
-html:has(.admin),
-html:has(.admin) body {
-	overscroll-behavior: none;
-}
-
 .admin a:focus-visible,
 .admin button:focus-visible {
 	outline: 3px solid var(--color-primary);

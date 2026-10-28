@@ -182,6 +182,12 @@ html {
 	background-color: var(--color-background-white);
 }
 
+/* No rubber-band overscroll */
+html,
+body {
+	overscroll-behavior: none;
+}
+
 * {
 	scrollbar-color: var(--color-primary) var(--color-background-white);
 }
