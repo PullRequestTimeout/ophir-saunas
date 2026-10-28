@@ -19,10 +19,11 @@
 	function getMousePos(event: MouseEvent) {
 		if (!buttonEl) return;
 		const rect = buttonEl.getBoundingClientRect();
-		mousePos = {
-			x: event.clientX - rect.left,
-			y: event.clientY - rect.top
-		};
+		const x = event.clientX - rect.left;
+		const y = event.clientY - rect.top;
+		// The ripple's radius reaches the farthest corner, so it fills the button however wide it is
+		const radius = Math.hypot(Math.max(x, rect.width - x), Math.max(y, rect.height - y));
+		mousePos = { x, y, size: Math.ceil(radius * 2) + 2 };
 	}
 
 	function handleClick(event: MouseEvent) {
@@ -30,13 +31,13 @@
 		onAction?.(event);
 	}
 
-	let mousePos = $state({ x: 0, y: 0 });
+	let mousePos = $state({ x: 0, y: 0, size: 0 });
 </script>
 
 {#if href}
 	<a bind:this={buttonEl} {href} class={primary ? "primary" : "secondary"} onmouseenter={getMousePos} onclick={handleClick}>
 		<span>{text}</span>
-		<div style="--top: {mousePos.y}px; --left: {mousePos.x}px;"></div>
+		<div style="--top: {mousePos.y}px; --left: {mousePos.x}px; --size: {mousePos.size}px;"></div>
 	</a>
 {:else}
 	<button
@@ -48,7 +49,7 @@
 		onclick={handleClick}
 	>
 		<span>{text}</span>
-		<div style="--top: {mousePos.y}px; --left: {mousePos.x}px;"></div>
+		<div style="--top: {mousePos.y}px; --left: {mousePos.x}px; --size: {mousePos.size}px;"></div>
 	</button>
 {/if}
 
@@ -126,8 +127,8 @@
 	@media (hover: hover) {
 		a:hover > div,
 		button:hover > div {
-			width: 30rem;
-			height: 30rem;
+			width: var(--size);
+			height: var(--size);
 		}
 
 		a.secondary:hover,
