@@ -491,7 +491,8 @@ export const sections: Section[] = [
 						type: "list",
 						items: [
 							"Only one banner shows at a time: the earliest time off that's within 30 days.",
-							"Changes can take about a minute to appear on the homepage."
+							"Changes can take about a minute to appear on the homepage.",
+							"The banner sits above the menu at the top of the homepage and stays there as visitors scroll. They can close it with the ✕; it comes back next time they visit."
 						]
 					}
 				]

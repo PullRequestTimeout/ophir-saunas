@@ -132,8 +132,9 @@
 		align-items: center;
 		padding: var(--spacing-xs) var(--padding-inline);
 		justify-content: space-between;
-		position: fixed;
-		top: 0;
+		/* Hangs below the layout's sticky masthead (and its time-off banner, when shown) without taking up space */
+		position: absolute;
+		top: 100%;
 		left: 0;
 		z-index: 1000;
 		transition: 0.3s ease;
