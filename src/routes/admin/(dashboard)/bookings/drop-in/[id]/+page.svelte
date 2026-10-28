@@ -31,7 +31,7 @@
 	<title>{booking.customer_name} · Drop-in | Ophir Admin</title>
 </svelte:head>
 
-<a class="back text-link" href="/admin/bookings"><span class="material-icons" aria-hidden="true">arrow_back</span>All bookings</a>
+<a class="back text-link" href="/admin/bookings"><span class="material-icons" aria-hidden="true">arrow_back</span><span>All bookings</span></a>
 
 <header class="page-header">
 	<h1>{booking.customer_name}</h1>

@@ -27,7 +27,7 @@
 	<title>New booking | Ophir Admin</title>
 </svelte:head>
 
-<a class="back text-link" href="/admin/bookings"><span class="material-icons" aria-hidden="true">arrow_back</span>All bookings</a>
+<a class="back text-link" href="/admin/bookings"><span class="material-icons" aria-hidden="true">arrow_back</span><span>All bookings</span></a>
 <h1>New booking</h1>
 <p>
 	For phone bookings and bookings moved over from YouCanBookMe. These are confirmed straight away and skip the website's rules for lead time and

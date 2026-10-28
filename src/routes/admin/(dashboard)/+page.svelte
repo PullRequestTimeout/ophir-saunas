@@ -69,7 +69,7 @@
 
 <header class="page-header spread">
 	<h1>Overview</h1>
-	<a class="btn solid" href="/admin/bookings/new"><span class="material-icons" aria-hidden="true">add</span>New booking</a>
+	<a class="btn solid" href="/admin/bookings/new"><span class="material-icons" aria-hidden="true">add</span><span>New booking</span></a>
 </header>
 
 <section class="card" aria-labelledby="requests-heading">

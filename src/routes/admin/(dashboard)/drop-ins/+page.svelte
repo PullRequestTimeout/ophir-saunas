@@ -31,7 +31,7 @@
 {#if !data.showPast}
 	<!-- ?add (linked from New booking) opens the form straight away -->
 	<details class="card add" open={!!errorsFor("new") || page.url.searchParams.has("add")}>
-		<summary><span class="material-icons" aria-hidden="true">add</span>Add a drop-in day</summary>
+		<summary><span class="material-icons" aria-hidden="true">add</span><span>Add a drop-in day</span></summary>
 		<DayForm errors={errorsFor("new")} today={data.today} />
 	</details>
 {/if}

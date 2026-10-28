@@ -36,7 +36,7 @@
 		<div class="actions">
 			{#if status === "pending"}
 				<button class="btn solid" type="submit" formaction="?/approve" disabled={busy}>
-					<span class="material-icons" aria-hidden="true">check</span>Approve
+					<span class="material-icons" aria-hidden="true">check</span><span>Approve</span>
 				</button>
 				<button
 					class="btn danger"
@@ -47,7 +47,7 @@
 						if (!confirm("Decline this request? Its dates will open up for other bookings.")) event.preventDefault();
 					}}
 				>
-					<span class="material-icons" aria-hidden="true">close</span>Decline
+					<span class="material-icons" aria-hidden="true">close</span><span>Decline</span>
 				</button>
 			{/if}
 			{#if active}
@@ -60,12 +60,14 @@
 						if (!confirm("Cancel this booking? Its dates will open up for other bookings.")) event.preventDefault();
 					}}
 				>
-					<span class="material-icons" aria-hidden="true">event_busy</span>Cancel booking
+					<span class="material-icons" aria-hidden="true">event_busy</span><span>Cancel booking</span>
 				</button>
 			{/if}
 			{#if hasEmail}
 				<button class="btn" type="submit" formaction="?/resend" disabled={busy}>
-					<span class="material-icons" aria-hidden="true">forward_to_inbox</span>Resend {status === "pending" ? "request received" : status} email
+					<span class="material-icons" aria-hidden="true">forward_to_inbox</span><span
+						>Resend {status === "pending" ? "request received" : status} email</span
+					>
 				</button>
 			{/if}
 		</div>

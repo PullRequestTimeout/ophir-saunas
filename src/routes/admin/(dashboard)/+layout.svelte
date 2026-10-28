@@ -27,7 +27,7 @@
 			{#each links as link (link.href)}
 				<a href={link.href} aria-current={isActive(link.href) ? "page" : undefined}>
 					<span class="material-icons" aria-hidden="true">{link.icon}</span>
-					{link.label}
+					<span>{link.label}</span>
 				</a>
 			{/each}
 		</nav>
@@ -36,7 +36,7 @@
 			<p>{data.admin?.email}</p>
 			<form method="POST" action="/admin/logout">
 				<button class="btn" type="submit" aria-label="Sign out {data.admin?.email ?? ''}"
-					><span class="material-icons" aria-hidden="true">logout</span>Sign out</button
+					><span class="material-icons" aria-hidden="true">logout</span><span>Sign out</span></button
 				>
 			</form>
 		</div>
@@ -97,13 +97,17 @@
 		width: fit-content;
 	}
 
-	/* global.css gives every non-heading element the body font, so the heading font goes on the span itself */
+	/* global.css gives every non-heading element the body font, so the heading font goes on the span itself.
+	   Abigail sits high in its line box; trimming to the cap height centres it on the logo. */
 	a.brand span {
 		font-family: var(--font-heading);
+		text-box: trim-both cap alphabetic;
 	}
 
+	/* Optical nudge: the logo's ink is bottom-heavy, so geometric centring reads as sitting low */
 	a.brand img {
 		width: 2rem;
+		translate: 0 -0.25rem;
 	}
 
 	/* Wraps into a grid on small screens so every section stays visible */
@@ -130,6 +134,11 @@
 	nav a span.material-icons {
 		font-size: 20px;
 		color: inherit;
+	}
+
+	/* Stacked under the icon on small screens, the label keeps its full line height */
+	nav a span:not(.material-icons) {
+		text-box: normal;
 	}
 
 	nav a[aria-current="page"] {
@@ -211,6 +220,10 @@
 			padding: var(--spacing-s) var(--spacing-m);
 			border-radius: var(--border-radius);
 			font-size: 16px;
+		}
+
+		nav a span:not(.material-icons) {
+			text-box: trim-both cap alphabetic;
 		}
 
 		div.account {

@@ -167,6 +167,12 @@ html:has(.admin) body {
 	color: inherit;
 }
 
+/* Icon + label pairs (buttons, back links, summaries): wrap the label in a <span> after the icon.
+   Trimming it to its cap height centres the icon on the capitals whatever the font's ascent and descent. */
+.admin .material-icons + span {
+	text-box: trim-both cap alphabetic;
+}
+
 .admin .btn:active {
 	transform: translateY(1px);
 }

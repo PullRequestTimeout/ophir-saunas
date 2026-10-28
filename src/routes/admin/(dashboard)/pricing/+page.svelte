@@ -60,7 +60,7 @@
 			{/each}
 		</ul>
 		<details class="add" open={!!errorsFor(`new-${section.kind}`)}>
-			<summary><span class="material-icons" aria-hidden="true">add</span>Add {section.singular}</summary>
+			<summary><span class="material-icons" aria-hidden="true">add</span><span>Add {section.singular}</span></summary>
 			<ItemForm kind={section.kind} {groups} errors={errorsFor(`new-${section.kind}`)} />
 		</details>
 	</section>

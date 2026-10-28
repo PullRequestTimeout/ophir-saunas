@@ -27,7 +27,7 @@
 
 <header class="page-header spread">
 	<h1>Bookings</h1>
-	<a class="btn solid" href="/admin/bookings/new"><span class="material-icons" aria-hidden="true">add</span>New booking</a>
+	<a class="btn solid" href="/admin/bookings/new"><span class="material-icons" aria-hidden="true">add</span><span>New booking</span></a>
 </header>
 
 <nav class="tabs wrap" aria-label="Booking lists">
@@ -50,7 +50,7 @@
 		Search
 		<input type="search" name="q" value={data.search} placeholder="Name, email or phone" />
 	</label>
-	<button class="btn" type="submit"><span class="material-icons" aria-hidden="true">filter_list</span>Apply</button>
+	<button class="btn" type="submit"><span class="material-icons" aria-hidden="true">filter_list</span><span>Apply</span></button>
 </form>
 
 {#if data.rows.length === 0}

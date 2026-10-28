@@ -32,7 +32,7 @@
 
 {#if !data.showPast}
 	<details class="card" open={!!errorsFor("new")}>
-		<summary><span class="material-icons" aria-hidden="true">add</span>Add time off</summary>
+		<summary><span class="material-icons" aria-hidden="true">add</span><span>Add time off</span></summary>
 		<PeriodForm errors={errorsFor("new")} today={data.today} />
 	</details>
 {/if}
