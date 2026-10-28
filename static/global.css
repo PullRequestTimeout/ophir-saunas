@@ -352,7 +352,8 @@ div.hero-text p.subheading {
 		filter 0.5s ease;
 }
 
+/* filter: none rather than blur(0), so revealed letters don't keep rendering through a filter */
 .heading-fade-in.show span {
 	opacity: 1;
-	filter: blur(0);
+	filter: none;
 }
