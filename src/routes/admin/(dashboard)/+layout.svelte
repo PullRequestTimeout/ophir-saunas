@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/state";
+	import { afterNavigate } from "$app/navigation";
+	import HamburgerButton from "$lib/components/HamburgerButton.svelte";
 
 	let { data, children } = $props();
 
@@ -15,31 +17,55 @@
 	];
 
 	const isActive = (href: string) => (href === "/admin" ? page.url.pathname === "/admin" : page.url.pathname.startsWith(href));
+
+	// Small screens only: the nav sits behind the hamburger and closes after each navigation or on Escape.
+	let menuOpen = $state(false);
+	let toggle = $state<HTMLElement>();
+	afterNavigate(() => (menuOpen = false));
+
+	// Escape closes the menu, moving focus back to the button only if it was in the header; Escape already handled elsewhere is left alone.
+	function onkeydown(event: KeyboardEvent) {
+		if (event.key !== "Escape" || event.defaultPrevented || !menuOpen) return;
+		menuOpen = false;
+		if (toggle?.closest("header")?.contains(document.activeElement)) toggle.querySelector("button")?.focus();
+	}
 </script>
+
+<svelte:window {onkeydown} />
 
 <a class="skip" href="#main">Skip to content</a>
 <div class="shell">
 	<header>
-		<a href="/admin" class="brand">
-			<img src="/assets/svgs/logo-inverted.svg" alt="" />
-			<span>Ophir Admin</span>
-		</a>
-		<nav aria-label="Admin">
-			{#each links as link (link.href)}
-				<a href={link.href} aria-current={isActive(link.href) ? "page" : undefined}>
-					<span class="material-icons" aria-hidden="true">{link.icon}</span>
-					<span>{link.label}</span>
-				</a>
-			{/each}
-		</nav>
-		<div class="account">
-			<a href="/" class="view-site">View site</a>
-			<p>{data.admin?.email}</p>
-			<form method="POST" action="/admin/logout">
-				<button class="btn" type="submit" aria-label="Sign out {data.admin?.email ?? ''}"
-					><span class="material-icons" aria-hidden="true">logout</span><span>Sign out</span></button
-				>
-			</form>
+		<div class="bar">
+			<a href="/admin" class="brand">
+				<img src="/assets/svgs/logo-inverted.svg" alt="" />
+				<span>Ophir Admin</span>
+			</a>
+			<div class="toggle" bind:this={toggle}>
+				<HamburgerButton open={menuOpen} controls="admin-menu" onclick={() => (menuOpen = !menuOpen)} />
+			</div>
+		</div>
+		<!-- Always shown on wide screens; behind the hamburger on small ones -->
+		<div class="menu" class:open={menuOpen} id="admin-menu">
+			<div class="menu-inner">
+				<nav aria-label="Admin">
+					{#each links as link (link.href)}
+						<a href={link.href} aria-current={isActive(link.href) ? "page" : undefined}>
+							<span class="material-icons" aria-hidden="true">{link.icon}</span>
+							<span>{link.label}</span>
+						</a>
+					{/each}
+				</nav>
+				<div class="account">
+					<a href="/" class="view-site">View site</a>
+					<p>{data.admin?.email}</p>
+					<form method="POST" action="/admin/logout">
+						<button class="btn" type="submit" aria-label="Sign out {data.admin?.email ?? ''}"
+							><span class="material-icons" aria-hidden="true">logout</span><span>Sign out</span></button
+						>
+					</form>
+				</div>
+			</div>
 		</div>
 	</header>
 	<main id="main" tabindex="-1">
@@ -78,8 +104,58 @@
 		padding: var(--spacing-m);
 		display: flex;
 		flex-direction: column;
-		gap: var(--spacing-m);
 		min-width: 0;
+	}
+
+	div.bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--spacing-s);
+	}
+
+	div.toggle {
+		--hamburger-color: var(--color-background-white);
+		/* A smaller nudge than the site's keeps the focus ring inside the header */
+		--hamburger-shift: 0.5rem;
+		display: flex;
+		margin-block: calc(-1 * var(--spacing-m));
+	}
+
+	/* Collapsed by default; grid rows animate the height. Hidden content can't be tabbed to. */
+	div.menu {
+		display: grid;
+		grid-template-rows: 0fr;
+		visibility: hidden;
+		transition:
+			grid-template-rows 0.3s ease,
+			visibility 0s 0.3s;
+	}
+
+	div.menu.open {
+		grid-template-rows: 1fr;
+		visibility: visible;
+		transition: grid-template-rows 0.3s ease;
+	}
+
+	div.menu-inner {
+		min-height: 0;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-m);
+	}
+
+	/* Spacing as a margin, not padding, so the collapsed menu is truly 0 high */
+	div.menu-inner > :first-child {
+		margin-top: var(--spacing-m);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		div.menu,
+		div.menu.open {
+			transition: none;
+		}
 	}
 
 	/* The site-wide focus ring is primary green, which disappears on the dark header */
@@ -207,6 +283,22 @@
 			height: 100dvh;
 			overflow-y: auto;
 			padding: var(--spacing-l) var(--spacing-m);
+			gap: var(--spacing-m);
+		}
+
+		/* The sidebar always shows the menu: drop the hamburger and let the menu's children sit straight in the header */
+		div.toggle {
+			display: none;
+		}
+
+		div.menu,
+		div.menu-inner {
+			display: contents;
+			visibility: visible;
+		}
+
+		div.menu-inner > :first-child {
+			margin-top: 0;
 		}
 
 		nav {
