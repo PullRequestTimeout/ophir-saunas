@@ -3,7 +3,7 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
 	import Field from "$lib/components/admin/Field.svelte";
-	import type { DropInDay } from "$lib/types/booking";
+	import { defaultDropInSessions, dropInSlotLabels, dropInSlots, type DropInDay } from "$lib/types/booking";
 
 	let { day, errors = null, today }: { day?: DropInDay; errors?: Record<string, string[] | undefined> | null; today: string } = $props();
 
@@ -32,6 +32,21 @@
 			{#snippet children(attrs)}<input type="text" value={day?.location ?? ""} maxlength="200" required {...attrs} />{/snippet}
 		</Field>
 	</div>
+	<fieldset aria-describedby="{prefix}sessions-hint{errors?.sessions ? ` ${prefix}sessions-error` : ''}">
+		<legend>Sessions</legend>
+		<div class="sessions">
+			{#each dropInSlots as slot (slot)}
+				<label class="checkbox">
+					<input type="checkbox" name="sessions" value={slot} checked={(day?.sessions ?? defaultDropInSessions).includes(slot)} />
+					{dropInSlotLabels[slot]}
+				</label>
+			{/each}
+		</div>
+		<small id="{prefix}sessions-hint" class="hint">Tick at least one session that runs on this day.</small>
+		{#if errors?.sessions}
+			<small id="{prefix}sessions-error" class="field-error" role="alert">{errors.sessions[0]}</small>
+		{/if}
+	</fieldset>
 	<Field label="Notes for customers (optional)" name="notes" idPrefix={prefix} hint="e.g. parking, what to bring." {errors}>
 		{#snippet children(attrs)}<textarea maxlength="1000" {...attrs}>{day?.notes ?? ""}</textarea>{/snippet}
 	</Field>
@@ -63,6 +78,31 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
 		gap: var(--spacing-m);
+	}
+
+	fieldset {
+		border: none;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-s);
+	}
+
+	/* The fieldset's gap already spaces the legend from the checkboxes */
+	legend {
+		font-weight: 600;
+		color: var(--color-primary);
+	}
+
+	div.sessions {
+		display: flex;
+		flex-wrap: wrap;
+		column-gap: var(--spacing-m);
+	}
+
+	/* Comfortable tap targets on a phone (WCAG 2.5.8) */
+	div.sessions label.checkbox {
+		min-height: 44px;
 	}
 
 	div.actions {

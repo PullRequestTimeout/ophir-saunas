@@ -32,7 +32,8 @@ const rpcErrors: Record<string, string> = {
 	invalid_add_on: "One of the selected add-ons is no longer available.",
 	invalid_drop_in_day: "That drop-in session is no longer available.",
 	invalid_party_size: "Please choose a valid party size.",
-	slot_full: "Sorry, there aren't enough spots left in that time slot."
+	slot_full: "Sorry, there aren't enough spots left in that time slot.",
+	slot_unavailable: "That session isn't running on this day. Please choose another."
 };
 
 export function rpcErrorMessage(error: { message: string }): string | null {

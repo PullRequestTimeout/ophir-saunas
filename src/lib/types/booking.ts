@@ -1,12 +1,19 @@
 // Row types for the booking tables (see supabase/migrations). Dates are "YYYY-MM-DD", times "HH:MM:SS".
 
 export type BookingStatus = "pending" | "confirmed" | "declined" | "cancelled";
-export type DropInSlot = "17-19" | "19-21";
+/** Every drop-in session, in time order. Each drop-in day runs a subset of these (`DropInDay.sessions`). */
+export const dropInSlots = ["13-15", "15-17", "17-19", "19-21"] as const;
+export type DropInSlot = (typeof dropInSlots)[number];
 
 export const dropInSlotLabels: Record<DropInSlot, string> = {
+	"13-15": "1:00pm – 3:00pm",
+	"15-17": "3:00pm – 5:00pm",
 	"17-19": "5:00pm – 7:00pm",
 	"19-21": "7:00pm – 9:00pm"
 };
+
+/** Sessions ticked on a new drop-in day (matches the column default) */
+export const defaultDropInSessions: DropInSlot[] = ["17-19", "19-21"];
 
 export interface Package {
 	id: string;
@@ -95,6 +102,8 @@ export interface DropInDay {
 	location: string;
 	notes: string;
 	active: boolean;
+	/** Sessions running this day, in time order */
+	sessions: DropInSlot[];
 }
 
 export interface DropInBooking extends Customer {

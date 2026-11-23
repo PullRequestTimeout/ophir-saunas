@@ -7,7 +7,7 @@ import { emailDropInCustomer, emailRentalCustomer, getDropIn } from "$lib/server
 import { emailConfigured } from "$lib/server/email/send";
 import { addOnChoiceError } from "$lib/server/availability";
 import { formatWeekdays, isoWeekday, localToday } from "$lib/utils/format";
-import type { AddOn, DeliveryZone, DropInDay, Package, Rental, Settings } from "$lib/types/booking";
+import { dropInSlots, type AddOn, type DeliveryZone, type DropInDay, type Package, type Rental, type Settings } from "$lib/types/booking";
 import type { Actions, PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ url }) => {
@@ -63,7 +63,7 @@ const rentalSchema = z.object({
 
 const dropInSchema = z.object({
 	day_id: z.uuid("Choose a drop-in day"),
-	slot: z.enum(["17-19", "19-21"], "Choose a session"),
+	slot: z.enum(dropInSlots, "Choose a session"),
 	party_size: z.coerce.number().int().min(1, "At least 1 person").max(20),
 	...contact
 });
@@ -73,7 +73,8 @@ const conflictMessages: Record<string, string> = {
 	rental_conflict: "The sauna is already booked for some of those dates.",
 	drop_in_conflict: "A drop-in day falls within those dates. Move or hide the drop-in day first.",
 	time_off: "Those dates fall within your time off.",
-	slot_full: "There aren't enough spots left in that session."
+	slot_full: "There aren't enough spots left in that session.",
+	slot_unavailable: "That session isn't running on the chosen day. Tick it on the Drop-ins page first, or choose another session."
 };
 
 const failure = (type: string, errors: Record<string, string[] | undefined>) => fail(400, { type, errors });

@@ -272,7 +272,7 @@ export const sections: Section[] = [
 						type: "list",
 						items: [
 							"A rental can't overlap another rental, an open drop-in day or your time off.",
-							"A drop-in booking can't go over the session's capacity, and the day must be open for bookings."
+							"A drop-in booking can't go over the session's capacity, the day must be open for bookings, and the session must be ticked for that day. The “Session” list only shows the chosen day's sessions."
 						]
 					},
 					{
@@ -291,7 +291,8 @@ export const sections: Section[] = [
 							"“The sauna is already booked for some of those dates.” Another rental overlaps. Check Upcoming bookings, or cancel the old booking first if you're moving it.",
 							"“A drop-in day falls within those dates. Move or hide the drop-in day first.” Change the drop-in day on the Drop-ins page, or pick other dates.",
 							"“Those dates fall within your time off.” Shorten or delete the time off first.",
-							"“There aren't enough spots left in that session.” The session is full; reduce the number of people, choose the other session, or raise the capacity in Settings.",
+							"“There aren't enough spots left in that session.” The session is full; reduce the number of people, choose another session, or raise the capacity in Settings.",
+							"“That session isn't running on the chosen day. Tick it on the Drop-ins page first, or choose another session.” Tick the session under “Edit day” on the Drop-ins page.",
 							"“This package drops off … Choose another date, or tick “Ignore the package's drop-off days”.” Tick that box if the exception is intended."
 						]
 					},
@@ -406,6 +407,7 @@ export const sections: Section[] = [
 						items: [
 							"Date: today or later. You can only have one drop-in day per date.",
 							"Location: where the sauna will be. Customers see it when booking and in their emails.",
+							"Sessions: tick the sessions that run that day: 1:00pm – 3:00pm, 3:00pm – 5:00pm, 5:00pm – 7:00pm and 7:00pm – 9:00pm. A new day starts with 5:00pm – 7:00pm and 7:00pm – 9:00pm ticked; add the afternoon ones on days with more availability, like quiet weekends or holidays. At least one must be ticked.",
 							"Notes for customers (optional): e.g. parking or what to bring. Shown when booking and in drop-in emails.",
 							"Open for bookings: ticked means customers can book it."
 						]
@@ -422,7 +424,7 @@ export const sections: Section[] = [
 				blocks: [
 					{
 						type: "p",
-						text: "Every drop-in day has two sessions, 5:00pm – 7:00pm and 7:00pm – 9:00pm. Each holds up to the “Maximum people per time slot” set in Settings. The price per person is on the Pricing page."
+						text: "There are four two-hour sessions: 1:00pm – 3:00pm, 3:00pm – 5:00pm, 5:00pm – 7:00pm and 7:00pm – 9:00pm. Each drop-in day runs only the ones ticked under “Sessions” (5:00pm – 7:00pm and 7:00pm – 9:00pm unless you change them). Customers only see that day's sessions. Each session holds up to the “Maximum people per time slot” set in Settings. The price per person is on the Pricing page."
 					},
 					{
 						type: "p",
@@ -446,6 +448,7 @@ export const sections: Section[] = [
 						type: "list",
 						items: [
 							"You can change the location and notes any time with “Edit day”.",
+							"You can tick extra sessions any time. You can't untick a session people are booked into (pending or confirmed); the message names it, e.g. “People have booked 1:00pm – 3:00pm. Cancel their bookings before removing that session.”",
 							"You can't change the date or untick “Open for bookings” while people are booked (pending or confirmed). Cancel their bookings first, after letting them know.",
 							"A hidden day doesn't show on the website, doesn't block rentals and can't take new bookings, even ones you add yourself.",
 							"A day can only be deleted if it has never had any bookings, including declined or cancelled ones. Otherwise untick “Open for bookings” to hide it instead."
@@ -650,7 +653,7 @@ export const sections: Section[] = [
 				blocks: [
 					{
 						type: "p",
-						text: "The drop-in capacity: how many people can book each drop-in session (1 to 20). It applies to both sessions on every drop-in day."
+						text: "The drop-in capacity: how many people can book each drop-in session (1 to 20). It applies to every session on every drop-in day."
 					}
 				]
 			}
@@ -780,7 +783,7 @@ export const sections: Section[] = [
 						ordered: true,
 						items: [
 							"Choose a drop-in day: days with spots left are highlighted. They see the location and your notes for that day.",
-							"Choose your session: each shows how many spots are left, or “Full”. They choose how many people, up to the spots left, and see the total.",
+							"Choose your session: only the sessions running that day are listed, each with how many spots are left, or “Full”. They choose how many people, up to the spots left, and see the total.",
 							"Your details.",
 							"Review your booking."
 						]
@@ -888,7 +891,7 @@ export const sections: Section[] = [
 				blocks: [
 					{
 						type: "p",
-						text: "Days with bookings can't be moved or hidden until those bookings are cancelled, and days that have ever had a booking can't be deleted. Untick “Open for bookings” to hide it instead."
+						text: "Days with bookings can't be moved or hidden, and a booked session can't be unticked, until those bookings are cancelled. Days that have ever had a booking can't be deleted. Untick “Open for bookings” to hide it instead."
 					}
 				]
 			}

@@ -15,13 +15,13 @@
 </script>
 
 <div class="step">
-	<p>Drop-in sessions run on select evenings. Days with spots left are highlighted.</p>
+	<p>Drop-in sessions run on select days. Days with spots left are highlighted.</p>
 	<BookingCalendar
 		{flow}
 		label="Drop-in day"
 		selected={flow.dropInDay?.date ?? null}
 		isAvailable={(date, availability) =>
-			availability.dropInDays.some((d) => d.date === date && (d.remaining["17-19"] > 0 || d.remaining["19-21"] > 0))}
+			availability.dropInDays.some((d) => d.date === date && d.sessions.some((slot) => (d.remaining[slot] ?? 0) > 0))}
 		onselect={select}
 		empty="No drop-in sessions with open spots this month. Try the next month."
 	/>

@@ -1,6 +1,6 @@
 import { db, must } from "$lib/server/supabase";
 import { addDays, localToday, TIMEZONE } from "$lib/utils/format";
-import { dropInSlotStart, isTimeOff, type Calendar } from "$lib/utils/availability";
+import { dropInSlotStart, isTimeOff, orderSlots, type Calendar } from "$lib/utils/availability";
 import { doubledChoiceGroup } from "$lib/utils/addOns";
 import type { AddOn, DeliveryZone, DropInSlot, Package, Settings } from "$lib/types/booking";
 
@@ -61,8 +61,10 @@ export interface PublicDropInDay {
 	date: string;
 	location: string;
 	notes: string;
-	/** Spots left per slot; 0 when full, already started, or during time off */
-	remaining: Record<DropInSlot, number>;
+	/** Sessions running this day, in time order */
+	sessions: DropInSlot[];
+	/** Spots left per running session; 0 when full, already started, or during time off */
+	remaining: Partial<Record<DropInSlot, number>>;
 }
 
 export interface Availability {
@@ -94,12 +96,12 @@ export async function getAvailability(from: string, to: string): Promise<Availab
 			.then(must),
 		db()
 			.from("drop_in_days")
-			.select("id, date, location, notes")
+			.select("id, date, location, notes, sessions")
 			.eq("active", true)
 			.gte("date", windowStart)
 			.lte("date", windowEnd)
 			.order("date")
-			.returns<{ id: string; date: string; location: string; notes: string }[]>()
+			.returns<{ id: string; date: string; location: string; notes: string; sessions: DropInSlot[] }[]>()
 			.then(must),
 		db()
 			.from("time_off")
@@ -148,9 +150,9 @@ export async function getAvailability(from: string, to: string): Promise<Availab
 
 	return {
 		calendar,
-		dropInDays: bookableDays.map((day) => ({
-			...day,
-			remaining: { "17-19": remaining(day, "17-19"), "19-21": remaining(day, "19-21") }
-		}))
+		dropInDays: bookableDays.map((day) => {
+			const sessions = orderSlots(day.sessions);
+			return { ...day, sessions, remaining: Object.fromEntries(sessions.map((slot) => [slot, remaining(day, slot)])) };
+		})
 	};
 }

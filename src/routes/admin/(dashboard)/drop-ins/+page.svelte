@@ -3,11 +3,15 @@
 	import Toast from "$lib/components/admin/Toast.svelte";
 	import DayForm from "./DayForm.svelte";
 	import { formatDate } from "$lib/utils/format";
-	import { dropInSlotLabels, type DropInSlot } from "$lib/types/booking";
+	import { defaultDropInSessions, dropInSlotLabels, dropInSlots, type DropInSlot } from "$lib/types/booking";
 
 	let { data, form } = $props();
 
-	const slots = Object.keys(dropInSlotLabels) as DropInSlot[];
+	const eveningSlots = defaultDropInSessions.map((s) => dropInSlotLabels[s]).join(", ");
+	const afternoonSlots = dropInSlots
+		.filter((s) => !defaultDropInSessions.includes(s))
+		.map((s) => dropInSlotLabels[s])
+		.join(" and ");
 	const errorsFor = (key: string) => (form && "errors" in form && form.id === key ? form.errors : null);
 	const toast = $derived(form && "saved" in form ? "Saved." : form && "deleted" in form ? "Deleted." : null);
 
@@ -24,8 +28,9 @@
 
 <h1>Drop-in sessions</h1>
 <p>
-	On drop-in days the sauna can't be rented privately. Each day has two sessions ({slots.map((s) => dropInSlotLabels[s]).join(" and ")}) for up to {data.capacity}
-	people each.
+	On drop-in days the sauna can't be rented privately. Each day runs the sessions you tick. New days start with the two evening sessions ({eveningSlots});
+	add
+	{afternoonSlots} on days with more availability. Each session holds up to {data.capacity} people.
 </p>
 
 {#if !data.showPast}
@@ -56,7 +61,7 @@
 		<p class="location"><span class="material-icons" aria-hidden="true">place</span>{day.location}</p>
 
 		<div class="slots">
-			{#each slots as slot}
+			{#each day.sessions as slot (slot)}
 				{@const bookings = bookingsFor(day.id, slot)}
 				<section>
 					<h3>{dropInSlotLabels[slot]}</h3>

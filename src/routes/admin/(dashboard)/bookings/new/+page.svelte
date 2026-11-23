@@ -1,14 +1,22 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
 	import Field from "$lib/components/admin/Field.svelte";
-	import { dropInSlotLabels, type DropInSlot } from "$lib/types/booking";
+	import { dropInSlotLabels } from "$lib/types/booking";
 	import { formatCents, formatDate, formatWeekdays } from "$lib/utils/format";
 	import { addOnSections } from "$lib/utils/addOns";
 
 	let { data, form } = $props();
 
 	const errors = $derived(form && "errors" in form && form.type === data.type ? form.errors : null);
-	const slots = Object.keys(dropInSlotLabels) as DropInSlot[];
+	let dayId = $state("");
+	const selectedDay = $derived(data.days.find((d) => d.id === dayId));
+	let chosenSlot = $state("");
+
+	// A new day has different sessions, so choose again (a day with only one session picks it).
+	function chooseDay(id: string) {
+		const sessions = data.days.find((d) => d.id === id)?.sessions ?? [];
+		chosenSlot = sessions.length === 1 ? sessions[0] : "";
+	}
 	const addOnGroups = $derived(addOnSections(data.addOns));
 	let packageId = $state("");
 	const selectedPackage = $derived(data.packages.find((p) => p.id === packageId));
@@ -177,7 +185,7 @@
 			<div class="grid">
 				<Field label="Day" name="day_id" {errors}>
 					{#snippet children(attrs)}
-						<select required {...attrs}>
+						<select required bind:value={dayId} onchange={(event) => chooseDay(event.currentTarget.value)} {...attrs}>
 							<option value="">Choose a day</option>
 							{#each data.days as day (day.id)}
 								<option value={day.id}>{formatDate(day.date, { year: true })} · {day.location}</option>
@@ -185,10 +193,11 @@
 						</select>
 					{/snippet}
 				</Field>
-				<Field label="Session" name="slot" {errors}>
+				<Field label="Session" name="slot" hint="Sessions depend on the day you choose." {errors}>
 					{#snippet children(attrs)}
-						<select required {...attrs}>
-							{#each slots as slot (slot)}
+						<select required disabled={!selectedDay} bind:value={chosenSlot} {...attrs}>
+							<option value="">Choose a session</option>
+							{#each selectedDay?.sessions ?? [] as slot (slot)}
 								<option value={slot}>{dropInSlotLabels[slot]}</option>
 							{/each}
 						</select>

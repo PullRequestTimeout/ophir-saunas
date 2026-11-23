@@ -7,7 +7,6 @@
 	import { isIntersecting } from "$lib/utils/isIntersecting";
 	import SpanifyText from "$lib/components/SpanifyText.svelte";
 	import { formatCents } from "$lib/utils/format";
-	import { dropInSlotLabels } from "$lib/types/booking";
 
 	let { data } = $props();
 
@@ -112,7 +111,8 @@
 						<p>{formatCents(data.dropIn.priceCents)}</p>
 					</div>
 					<p class="text-light pricing-item-description">
-						Join a shared session on select days. Choose {Object.values(dropInSlotLabels).join(" or ")}, with up to {data.dropIn.capacity} people per session.
+						Join a shared two-hour session on select days, with up to {data.dropIn.capacity} people per session. Sessions run between 1:00pm and 9:00pm;
+						pick a time when you book.
 					</p>
 				</div>
 			</div>

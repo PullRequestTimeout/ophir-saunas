@@ -3,7 +3,8 @@ import { z } from "zod";
 import { db } from "$lib/server/supabase";
 import { checkbox, date, optionalId, parseForm } from "$lib/server/forms";
 import { localToday } from "$lib/utils/format";
-import type { DropInBooking, DropInDay } from "$lib/types/booking";
+import { orderSlots } from "$lib/utils/availability";
+import { dropInSlotLabels, dropInSlots, type DropInBooking, type DropInDay, type DropInSlot } from "$lib/types/booking";
 import type { Actions, PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ url }) => {
@@ -33,13 +34,28 @@ const saveSchema = z.object({
 	date,
 	location: z.string().trim().min(1, "Enter where the session is").max(200),
 	notes: z.string().trim().max(1000).default(""),
-	active: checkbox
+	active: checkbox,
+	sessions: z.array(z.enum(dropInSlots)).min(1, "Choose at least one session")
 });
 
 const conflictMessages: Record<string, string> = {
 	rental_conflict: "A private rental is booked over that date. Choose another date or cancel the rental first.",
 	time_off: "That date falls within your time off."
 };
+
+/** Names the unticked sessions that still have pending or confirmed bookings, e.g. "People have booked 1:00pm – 3:00pm. …" */
+async function sessionsWithBookingsMessage(dayId: string, sessions: DropInSlot[]) {
+	const { data } = await db()
+		.from("drop_in_bookings")
+		.select("slot")
+		.eq("drop_in_day_id", dayId)
+		.in("status", ["pending", "confirmed"])
+		.returns<{ slot: DropInSlot }[]>();
+	const booked = orderSlots((data ?? []).map((b) => b.slot).filter((slot) => !sessions.includes(slot)));
+	if (!booked.length) return "People have booked a session you unticked. Cancel their bookings before removing it.";
+	const names = booked.map((slot) => dropInSlotLabels[slot]).join(" and ");
+	return `People have booked ${names}. Cancel their bookings before removing ${booked.length === 1 ? "that session" : "those sessions"}.`;
+}
 
 async function activeBookingCount(dayId: string) {
 	const { count } = await db()
@@ -54,7 +70,7 @@ export const actions: Actions = {
 	save: async ({ request }) => {
 		const form = await request.formData();
 		const key = String(form.get("id") || "new");
-		const { data, errors } = parseForm(saveSchema, form);
+		const { data, errors } = parseForm(saveSchema, form, ["sessions"]);
 		if (errors) return fail(400, { id: key, errors });
 
 		// Moving or hiding a day would strand people who've booked it.
@@ -73,13 +89,16 @@ export const actions: Actions = {
 			p_date: data.date,
 			p_location: data.location,
 			p_notes: data.notes,
-			p_active: data.active
+			p_active: data.active,
+			p_sessions: orderSlots(data.sessions)
 		});
 		if (rpcError) {
 			const message =
 				rpcError.code === "23505"
 					? "There's already a drop-in day on that date."
-					: (conflictMessages[rpcError.message] ?? "Couldn't save. Please try again.");
+					: rpcError.message === "session_has_bookings" && data.id
+						? await sessionsWithBookingsMessage(data.id, data.sessions)
+						: (conflictMessages[rpcError.message] ?? "Couldn't save. Please try again.");
 			return fail(400, { id: key, errors: { form: [message] } });
 		}
 

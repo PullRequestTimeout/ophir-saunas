@@ -3,7 +3,7 @@
 // keep the two in sync.
 
 import { addDays, isoWeekday } from "$lib/utils/format";
-import type { DropInSlot } from "$lib/types/booking";
+import { dropInSlots, type DropInSlot } from "$lib/types/booking";
 
 export interface DateRange {
 	start: string;
@@ -31,7 +31,7 @@ export function rentalConflict(calendar: Calendar, delivery: string, pickup: str
 	const overlapsRental = calendar.rentals.some((r) => (turnaround ? r.start < pickup && delivery < r.end : r.start <= pickup && delivery <= r.end));
 	if (overlapsRental) return "rental_conflict";
 
-	// Drop-ins run in the evening, so with turnaround only the pickup day may fall on a drop-in day.
+	// Drop-ins start at 1pm at the earliest, after the morning pickup, so with turnaround only the pickup day may fall on a drop-in day.
 	const overlapsDropIn = calendar.dropInDates.some((d) => (turnaround ? d >= delivery && d < pickup : d >= delivery && d <= pickup));
 	if (overlapsDropIn) return "drop_in_conflict";
 
@@ -64,4 +64,8 @@ export function deliveryTimes(settings: { delivery_window_start: string; deliver
 	return times;
 }
 
-export const dropInSlotStart: Record<DropInSlot, string> = { "17-19": "17:00", "19-21": "19:00" };
+/** Start time of each session, e.g. "13-15" → "13:00" (mirrors drop_in_slot_start() in SQL) */
+export const dropInSlotStart = Object.fromEntries(dropInSlots.map((slot) => [slot, `${slot.split("-")[0]}:00`])) as Record<DropInSlot, string>;
+
+/** The given sessions in time order, without duplicates */
+export const orderSlots = (slots: readonly DropInSlot[]) => dropInSlots.filter((slot) => slots.includes(slot));

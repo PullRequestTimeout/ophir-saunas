@@ -1,16 +1,15 @@
 <script lang="ts">
-	import { dropInSlotLabels, type DropInSlot } from "$lib/types/booking";
+	import { dropInSlotLabels } from "$lib/types/booking";
+	import { dropInSlotStart } from "$lib/utils/availability";
 	import { addDays, formatDate, formatTime } from "$lib/utils/format";
 
 	let { data } = $props();
-
-	const slots = Object.keys(dropInSlotLabels) as DropInSlot[];
 
 	type Event = { kind: "pickup" | "delivery" | "drop-in" | "away" | "out"; time?: string; label: string; href?: string; pending?: boolean };
 
 	const awayOnly = (events: Event[]) => events.length === 1 && events[0].kind === "away";
 
-	// Each day's events in the order they happen: pickups in the morning, drop-ins and drop-offs in the evening.
+	// Each day's events in the order they happen: pickups in the morning, then drop-ins (from 1pm), then evening drop-offs.
 	// Back-to-back days with nothing but time off collapse into one entry running from `date` to `end`.
 	const schedule = $derived.by(() => {
 		const result: { date: string; end: string; events: Event[] }[] = [];
@@ -38,11 +37,16 @@
 
 			const day = data.days.find((d) => d.date === date);
 			if (day) {
-				const counts = slots.map((slot) => {
+				const counts = day.sessions.map((slot) => {
 					const taken = data.dropIns.filter((b) => b.drop_in_day_id === day.id && b.slot === slot).reduce((sum, b) => sum + b.party_size, 0);
 					return `${dropInSlotLabels[slot]}: ${taken}/${data.capacity}`;
 				});
-				events.push({ kind: "drop-in", time: "17:00", label: `Drop-in at ${day.location} · ${counts.join(" · ")}`, href: "/admin/drop-ins" });
+				events.push({
+					kind: "drop-in",
+					time: dropInSlotStart[day.sessions[0]],
+					label: `Drop-in at ${day.location} · ${counts.join(" · ")}`,
+					href: "/admin/drop-ins"
+				});
 			}
 
 			const order = { away: 0, out: 1, pickup: 2, "drop-in": 3, delivery: 4 };

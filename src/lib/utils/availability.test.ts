@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { canDeliver, deliveryTimes, rentalConflict, type Calendar } from "./availability";
+import { canDeliver, deliveryTimes, dropInSlotStart, orderSlots, rentalConflict, type Calendar } from "./availability";
 import { addDays, formatTime, formatWeekdays, isoWeekday, timeOffMessage } from "./format";
 
 // 2026-10-25 is a Sunday
@@ -56,9 +56,7 @@ describe("rentalConflict without same-day turnaround", () => {
 describe("drop-in days", () => {
 	it("allow a morning pickup on the drop-in day only with turnaround", () => {
 		expect(rentalConflict(cal({ dropInDates: ["2026-10-28"] }), "2026-10-27", "2026-10-28")).toBeNull();
-		expect(rentalConflict(cal({ sameDayTurnaround: false, dropInDates: ["2026-10-28"] }), "2026-10-27", "2026-10-28")).toBe(
-			"drop_in_conflict"
-		);
+		expect(rentalConflict(cal({ sameDayTurnaround: false, dropInDates: ["2026-10-28"] }), "2026-10-27", "2026-10-28")).toBe("drop_in_conflict");
 	});
 
 	it("never allow an evening delivery on a drop-in day", () => {
@@ -122,5 +120,16 @@ describe("format helpers", () => {
 		expect(timeOffMessage({ start_date: "2026-12-20", end_date: "2026-12-20", banner_message: "  Closed for maintenance  " })).toBe(
 			"Closed for maintenance"
 		);
+	});
+});
+
+describe("drop-in sessions", () => {
+	it("parses each session's start time from its name", () => {
+		expect(dropInSlotStart).toEqual({ "13-15": "13:00", "15-17": "15:00", "17-19": "17:00", "19-21": "19:00" });
+	});
+
+	it("puts sessions in time order and drops duplicates", () => {
+		expect(orderSlots(["19-21", "13-15", "19-21", "17-19"])).toEqual(["13-15", "17-19", "19-21"]);
+		expect(orderSlots([])).toEqual([]);
 	});
 });

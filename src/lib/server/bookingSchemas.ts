@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { dropInSlots } from "$lib/types/booking";
 
 const contact = {
 	name: z.string().trim().min(1, "Enter your name").max(100),
@@ -28,7 +29,7 @@ export const rentalRequest = z.object({
 
 export const dropInRequest = z.object({
 	day_id: z.uuid(),
-	slot: z.enum(["17-19", "19-21"]),
+	slot: z.enum(dropInSlots),
 	party_size: z.number().int().min(1).max(20),
 	...contact
 });
