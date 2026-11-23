@@ -58,6 +58,8 @@
 		border-radius: var(--border-radius);
 		box-shadow: var(--shadow);
 		font-weight: 600;
+		/* Icon and text share one line height, so the icon centres on the first line of text */
+		line-height: 1.5rem;
 		pointer-events: auto;
 	}
 
@@ -69,6 +71,7 @@
 
 	div.toast p {
 		color: inherit;
+		line-height: inherit;
 	}
 
 	div.toast strong {
@@ -78,7 +81,7 @@
 	div.toast span.material-icons {
 		color: inherit;
 		font-size: 20px;
-		line-height: 1.5;
+		line-height: inherit;
 	}
 
 	div.toast button {
