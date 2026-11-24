@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
+	import { tick } from "svelte";
 	import Field from "$lib/components/admin/Field.svelte";
-	import { dropInSlotLabels } from "$lib/types/booking";
-	import { formatCents, formatDate, formatWeekdays } from "$lib/utils/format";
+	import BookingCalendar from "$lib/components/booking/BookingCalendar.svelte";
+	import { AvailabilityMonths } from "$lib/components/booking/availabilityMonths.svelte";
+	import { dropInSlotLabels, type Package } from "$lib/types/booking";
+	import { addDays, formatCents, formatDate, formatTime, formatWeekdays } from "$lib/utils/format";
+	import { canDeliver, deliveryTimes } from "$lib/utils/availability";
 	import { addOnSections } from "$lib/utils/addOns";
 
 	let { data, form } = $props();
@@ -21,6 +25,60 @@
 	let packageId = $state("");
 	const selectedPackage = $derived(data.packages.find((p) => p.id === packageId));
 	let saving = $state(false);
+
+	// Drop-off date: the customer calendar, greying out days the package can't drop off on. Admins may book today and,
+	// with the box ticked, on any weekday; overlaps stay blocked (the server checks both again).
+	const months = new AvailabilityMonths();
+	let ignoreWeekdays = $state(false);
+	let deliveryDate = $state("");
+	let dateCleared = $state(false);
+	const fits = (pkg: Package | undefined, date: string, anyWeekday: boolean) => {
+		const availability = months.availabilityFor(date);
+		return !!pkg && (!availability || canDeliver(availability.calendar, pkg, date, { allowToday: true, anyWeekday }));
+	};
+
+	/** After the package or the weekday box changes, drop a date that no longer works (and say so) */
+	function recheckDate(pkg: Package | undefined, anyWeekday: boolean) {
+		dateCleared = !!deliveryDate && !fits(pkg, deliveryDate, anyWeekday);
+		if (dateCleared) deliveryDate = "";
+	}
+
+	function chooseDate(date: string) {
+		deliveryDate = date;
+		dateCleared = missingDate = false;
+	}
+
+	// A hidden input can't be `required`, so a missing date is caught before submitting; server errors land here too.
+	let missingDate = $state(false);
+	const dateError = $derived(missingDate ? "Choose a drop-off date" : errors?.delivery_date?.[0]);
+	let dateField = $state<HTMLElement>();
+	const focusCalendar = () =>
+		(dateField?.querySelector<HTMLElement>("button.day[aria-pressed='true'], button.day:not(:disabled)") ?? dateField)?.focus();
+
+	const submitRental = ({ cancel }: { cancel: () => void }) => {
+		if (!deliveryDate) {
+			cancel();
+			missingDate = true;
+			focusCalendar();
+			return;
+		}
+		saving = true;
+		return async ({ update }: { update: (options?: { reset?: boolean }) => Promise<void> }) => {
+			await update({ reset: false });
+			saving = false;
+			if (dateError) {
+				await tick();
+				focusCalendar();
+			}
+		};
+	};
+
+	// Drop-off time: the website's options, or any time via "Other time…"
+	const times = $derived(deliveryTimes(data.settings));
+	// svelte-ignore state_referenced_locally
+	let timeChoice = $state(deliveryTimes(data.settings)[0] ?? "other");
+	// svelte-ignore state_referenced_locally
+	let otherTime = $state(data.settings.delivery_window_start.slice(0, 5));
 
 	const submit = () => {
 		saving = true;
@@ -91,13 +149,22 @@
 {/snippet}
 
 {#if data.type === "rental"}
-	<form class="card" method="POST" action="?/rental" use:enhance={submit}>
+	<form class="card" method="POST" action="?/rental" use:enhance={submitRental}>
 		<fieldset>
 			<legend>Rental</legend>
 			<div class="grid">
 				<Field label="Package" name="package_id" {errors}>
 					{#snippet children(attrs)}
-						<select required bind:value={packageId} {...attrs}>
+						<select
+							required
+							bind:value={packageId}
+							onchange={(event) =>
+								recheckDate(
+									data.packages.find((p) => p.id === event.currentTarget.value),
+									ignoreWeekdays
+								)}
+							{...attrs}
+						>
 							<option value="">Choose a package</option>
 							{#each data.packages as pkg (pkg.id)}
 								<option value={pkg.id}>{pkg.name} · {formatCents(pkg.price_cents)}{pkg.active ? "" : " (hidden)"}</option>
@@ -105,18 +172,64 @@
 						</select>
 					{/snippet}
 				</Field>
-				<Field
-					label="Drop-off date"
-					name="delivery_date"
-					hint={selectedPackage
-						? `Drops off ${formatWeekdays(selectedPackage.allowed_delivery_weekdays)}; pickup is ${selectedPackage.nights} night${selectedPackage.nights === 1 ? "" : "s"} later.`
-						: "Pickup is set from the package's nights."}
-					{errors}
-				>
-					{#snippet children(attrs)}<input type="date" required {...attrs} />{/snippet}
-				</Field>
-				<Field label="Drop-off time" name="delivery_time" {errors}>
-					{#snippet children(attrs)}<input type="time" required value={data.settings.delivery_window_start.slice(0, 5)} {...attrs} />{/snippet}
+			</div>
+			<!-- Drop-off date: a calendar group named by the visible label, so it's wired up by hand rather than with Field -->
+			<div class="date-field" bind:this={dateField} tabindex="-1">
+				<p class="label" id="delivery_date-label">Drop-off date</p>
+				{#if selectedPackage}
+					{@const pkg = selectedPackage}
+					<BookingCalendar
+						source={months}
+						labelledby="delivery_date-label"
+						selected={deliveryDate || null}
+						isAvailable={(date, availability) => canDeliver(availability.calendar, pkg, date, { allowToday: true, anyWeekday: ignoreWeekdays })}
+						onselect={chooseDate}
+						describedby="delivery_date-hint{dateError ? ' delivery_date-error' : ''}"
+						empty="No free drop-off days for this package this month."
+					/>
+				{/if}
+				<input type="hidden" name="delivery_date" value={deliveryDate} />
+				<!-- Live, so choosing a day reads out the drop-off and pickup dates -->
+				<small id="delivery_date-hint" class="hint" aria-live="polite">
+					{#if !selectedPackage}
+						Choose a package to see its drop-off days.
+					{:else if deliveryDate}
+						<strong>Drop-off {formatDate(deliveryDate)} · pickup {formatDate(addDays(deliveryDate, selectedPackage.nights))}</strong>
+					{:else}
+						Drops off {formatWeekdays(selectedPackage.allowed_delivery_weekdays)}; greyed-out days are booked, a drop-in day or time off.
+					{/if}
+				</small>
+				<!-- Always present so the message is announced when it appears -->
+				<div role="status">
+					{#if dateCleared}
+						<p class="note">
+							<span class="material-icons" aria-hidden="true">info</span>That drop-off date doesn't fit any more, so it was cleared. Choose another.
+						</p>
+					{/if}
+				</div>
+				{#if dateError}
+					<small id="delivery_date-error" class="field-error" role="alert">{dateError}</small>
+				{/if}
+			</div>
+			<label class="checkbox">
+				<input
+					type="checkbox"
+					name="ignore_weekdays"
+					bind:checked={ignoreWeekdays}
+					onchange={(event) => recheckDate(selectedPackage, event.currentTarget.checked)}
+				/>
+				Ignore the package's drop-off days (for one-off deals and moved bookings)
+			</label>
+			<div class="grid">
+				<Field label="Drop-off time" name="time_choice" {errors}>
+					{#snippet children(attrs)}
+						<select bind:value={timeChoice} {...attrs}>
+							{#each times as time (time)}
+								<option value={time}>{formatTime(time)}</option>
+							{/each}
+							<option value="other">Other time…</option>
+						</select>
+					{/snippet}
 				</Field>
 				<Field label="Delivery area" name="zone_id" {errors}>
 					{#snippet children(attrs)}
@@ -129,10 +242,16 @@
 					{/snippet}
 				</Field>
 			</div>
-			<label class="checkbox">
-				<input type="checkbox" name="ignore_weekdays" />
-				Ignore the package's drop-off days (for one-off deals and moved bookings)
-			</label>
+			<!-- Its own row, so revealing it doesn't push "Delivery area" sideways -->
+			{#if timeChoice === "other"}
+				<div class="other-time">
+					<Field label="Other drop-off time" name="delivery_time" hint="Any time, even outside the delivery window." {errors}>
+						{#snippet children(attrs)}<input type="time" required bind:value={otherTime} {...attrs} />{/snippet}
+					</Field>
+				</div>
+			{:else}
+				<input type="hidden" name="delivery_time" value={timeChoice} />
+			{/if}
 			<Field label="Address" name="address" {errors}>
 				{#snippet children(attrs)}<input type="text" required maxlength="300" autocomplete="off" {...attrs} />{/snippet}
 			</Field>
@@ -261,5 +380,52 @@
 		flex-wrap: wrap;
 		align-items: center;
 		gap: var(--spacing-s);
+	}
+
+	div.date-field {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-xs);
+		max-width: 26rem;
+	}
+
+	/* Matches the calendar's width rather than stretching a time box across the card */
+	div.other-time {
+		max-width: 26rem;
+	}
+
+	div.date-field:focus {
+		outline: none;
+	}
+
+	/* The modal reserves a line under the calendar for loading messages; here the hint follows straight on */
+	div.date-field :global(div.calendar-status) {
+		min-height: 0;
+	}
+
+	div.date-field :global(div.calendar-status:empty) {
+		display: none;
+	}
+
+	/* A neutral notice, not an error: the form just reset a value */
+	p.note {
+		display: flex;
+		align-items: flex-start;
+		gap: var(--spacing-xs);
+		font-size: 14px;
+		line-height: 1.25rem;
+		color: var(--color-primary);
+	}
+
+	p.note span.material-icons {
+		font-size: 18px;
+		color: inherit;
+		line-height: 1.25rem;
+	}
+
+	/* Matches the admin field labels; a <p> because the calendar is a group, not a single control */
+	p.label {
+		font-weight: 600;
+		color: var(--color-primary);
 	}
 </style>

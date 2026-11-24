@@ -40,10 +40,18 @@ export function rentalConflict(calendar: Calendar, delivery: string, pickup: str
 	return null;
 }
 
-/** Whether a package can be delivered on `date`: far enough ahead, an allowed weekday, and the whole stay is free */
-export function canDeliver(calendar: Calendar, pkg: { nights: number; allowed_delivery_weekdays: number[] }, date: string) {
-	if (date <= calendar.today) return false;
-	if (!pkg.allowed_delivery_weekdays.includes(isoWeekday(date))) return false;
+/**
+ * Whether a package can be delivered on `date`: far enough ahead, an allowed weekday, and the whole stay is free.
+ * Admin bookings may start today (`allowToday`) and may skip the package's weekdays (`anyWeekday`); the stay must still be free.
+ */
+export function canDeliver(
+	calendar: Calendar,
+	pkg: { nights: number; allowed_delivery_weekdays: number[] },
+	date: string,
+	{ allowToday = false, anyWeekday = false } = {}
+) {
+	if (allowToday ? date < calendar.today : date <= calendar.today) return false;
+	if (!anyWeekday && !pkg.allowed_delivery_weekdays.includes(isoWeekday(date))) return false;
 	return rentalConflict(calendar, date, addDays(date, pkg.nights)) === null;
 }
 

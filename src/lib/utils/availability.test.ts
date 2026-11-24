@@ -20,6 +20,25 @@ describe("canDeliver", () => {
 		expect(canDeliver(base, oneNight, "2026-10-30")).toBe(false); // Fri
 		expect(canDeliver(base, weekend, "2026-10-30")).toBe(true);
 	});
+
+	describe("admin options", () => {
+		const sunday = { nights: 1, allowed_delivery_weekdays: [7] };
+
+		it("allowToday lets the stay start today, but never in the past", () => {
+			expect(canDeliver(base, sunday, "2026-10-25", { allowToday: true })).toBe(true);
+			expect(canDeliver(base, { nights: 1, allowed_delivery_weekdays: [6] }, "2026-10-24", { allowToday: true, anyWeekday: true })).toBe(false);
+		});
+
+		it("anyWeekday ignores the package's delivery days", () => {
+			expect(canDeliver(base, oneNight, "2026-10-30", { anyWeekday: true })).toBe(true); // Fri
+		});
+
+		it("still blocks stays that overlap something", () => {
+			const booked = cal({ rentals: [{ start: "2026-10-29", end: "2026-10-31" }], timeOff: [{ start: "2026-11-05", end: "2026-11-06" }] });
+			expect(canDeliver(booked, oneNight, "2026-10-30", { allowToday: true, anyWeekday: true })).toBe(false);
+			expect(canDeliver(booked, oneNight, "2026-11-05", { allowToday: true, anyWeekday: true })).toBe(false);
+		});
+	});
 });
 
 describe("rentalConflict with same-day turnaround", () => {

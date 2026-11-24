@@ -244,6 +244,14 @@ export const sections: Section[] = [
 					},
 					{
 						type: "p",
+						text: "For a rental, choose the package first: the “Drop-off date” calendar then highlights the days that package can drop off on. Greyed-out days are booked, a drop-in day or time off, or not one of the package's drop-off days. Below the calendar you'll see the drop-off and pickup dates. If you change the package (or untick “Ignore the package's drop-off days”) and the date no longer fits, it's cleared and you're asked to choose another."
+					},
+					{
+						type: "p",
+						text: "“Drop-off time” lists the same times customers see, from your delivery window in Settings. Choose “Other time…” to type any time instead."
+					},
+					{
+						type: "p",
 						text: "Only the customer's name is required; email and phone are optional. “Admin notes” are just for you, e.g. “Paid by e-transfer” or “Moved from YCBM”."
 					},
 					{
@@ -260,10 +268,10 @@ export const sections: Section[] = [
 					{
 						type: "list",
 						items: [
-							"Book today or a past date (handy for recording bookings moved from YouCanBookMe).",
-							"Pick any drop-off time, even outside the delivery window.",
+							"Book a drop-off for today.",
+							"Pick any drop-off time, even outside the delivery window, with “Other time…”.",
 							"Use packages, add-ons and delivery areas you've hidden; they're marked “(hidden)”.",
-							"Book a drop-off on a day the package doesn't normally drop off, by ticking “Ignore the package's drop-off days (for one-off deals and moved bookings)”.",
+							"Book a drop-off on a day the package doesn't normally drop off, by ticking “Ignore the package's drop-off days (for one-off deals and moved bookings)”. The calendar then highlights every free day.",
 							"Book a drop-in session that has already started."
 						]
 					},
@@ -288,7 +296,8 @@ export const sections: Section[] = [
 					{
 						type: "list",
 						items: [
-							"“The sauna is already booked for some of those dates.” Another rental overlaps. Check Upcoming bookings, or cancel the old booking first if you're moving it.",
+							"“Choose a drop-off date” means no day was picked in the calendar.",
+							"“The sauna is already booked for some of those dates.” Another rental overlaps (usually because someone booked it while you were filling in the form). Check Upcoming bookings, or cancel the old booking first if you're moving it.",
 							"“A drop-in day falls within those dates. Move or hide the drop-in day first.” Change the drop-in day on the Drop-ins page, or pick other dates.",
 							"“Those dates fall within your time off.” Shorten or delete the time off first.",
 							"“There aren't enough spots left in that session.” The session is full; reduce the number of people, choose another session, or raise the capacity in Settings.",

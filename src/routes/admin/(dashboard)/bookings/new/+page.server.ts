@@ -19,8 +19,8 @@ export const load: PageServerLoad = async ({ url }) => {
 			db().from("drop_in_days").select("*").eq("active", true).gte("date", localToday()).order("date").returns<DropInDay[]>().then(must),
 			db()
 				.from("settings")
-				.select("delivery_window_start, drop_in_capacity")
-				.single<Pick<Settings, "delivery_window_start" | "drop_in_capacity">>()
+				.select("delivery_window_start, delivery_window_end, delivery_slot_minutes, drop_in_capacity")
+				.single<Pick<Settings, "delivery_window_start" | "delivery_window_end" | "delivery_slot_minutes" | "drop_in_capacity">>()
 				.then(must)
 		]);
 		return {
@@ -53,7 +53,7 @@ const contact = {
 
 const rentalSchema = z.object({
 	package_id: z.uuid("Choose a package"),
-	delivery_date: date,
+	delivery_date: z.string().min(1, "Choose a drop-off date").pipe(date),
 	delivery_time: time,
 	zone_id: z.uuid("Choose a delivery area"),
 	address: z.string().trim().min(1, "Enter the delivery address").max(300),
