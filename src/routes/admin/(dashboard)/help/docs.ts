@@ -128,7 +128,7 @@ export const sections: Section[] = [
 						items: [
 							"Upcoming: pending and confirmed bookings that haven't finished yet, soonest first. A rental stays here until its pickup day has passed.",
 							"Requests: every pending request, whatever its date.",
-							"Past: confirmed bookings that have finished, newest first.",
+							"Past: bookings that have finished, newest first. This includes requests you never answered, marked “pending”.",
 							"Declined & cancelled: everything you've declined or cancelled."
 						]
 					},
@@ -138,7 +138,7 @@ export const sections: Section[] = [
 					},
 					{
 						type: "note",
-						text: "A request you never answered stays under Requests even after its date has passed; it won't move to Past. Decline or cancel old requests to tidy them up."
+						text: "A request you never answered stays under Requests even after its date has passed, and also shows under Past marked “pending”. Decline or cancel old requests to tidy them up."
 					}
 				]
 			},

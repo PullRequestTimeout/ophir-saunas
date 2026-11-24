@@ -17,8 +17,8 @@ export const load: PageServerLoad = async ({ url }) => {
 	const search = (url.searchParams.get("q") ?? "").replace(/[,()%*\\]/g, " ").trim();
 	const today = localToday();
 
-	const statuses: BookingStatus[] =
-		view === "requests" ? ["pending"] : view === "cancelled" ? ["declined", "cancelled"] : view === "past" ? ["confirmed"] : ["pending", "confirmed"];
+	// Past includes requests nobody answered before their date, so they don't only linger under Requests
+	const statuses: BookingStatus[] = view === "requests" ? ["pending"] : view === "cancelled" ? ["declined", "cancelled"] : ["pending", "confirmed"];
 	const ascending = view === "upcoming" || view === "requests";
 	const matches = search ? `customer_name.ilike.%${search}%,customer_email.ilike.%${search}%,customer_phone.ilike.%${search}%` : null;
 
