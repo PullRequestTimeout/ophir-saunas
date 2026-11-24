@@ -96,9 +96,8 @@
 <a class="back text-link" href="/admin/bookings"><span class="material-icons" aria-hidden="true">arrow_back</span><span>All bookings</span></a>
 <h1>New booking</h1>
 <p>
-	For phone bookings and bookings moved over from YouCanBookMe. These are confirmed straight away and skip the website's rules for lead time and
-	drop-off times, but still can't overlap other bookings, drop-in days or time off. Each package's drop-off days still apply unless you choose to
-	ignore them.
+	For bookings taken by phone or in person. These are confirmed straight away and skip the website's rules for lead time and drop-off times, but still
+	can't overlap other bookings, drop-in days or time off. Each package's drop-off days still apply unless you choose to ignore them.
 </p>
 
 <nav class="tabs" aria-label="Booking type">

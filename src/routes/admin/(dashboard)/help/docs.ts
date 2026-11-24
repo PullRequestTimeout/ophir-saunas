@@ -240,7 +240,7 @@ export const sections: Section[] = [
 				blocks: [
 					{
 						type: "p",
-						text: "Use “New booking” (on the Overview and Bookings pages) for bookings taken by phone or in person, and for ones moved over from YouCanBookMe. Choose the “Private rental” or “Drop-in” tab, fill in the booking and the customer's details, then press “Create rental” or “Create drop-in booking”."
+						text: "Use “New booking” (on the Overview and Bookings pages) for bookings taken by phone or in person. Choose the “Private rental” or “Drop-in” tab, fill in the booking and the customer's details, then press “Create rental” or “Create drop-in booking”."
 					},
 					{
 						type: "p",
