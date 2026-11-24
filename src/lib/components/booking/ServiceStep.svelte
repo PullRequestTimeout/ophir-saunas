@@ -20,9 +20,7 @@
 		<span class="service-text">
 			<span class="service-title">Drop-in Session</span>
 			<span>
-				Join a shared two-hour session on select evenings.{flow.options
-					? ` ${formatCents(flow.options.settings.drop_in_price_cents)} per person.`
-					: ""}
+				Join a shared two-hour session on select days.{flow.options ? ` ${formatCents(flow.options.settings.drop_in_price_cents)} per person.` : ""}
 			</span>
 		</span>
 	</button>
