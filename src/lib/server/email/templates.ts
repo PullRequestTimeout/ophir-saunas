@@ -40,7 +40,7 @@ function dropInDetails(booking: DropInWithDay): [string, string][] {
 	];
 }
 
-const customerCopy: Record<CustomerEmailKind, { subject: string; heading: string; intro: (name: string) => string[] }> = {
+const customerCopy: Record<CustomerEmailKind, { subject: string; heading: string; intro: (name: string, dropIn: boolean) => string[] }> = {
 	received: {
 		subject: "We've received your booking request",
 		heading: "Request received",
@@ -54,9 +54,9 @@ const customerCopy: Record<CustomerEmailKind, { subject: string; heading: string
 	declined: {
 		subject: "About your booking request",
 		heading: "We can't take this booking",
-		intro: (name) => [
-			`Hi ${name}, sorry, we're not able to take your booking for these dates. Nothing has been charged.`,
-			"Please try other dates on our website, or reply to this email and we'll help find a time that works."
+		intro: (name, dropIn) => [
+			`Hi ${name}, sorry, we're not able to take your booking for ${dropIn ? "this session" : "these dates"}. Nothing has been charged.`,
+			`Please try ${dropIn ? "another session" : "other dates"} on our website, or reply to this email and we'll help find a time that works.`
 		]
 	},
 	cancelled: {
@@ -71,14 +71,20 @@ const customerCopy: Record<CustomerEmailKind, { subject: string; heading: string
 	}
 };
 
-function customerEmail(kind: CustomerEmailKind, name: string, base: Omit<EmailContent, "subject" | "heading" | "intro" | "preheader">, when: string) {
+function customerEmail(
+	kind: CustomerEmailKind,
+	name: string,
+	base: Omit<EmailContent, "subject" | "heading" | "intro" | "preheader">,
+	when: string,
+	dropIn = false
+) {
 	const copy = customerCopy[kind];
 	const active = kind === "received" || kind === "confirmed" || kind === "reminder";
 	return renderEmail({
 		subject: `${copy.subject} (${when})`,
 		preheader: `${copy.heading}: ${when}`,
 		heading: copy.heading,
-		intro: copy.intro(firstName(name)),
+		intro: copy.intro(firstName(name), dropIn),
 		...base,
 		outro: [
 			...(active ? [paymentLine, ...(cancellationPolicy ? [`Cancellation policy: ${cancellationPolicy}`] : [])] : []),
@@ -119,7 +125,8 @@ export function dropInCustomerEmail(kind: CustomerEmailKind, booking: DropInWith
 			total: active ? { label: "Total", cents: booking.total_cents } : undefined,
 			outro: kind === "reminder" ? ["Bring a towel, water and something warm to change into afterwards."] : []
 		},
-		`${formatDate(booking.day.date)}, ${dropInSlotLabels[booking.slot]}`
+		`${formatDate(booking.day.date)}, ${dropInSlotLabels[booking.slot]}`,
+		true
 	);
 }
 
