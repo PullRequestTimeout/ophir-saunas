@@ -1,28 +1,34 @@
-<!-- Month calendar for the booking modal. Loads each month's availability as it's shown; only days that
-	`isAvailable` accepts can be picked. -->
+<!-- Month calendar for the booking modal and the admin New booking page. Loads each month's availability from
+	`source` as it's shown; only days that `isAvailable` accepts can be picked. -->
 
 <script lang="ts">
 	import type { Availability } from "$lib/server/availability";
 	import { formatDate, localToday } from "$lib/utils/format";
 	import { untrack } from "svelte";
-	import { monthOf, type BookingFlow } from "./flow.svelte";
+	import { monthOf, type AvailabilityMonths } from "./availabilityMonths.svelte";
 
 	let {
-		flow,
+		source,
 		selected,
 		label,
+		labelledby,
 		isAvailable,
 		onselect,
-		empty
+		empty,
+		describedby
 	}: {
-		flow: BookingFlow;
+		source: AvailabilityMonths;
 		selected: string | null;
-		/** Accessible name for the calendar, e.g. "Drop-off date" */
-		label: string;
+		/** Accessible name for the calendar, e.g. "Drop-off date"; or name it by a visible label with `labelledby` */
+		label?: string;
+		/** Id of a visible label for the calendar */
+		labelledby?: string;
 		isAvailable: (date: string, availability: Availability) => boolean;
 		onselect: (date: string) => void;
 		/** Shown when nothing in the month is available */
 		empty?: string;
+		/** Ids of a hint or error describing the calendar */
+		describedby?: string;
 	} = $props();
 
 	const MONTHS_AHEAD = 12;
@@ -43,10 +49,10 @@
 
 	$effect(() => {
 		const shown = month;
-		untrack(() => flow.loadMonth(shown));
+		untrack(() => source.loadMonth(shown));
 	});
 
-	const monthState = $derived(flow.months[month]);
+	const monthState = $derived(source.months[month]);
 	const availability = $derived(typeof monthState === "object" ? monthState : null);
 
 	const monthLabel = $derived(new Date(`${month}-01T12:00:00Z`).toLocaleDateString("en-CA", { timeZone: "UTC", month: "long", year: "numeric" }));
@@ -64,7 +70,7 @@
 	const available = $derived(new Set(availability ? days.filter((d): d is string => !!d && isAvailable(d, availability)) : []));
 </script>
 
-<div class="calendar" role="group" aria-label={label}>
+<div class="calendar" role="group" aria-label={labelledby ? undefined : label} aria-labelledby={labelledby} aria-describedby={describedby}>
 	<div class="calendar-header">
 		<button
 			type="button"
@@ -118,7 +124,7 @@
 			<p role="status">Loading availability…</p>
 		{:else if monthState === "error"}
 			<p role="alert">Couldn't load availability.</p>
-			<button type="button" class="link" onclick={() => flow.loadMonth(month, true)}>Try again</button>
+			<button type="button" class="link" onclick={() => source.loadMonth(month, true)}>Try again</button>
 		{:else if available.size === 0 && empty}
 			<p>{empty}</p>
 		{/if}

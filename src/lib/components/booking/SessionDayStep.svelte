@@ -17,7 +17,7 @@
 <div class="step">
 	<p>Drop-in sessions run on select days. Days with spots left are highlighted.</p>
 	<BookingCalendar
-		{flow}
+		source={flow}
 		label="Drop-in day"
 		selected={flow.dropInDay?.date ?? null}
 		isAvailable={(date, availability) =>

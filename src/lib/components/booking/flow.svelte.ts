@@ -1,11 +1,14 @@
 // State for the multi-step booking modal. One instance lives in BookingModal and is passed to each step; the modal
 // resets it on close, so every open starts a fresh booking.
 
-import type { Availability, BookingOptions, PublicDropInDay } from "$lib/server/availability";
+import type { BookingOptions, PublicDropInDay } from "$lib/server/availability";
 import type { BookingStatus, DropInSlot, LineItem } from "$lib/types/booking";
 import type { BookingService } from "$lib/utils/globalStates.svelte";
 import { canDeliver } from "$lib/utils/availability";
 import { addDays, localToday } from "$lib/utils/format";
+import { AvailabilityMonths, monthOf } from "./availabilityMonths.svelte";
+
+export { monthOf };
 
 export type Step = "service" | "package" | "date" | "delivery" | "addons" | "session-day" | "session" | "contact" | "review" | "success";
 
@@ -14,26 +17,15 @@ export interface BookingResult {
 	total_cents: number;
 }
 
-/** "2026-11" for the month a date falls in */
-export const monthOf = (date: string) => date.slice(0, 7);
-
-function monthRange(month: string) {
-	const [y, m] = month.split("-").map(Number);
-	const last = new Date(Date.UTC(y, m, 0)).getUTCDate();
-	return { from: `${month}-01`, to: `${month}-${String(last).padStart(2, "0")}` };
-}
-
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE = /^[\d\s()+.-]{7,25}$/;
 
-export class BookingFlow {
+export class BookingFlow extends AvailabilityMonths {
 	service = $state<BookingService | null>(null);
 	step = $state<Step>("service");
 
 	options = $state<BookingOptions | null>(null);
 	optionsError = $state(false);
-	/** Availability per month ("2026-11"), fetched as the calendar shows each month */
-	months = $state<Record<string, Availability | "loading" | "error">>({});
 
 	// Rental
 	packageId = $state<string | null>(null);
@@ -105,26 +97,6 @@ export class BookingFlow {
 		} catch {
 			this.optionsError = true;
 		}
-	}
-
-	async loadMonth(month: string, force = false) {
-		const current = this.months[month];
-		if (!force && current && current !== "error") return;
-		this.months[month] = "loading";
-		const { from, to } = monthRange(month);
-		try {
-			const res = await fetch(`/api/availability?from=${from}&to=${to}`);
-			if (!res.ok) throw new Error(res.statusText);
-			this.months[month] = await res.json();
-		} catch {
-			this.months[month] = "error";
-		}
-	}
-
-	/** Loaded availability for the month `date` is in, if any */
-	availabilityFor(date: string) {
-		const month = this.months[monthOf(date)];
-		return typeof month === "object" ? month : null;
 	}
 
 	start(service: BookingService) {

@@ -26,7 +26,7 @@
 		{@const pkg = flow.package}
 		<p>{pkg.name}: {pkg.nights} {pkg.nights === 1 ? "night" : "nights"}. Available drop-off dates are highlighted.</p>
 		<BookingCalendar
-			{flow}
+			source={flow}
 			label="Drop-off date"
 			selected={flow.deliveryDate}
 			isAvailable={(date, availability) => canDeliver(availability.calendar, pkg, date)}
